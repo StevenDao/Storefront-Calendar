@@ -1,4 +1,4 @@
-s a client, I want to be able to book events from any place that has internet and at anytime, so that I do not need to go or contact storefront to place a booking. 
+1.  As a client, I want to be able to book events from any place that has internet and at anytime, so that I do not need to go or contact storefront to place a booking. 
 
 2.	As a client, I want to see the storefront room.s layout, so that I can plan number of attendees and room arrangement for the event.
 
