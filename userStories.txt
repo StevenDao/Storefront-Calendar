@@ -20,9 +20,35 @@
 
 11.	As a public user, I want to see all upcoming events in one place, so that I can easily spot an event that might interest me. 
 
-12.	As a public user, I want to see detailed information about certain events, so that I can plan about the 
+12.	As a public user, I want to see detailed information about certain events, so that I can plan my schedule properly
 
+13. As a front desk in storefront, I want to easily access all clients’ information at first time. So when clients call me, I should fast get into database without any time consuming. 
 
+14: As a front desk in storefront, I want to booking system is available for me. So when clients call me, I should book events for them.
+
+15. As a front desk in storefront, I want to cancel booking system also available for me. So when clients call me, I should cancel the event for them. 
+
+16. As a front desk in storefront, I want to able to put or cancel the people in the waiting. So I can actually do something if the event is full and clients want to do something else.
+   
+17.As an administrator, I can add a client with their details through an administrator dashboard, so that I can quickly add clients while meeting with them.
+
+18. As an administrator, I can modify/update client details through any interface that shows the client's name in the application, so that the workflow is fluid and intuitive.
+
+19. As  an administrator, I can distinguish between booking requests and confirmed bookings in the calendar, so that I can have a good general overview of the schedule.
+
+20. As an administrator, I can see and distinguish any booking times that have a waiting queue, so that I can  identify the times that are important to handle if someone requests a cancel.
+
+21. As an administrator, I can confirm or deny bookings on the calendar page without leaving the calendar view, so that I can quickly go through all the requests.
+
+22. As  an administrator, I can add bookings manually, so that I can add bookings for any clients that come in personally or phone me.
+
+23. As  an administrator, I can shift/move around scheduled (tentative or confirmed) bookings from the calendar view, so that I can visually (which results in efficiency) reschedule bookings when needed.
+
+24. As  an administrator, I can accept all requests that have no conflicting requests, so that I have more time for other tasks in the office.
+
+25. As  an administrator, I can see a map of the building and the interior and identify the spaces that are currently occupied, so that I can see the status quo of the buildings.
+
+26. As  an administrator, I can add an email for email notifications on the administrator settings page, so that I can get notifications for any events that happen.
 
 
 
