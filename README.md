@@ -9,3 +9,4 @@ For TA :
 We have created wiki pages as a part of Sprint 0 submission. Both user stories and personas are in wiki-pages.
 The personas are in PDF, hence we gave the gitHub link to download it. 
 
+There is a public website too, http://csc301h-fall2013.github.io/Storefront-Calendar/
