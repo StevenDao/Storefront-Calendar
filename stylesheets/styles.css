@@ -143,7 +143,7 @@ hr {
 img {
   position: relative;
   margin: 0 auto;
-  max-width: 650px;
+  max-width: 640px;
   padding: 5px;
   margin: 10px 0 32px 0;
   border: 1px solid #ccc;
@@ -371,20 +371,24 @@ footer {
 
   header {
     padding:10px 20px 0;
-		margin-right: 0;
+    margin-right: 0;
   }
 
-	section {
+  section {
     padding:10px 0 10px 20px;
     margin:0 0 30px;
   }
 
-	footer {
-		margin: 0 0 0 30px;
-	}
+  footer {
+      margin: 0 0 0 30px;
+  }
 
   header ul, header p.view {
     position:static;
+  }
+
+  img {
+      max-width: 500px;
   }
 }
 
@@ -401,6 +405,11 @@ footer {
 	footer a{
 		display:block;
 	}
+
+
+  img {
+      max-width: 300px;
+  }
 
 }
 
