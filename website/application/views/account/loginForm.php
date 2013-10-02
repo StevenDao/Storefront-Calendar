@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html>
@@ -48,6 +47,7 @@
 <li>
 <?php
 	echo "<p>" . anchor('account/newForm','Create Account') . "</p>";
+	echo "<p>" . anchor('account/recoverPasswordForm','Recover Password') . "</p>";
 ?>
 </li>
 <li>
