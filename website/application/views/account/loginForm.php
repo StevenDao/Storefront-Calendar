@@ -46,8 +46,8 @@
 </ul>
 <h5>
 <?php
-	echo "<h5>" . anchor('account/newForm','Create Account') . "</h5>";
-	echo "<h5>" . anchor('account/recoverPasswordForm','Recover Password') . "</h5>";
+	echo "<p>" . anchor('account/newForm','Create Account') . "</p>";
+	echo "<p>" . anchor('account/recoverPasswordForm','Recover Password') . "</p>";
 ?>
 </h5>
 
