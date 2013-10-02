@@ -35,6 +35,13 @@ div {
    background-color: lightgray;     
 }
 
+.link {
+
+  font-size: 12px;
+  font-weight: normal;
+  padding: 1px;
+	
+}
 
 
 ul {
@@ -47,7 +54,7 @@ ul {
 
 li {
     padding:4px; 
-	font-size: 12px;
+    font-size: 12px;
     border-bottom:1px solid #eee;
     position:relative;
 } 
