@@ -2,12 +2,6 @@
 
 class User
 {
-	const OFFLINE = 1;
-	const AVAILABLE = 2;
-	const WAITING = 3;
-	const INVITED = 4;
-	const BATTLING = 5;
-
 	public $id;
 	public $login;
 	public $first;
@@ -15,9 +9,6 @@ class User
 	public $password;   // hashed version
 	public $salt;
 	public $email;
-	public $user_status_id = User::OFFLINE;
-	public $invite_id;
-	public $battle_id;
 
 	public function encryptPassword($clearPassword) {
 		$this->salt = mt_rand();

@@ -31,6 +31,7 @@ class Account extends CI_Controller
 		}
 	}
 
+
 	function index() {
 		$this->load->view('account/loginForm');
 	}
@@ -59,19 +60,7 @@ class Account extends CI_Controller
 				$_SESSION['attempts'] = 0;
 				$data['user']=$user;
 
-				$this->user_model->updateStatus($user->id, User::AVAILABLE);
-
-				redirect('arcade/index', 'refresh'); //redirect to the main application page
-			} else {
-				if (isset($_SESSION['attempts'])) {
-					sleep(pow(2, $_SESSION['attempts']));
-					$_SESSION['attempts'] += 1;
-				} else {
-					$_SESSION['attempts'] = 0;
-				}
-
-				$data['errorMsg']='Incorrect username or password!';
-				$this->load->view('account/loginForm',$data);
+				redirect('account/index', 'refresh'); //redirect to the main application page
 			}
 		}
 	}

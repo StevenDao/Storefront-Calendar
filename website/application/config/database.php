@@ -48,9 +48,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = '127.0.0.1';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
+$db['default']['hostname'] = 'us-cdbr-azure-east-c.cloudapp.net';
+$db['default']['username'] = 'b3f4f7883aeea0';
+$db['default']['password'] = 'fb6bc8ed';
 $db['default']['database'] = 'thestorefront';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
