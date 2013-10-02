@@ -18,7 +18,7 @@
 ?>
 <ul>
 	<li>
-		<h5 class="link">
+		<h5>
 		<?php
 			echo anchor('account/newForm','Create Account') . '&nbsp &nbsp';
 			echo anchor('account/recoverPasswordForm','Recover Password');
