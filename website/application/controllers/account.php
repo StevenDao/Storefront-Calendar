@@ -31,7 +31,6 @@ class Account extends CI_Controller
 		}
 	}
 
-
 	function index() {
 		$this->load->view('account/loginForm');
 	}
@@ -57,10 +56,11 @@ class Account extends CI_Controller
 
 			if (isset($user) && $user->comparePassword($clearPassword)) {
 				$_SESSION['user'] = $user;
-				$_SESSION['attempts'] = 0;
 				$data['user']=$user;
 
-				redirect('account/index', 'refresh'); //redirect to the main application page
+				redirect('main/index', 'refresh'); //redirect to the main application page
+			} else {
+				redirect('account/login', 'refresh');
 			}
 		}
 	}
@@ -100,7 +100,6 @@ class Account extends CI_Controller
 			$user->email = $this->input->post('email');
 
 			$this->load->model('user_model');
-
 
 			$this->user_model->insert($user);
 
