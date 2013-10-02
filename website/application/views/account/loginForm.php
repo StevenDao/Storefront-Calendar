@@ -18,7 +18,7 @@
 ?>
 <ul>
 	<li>
-		<div class="header">Login</div>
+		<div>Login</div>
 	</li>
 	<li>
 <?php
