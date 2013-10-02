@@ -60,7 +60,7 @@ class Account extends CI_Controller
 
 				redirect('main/index', 'refresh'); //redirect to the main application page
 			} else {
-				$this->load->view('welcome');
+				redirect('account/loginForm', 'refresh');
 			}
 		}
 	}
