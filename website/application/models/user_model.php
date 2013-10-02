@@ -38,30 +38,6 @@ class User_model extends CI_Model
 				                                'salt' => $user->salt));
 	}
 
-	function updateStatus($id, $status) {
-		$this->db->where('id',$id);
-		return $this->db->update('user',array('user_status_id'=>$status));
-	}
-
-	function updateInvitation($id, $invitationId) {
-		$this->db->where('id',$id);
-		return $this->db->update('user',array('invite_id'=>$invitationId));
-	}
-
-	function updateBattle($id, $battleId) {
-		$this->db->where('id',$id);
-		return $this->db->update('user',array('battle_id'=>$battleId));
-	}
-
-	function getAvailableUsers() {
-		$this->db->where('user_status_id',User::AVAILABLE);
-		$query = $this->db->get('user');
-		if ($query && $query->num_rows() > 0)
-			return $query->result('User');
-		else
-			return null;
-	}
-
 	function getExclusive($username) {
 		$sql = "select * from user where login=? for update";
 		$query = $this->db->query($sql,array($username));

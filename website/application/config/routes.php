@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "arcade";
+$route['default_controller'] = "account";
 $route['404_override'] = '';
 
 /* End of file routes.php */
