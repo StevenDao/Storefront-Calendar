@@ -79,8 +79,8 @@ input {
 }
 
 body {
-    background: url(../images/photo-Cover.jpg);
-    background-size: cover;
+    background: url(../images/photo-Cover.jpg) no-repeat;
+    background-size: 100%;
     opacity:0.9;
 }
 
