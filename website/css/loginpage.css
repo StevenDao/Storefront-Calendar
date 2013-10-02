@@ -25,6 +25,7 @@ div {
    left: 0;
    right: 0;   
    bottom: 0;
+   padding: 1px;
    
    display: flex;
    flex-direction: row;
@@ -105,6 +106,7 @@ input.submit {
     -o-box-shadow: 0 1px 0 0 #9fd574 inset;
     color: white;
     font-weight: bold;
+    float: right;
     width: 250px;
     height: 30px;
     padding: 6px 20px;
