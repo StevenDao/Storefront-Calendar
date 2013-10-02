@@ -1,0 +1,17 @@
+Project Charter
+
+Our project for this class is to create an online event booking system for the East Scarborough Storefront. The Storefront consists of two buildings in East Scarborough. Their main goal as a company is to provide non-profit organizations in Scarborough rooms for which they can rent out to hold events for the public.
+ 
+We are creating a system to allow administrators and front desk staff at the East Scarborough Storefront to view the current schedule and create bookings on behalf of clients. A login will be required for all users of the system. If there is time, we may add functionality that allows the Storefront’s clients to request tentative bookings, which must then be approved by an administrator; however this feature is not considered strictly necessary by the Storefront’s administrators.
+
+Three views would be accessible to the users: month, day and map. The month view would show what days over a month a specific room would be available. The day view would show the rooms that are booked on each day. Finally there would be a map view, which would show a blue print of the rooms which would allow the user to interact with the rooms. 
+
+Technologies we will need:
+
+- HTML5 and CSS3 for presentation, Javascript for user interaction
+- PHP on the server for dynamic content generation and database management
+- CodeIgniter Framework to make PHP coding cleaner
+- MySQL to manage the client database and booking database
+- Ubuntu Linux Server running on Windows Azure for test-deployment
+- Users will access the site through the usual web-browsers
+

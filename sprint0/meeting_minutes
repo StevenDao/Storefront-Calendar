@@ -1,0 +1,18 @@
+Minutes - 10 / 01
+
+We talked about the user interface. Different views were talked about, and some were added to the project charter.
+
+We discussed technologies we might need - PHP, etc. The project charter was modified accordingly.
+
+Last meeting we emailed Jaime requesting a conference call. Jaime responded that was possible, and we requested today at 5pm, but she did not confirm. We tried to call Jaime at the Storefront. She did not answer. Storefront’s website hosting is suspended (?!) so she might be busy.
+
+
+
+Minutes - 10 / 02
+
+We talked with Jaime. She will send us the email address of their IT guy so we can get technical details if needed. She will also send us maps of their buildings for use in the website’s ‘map-view’. We will send her an email containing the revised project charter. Jaime has promised to keep in touch more often via email.
+
+Jaime mentioned during our discussion that administrator and staff access and functionality is the highest priority, and clients do not need to be able to request room bookings. If we have time, we may add that functionality, but it is not strictly necessary. The project charter has been updated accordingly.
+
+We discussed which user story to implement for Sprint 0 (Final), and decided on creating a login page that distinguishes between admin and staff logins/accounts.
+
