@@ -18,6 +18,13 @@
 ?>
 <ul>
 	<li>
+		<h5 class="link">
+		<?php
+			echo "<p>" . anchor('account/newForm','Create Account') . "</p>";
+			echo "<p>" . anchor('account/recoverPasswordForm','Recover Password') . "</p>";
+		?>
+		</h5>
+
 		<h2>Login</h2>
 	</li>
 	<li>
@@ -44,12 +51,6 @@
 	echo form_submit($attributes, 'Login');
 ?>
 </ul>
-<h5 class="link">
-<?php
-	echo "<p>" . anchor('account/newForm','Create Account') . "</p>";
-	echo "<p>" . anchor('account/recoverPasswordForm','Recover Password') . "</p>";
-?>
-</h5>
 
 <?php
 	echo form_close();
