@@ -19,7 +19,7 @@ div {
 .centered {
     
    width: 400px;
-   height: 300px;
+   height: auto;
    /*margin: auto;
    top: 0;
    left: 0;
