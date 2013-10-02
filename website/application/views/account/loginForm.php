@@ -20,8 +20,8 @@
 	<li>
 		<h5 class="link">
 		<?php
-			echo "<p>" . anchor('account/newForm','Create Account') . "</p>";
-			echo "<p>" . anchor('account/recoverPasswordForm','Recover Password') . "</p>";
+			echo anchor('account/newForm','Create Account');
+			echo anchor('account/recoverPasswordForm','Recover Password');
 		?>
 		</h5>
 
