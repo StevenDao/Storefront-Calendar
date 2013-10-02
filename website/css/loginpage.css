@@ -57,7 +57,7 @@ ul {
 li {
     padding:4px; 
     font-size: 12px;
-    /*border-bottom:1px solid #eee;*/
+    border-bottom:1px solid #eee;
     position:relative;
 } 
 
