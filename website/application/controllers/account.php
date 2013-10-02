@@ -58,7 +58,7 @@ class Account extends CI_Controller
 				$_SESSION['user'] = $user;
 				$data['user']=$user;
 
-				redirect('main/main', 'refresh'); //redirect to the main application page
+				redirect('main/index', 'refresh'); //redirect to the main application page
 			} else {
 				redirect('account/login', 'refresh');
 			}
