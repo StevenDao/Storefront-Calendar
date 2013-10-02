@@ -44,7 +44,7 @@
 	echo form_submit($attributes, 'Login');
 ?>
 </ul>
-<h5>
+<h5 class="link">
 <?php
 	echo "<p>" . anchor('account/newForm','Create Account') . "</p>";
 	echo "<p>" . anchor('account/recoverPasswordForm','Recover Password') . "</p>";
