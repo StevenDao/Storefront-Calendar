@@ -45,11 +45,17 @@
 	echo form_submit($attributes, 'Login');
 ?>
 </ul>
+<li>
 <?php
-//	echo "<p>" . anchor('account/newForm','Create Account') . "</p>";
-
-	//echo "<p>" . anchor('account/recoverPasswordForm','Recover Password') . "</p>";
-
+	echo "<p>" . anchor('account/newForm','Create Account') . "</p>";
+?>
+</li>
+<li>
+<?php
+	echo "<p>" . anchor('account/recoverPasswordForm','Recover Password') . "</p>";
+?>
+</li>
+<?php
 	echo form_close();
 ?>
 
