@@ -108,10 +108,10 @@ input.submit {
     -moz-box-shadow: 0 1px 0 0 #9fd574 inset;
     -ms-box-shadow: 0 1px 0 0 #9fd574 inset;
     -o-box-shadow: 0 1px 0 0 #9fd574 inset;
-    margin:5px;
+    margin-left:50%;
     color: white;
     font-weight: bold;
-    width: 200px;
+    width: 150px;
     height: 30px;
     padding: 6px 20px;
     text-align: center;
