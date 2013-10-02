@@ -44,12 +44,12 @@
 	echo form_submit($attributes, 'Login');
 ?>
 </ul>
-<h5 class="link">
+<p class="link">
 <?php
 	echo "<p>" . anchor('account/newForm','Create Account') . "</p>";
 	echo "<p>" . anchor('account/recoverPasswordForm','Recover Password') . "</p>";
 ?>
-</h5>
+</p>
 
 <?php
 	echo form_close();
