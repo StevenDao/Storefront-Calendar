@@ -31,6 +31,10 @@ class Account extends CI_Controller
 		}
 	}
 
+	function index() {
+		$this->load->view('account/loginForm');
+	}
+
 	function loginForm() {
 		$this->load->view('account/loginForm');
 	}
