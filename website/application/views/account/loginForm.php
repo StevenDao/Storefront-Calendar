@@ -47,7 +47,7 @@
 <p class="link">
 <?php
 	echo "<div>" . anchor('account/newForm','Create Account') . "</div>";
-	echo "<p>" . anchor('account/recoverPasswordForm','Recover Password') . "</p>";
+	echo "<div>" . anchor('account/recoverPasswordForm','Recover Password') . "</div>";
 ?>
 </p>
 
