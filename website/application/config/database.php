@@ -52,6 +52,7 @@ $db['default']['hostname'] = 'us-cdbr-azure-east-c.cloudapp.net';
 $db['default']['username'] = 'b3f4f7883aeea0';
 $db['default']['password'] = 'fb6bc8ed';
 $db['default']['database'] = 'thestorAOSyTcKzI';
+$db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = FALSE;
