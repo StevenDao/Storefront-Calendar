@@ -62,7 +62,7 @@ li {
 } 
 
 li:first-child, li:last-child {
-   /* border-bottom:1px solid #777;*/
+    border-bottom:1px solid #777;
 }
 
 label {
