@@ -80,7 +80,7 @@ input {
 
 body {
     background: url(../images/photo-Cover.jpg) no-repeat;
-    background-size: 100%;
+    background-size: 100% auto;
     opacity:0.9;
 }
 
