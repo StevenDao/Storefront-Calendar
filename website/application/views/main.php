@@ -4,7 +4,7 @@
 	<head>
 	</head>
 <body>
-	<h1>Congrats, you are successfully login</h1>
+	<h1>Welcome <?= $user->first ?>, you are now successfully logged in!</h1>
 </body>
 
 </html>

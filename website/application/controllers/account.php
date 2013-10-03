@@ -68,7 +68,6 @@ class Account extends CI_Controller
 	function logout() {
 		$user = $_SESSION['user'];
 		$this->load->model('user_model');
-		$this->user_model->updateStatus($user->id, User::OFFLINE);
 		session_destroy();
 		redirect('account/index', 'refresh'); //Then we redirect to the index page again
 	}
