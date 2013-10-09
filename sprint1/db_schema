@@ -1,0 +1,22 @@
+User
+user_id (primary key)
+hashed_pass (128-bit hex string / 512-bit hash)
+type (admin / staff / client / dev)
+
+Room
+room_id (primary key)
+capacity (int, > 0)
+
+Booking
+booking_id (primary key)
+user_id (foreign key, User table),
+room_id (foreign key, Room table),
+date (year-month-day),
+start_time,
+end_time,
+status (requested / confirmed)
+
+
+
+
+
