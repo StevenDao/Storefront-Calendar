@@ -9,6 +9,8 @@ class Main extends CI_Controller
 	}
 
 	function index() {
+		$this->load->library('calendar');
+
 		$data['user'] = $_SESSION['user'];
 		$this->load->view('main', $data);
 	}

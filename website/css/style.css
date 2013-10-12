@@ -1,13 +1,37 @@
 body {
-    font: Arial, serif;
-    background: #DCDDDF
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #ECF4FA;
 }
 
+header.topbg {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 120px;
+    background: #B5C3CF;
+}
 
-.container {
-    margin: 25px auto;
+header.main {
+    background: url('../images/header.jpg') no-repeat;
+    background-position: center;
+    display: block;
+    margin: 50px auto;
     position: relative;
-    width: 900px;
+    width: 100%;
+    height: 533px;
+    border: 1px solid #000000;
+}
+
+aside.login {
+    padding: 10px;
+    width: 275px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: 10px;
+    background-color: #7CA4C2;
+    opacity: 0.9;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
 }
 
 #content {
