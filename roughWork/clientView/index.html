@@ -1,0 +1,93 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <link href="css/ui.slider.extras.css" rel="stylesheet"/>
+        <link rel='stylesheet' type='text/css' href='fullcalendar-1.6.4/fullcalendar/fullcalendar.css' />
+        <script src='fullcalendar-1.6.4/lib/jquery.min.js'></script>
+        <script src='fullcalendar-1.6.4/lib/jquery-ui.custom.min.js'></script>
+        <script src='fullcalendar-1.6.4/fullcalendar/fullcalendar.min.js'></script>
+         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+         <script type="text/javascript" src="js/calendarView.js"></script>
+         <script type="text/javascript" src="js/selectToUISlider.jQuery.js"></script>
+        <script type='text/javascript' src='fullcalendar-1.6.4/fullcalendar/fullcalendar.js'></script>
+        <link href="css/clientPage.css" rel="stylesheet"/>
+    </head>
+    <body class="body">
+        <div>
+
+
+            <nav>
+                <ul>
+                    <li><a href="#"> 
+                            <input class="imageIcon" type="image" src="image/optionIcon.png"/>
+                        </a>
+                        <ul>
+                            <li><a href="#">Add Account</a></li>
+                            <li><a href="#">Manage Account</a></li>
+                            <li><a href="#">Do...</a></li>
+                            <li><a href="#">Do..</a></li>
+                        </ul>
+                    </li>
+                    <li class="special"><a href="#">
+                            <h5 class="header">STOREFRONT CALENDER</h5>
+                        </a></li>
+                    <li class="specialLi"><a href="#"> 
+                            <input class="imageIcon"  style="float:right" type="image" src="image/gearSet.png"/>
+                        </a>
+                        <ul>
+                            <li class="specialLi"><a href="#">Email</a></li>
+                            <li class="specialLi"><a href="#">User Experience</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+
+            <div id="views" class="views">
+                <button id="days" class="button">Days</button>
+                <button id="basicWeek" class="button">Week</button>
+                <button id="month" class="button">Month</button>
+                <button id="rooms" class="button">Room</button>
+                                
+
+            </div>
+
+            <div class="calender">
+                
+                
+                <button id="prev" style="z-index: 3;"><</button>
+                <button id="next">></button>
+                <div id="calendar" ></div>
+          
+
+            </div>
+            
+            
+            <div class="bottom">
+
+             
+
+                <select name="speed" id="monthsSli" style="display:none">
+                    <option value="Slower">Slower</option>
+                    <option value="Slow">Slow</option>
+                    <option value="Med">Med</option>
+                    <option value="Fast">Fast</option>
+                    <option value="Faster">Faster</option>
+                    </select>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>
