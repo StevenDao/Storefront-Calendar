@@ -4,11 +4,12 @@ We had an unscheduled meeting after class.
 
 We set up a scrum board on Trello.
 
-We decided to implement the following user stories first:
+We decided to implement the following user stories first: Priority #'s 2, 3, and 4.
+
 (As an administrator, I need to be able to ... )
 ... add a new client to the system, along with their information, so that I can quickly sign up clients during meetings. I would like to have a dashboard/panel for these kinds of administrator tasks. I want to have the system automatically email our new clients a username and a randomly generated temporary password when their account is created.
 ... modify / update client details, by clicking on the client's name wherever it appears in the application, so that I can perform this task without interrupting my workflow any more than necessary.
 ... see a calendar view of any month, with events listed in each day, so that I have an overview of events coming up, and manage my time wisely.
 
-
+We broke up those user stories into tasks. Those are listed under things 'to do' in Trello.
 
