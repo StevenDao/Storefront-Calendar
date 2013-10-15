@@ -2,13 +2,20 @@
 
 class User
 {
+	const ADMIN = 1;
+	const CLIENT = 2;
+	const FRONTDESK = 3;
+	const DEV = 4;
+
 	public $id;
+	public $clientid;
 	public $login;
 	public $first;
 	public $last;
 	public $password;   // hashed version
 	public $salt;
 	public $email;
+	public $usertype = self::ADMIN;
 
 	public function encryptPassword($clearPassword) {
 		$this->salt = mt_rand();

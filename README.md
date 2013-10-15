@@ -7,3 +7,13 @@ All the deliverables are on the wiki page.
 
 Deployment website:
 http://thestorefront.cloudapp.net/
+
+## Database
+
+To connect to the database, use phpMyAdmin for now because external DB access
+(anything but localhost) isn't setup.
+
+The url is http://thestorefront.cloudapp.net/phpmyadmin/
+
+Username: `root`  
+Password: `Csc301h1`

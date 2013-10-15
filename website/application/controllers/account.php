@@ -98,6 +98,9 @@ class Account extends CI_Controller
 			$user->encryptPassword($clearPassword);
 			$user->email = $this->input->post('email');
 
+			// Placeholder until actual client functionality is made
+			$user->clientid = 1;
+
 			$this->load->model('user_model');
 
 			$this->user_model->insert($user);
