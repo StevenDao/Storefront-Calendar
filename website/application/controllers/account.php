@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * TODO: Add validation for the email and ensure that the email is valid.
+ * TODO: Add a new form for adding a client.
+ * TODO: Add a new form for editing a client (should load the old values and
+ *       then allow changing the values and update the database after updating). It
+ *       should also validate that all the values are valid.
+ */
 class Account extends CI_Controller
 {
 	function __construct() {
@@ -19,26 +26,50 @@ class Account extends CI_Controller
 		return call_user_func_array(array($this, $method), $params);
 	}
 
-	function _check_captcha() {
-		$this->load->library('securimage/securimage');
-		$securimage = new Securimage();
-
-		if (!$securimage->check($this->input->post('captcha'))) {
-			$this->form_validation->set_message('_check_captcha', 'The code you entered is invalid');
-			return FALSE;
-		} else {
-			return TRUE;
-		}
-	}
-
 	function index() {
 		$this->load->view('account/loginForm');
 	}
 
+	/*
+	 * Loads the main login form view.
+	 */
 	function loginForm() {
 		$this->load->view('account/loginForm');
 	}
 
+	/*
+	 * Loads the main form for making a new user.
+	 */
+	function newForm() {
+		$this->load->view('account/newForm');
+	}
+
+	/*
+	 * Loads the main form for updating your password.
+	 */
+	function updatePasswordForm() {
+		$this->load->view('account/updatePasswordForm');
+	}
+
+	/*
+	 * Loads the main form for recovering your lost password with your email
+	 * that you are associated with.
+	 *
+	 * TODO: The emailing system should be setup.
+	 */
+	function recoverPasswordForm() {
+		$this->load->view('account/recoverPasswordForm');
+	}
+
+
+
+	/*
+	 * Checks the login credentials as stored in the database.
+	 *
+	 * Runs server-side validation. TODO: Add error messages so the user 
+	 * understands and knows when they have entered the right or wrong 
+	 * credentials.
+	 */
 	function login() {
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('username', 'Username', 'required');
@@ -65,17 +96,21 @@ class Account extends CI_Controller
 		}
 	}
 
+	/*
+	 * Logs out the current user by destroying the session.
+	 */
 	function logout() {
-		$user = $_SESSION['user'];
-		$this->load->model('user_model');
 		session_destroy();
 		redirect('account/index', 'refresh'); //Then we redirect to the index page again
 	}
 
-	function newForm() {
-		$this->load->view('account/newForm');
-	}
 
+
+	/*
+	 * The functionality for the form in order to create a new user. It checks 
+	 * the validation of the form and creates a new instance of a User and
+	 * stores it in the database.
+	 */
 	function createNew() {
 		$this->load->library('form_validation');
 
@@ -109,21 +144,9 @@ class Account extends CI_Controller
 		}
 	}
 
-	function securimage() {
-		$this->load->config('csecurimage');
-		$active = $this->config->item('si_active');
-		$allsettings = array_merge($this->config->item($active), $this->config->item('si_general'));
-
-		$this->load->library('securimage/securimage');
-		$img = new Securimage($allsettings);
-
-		$img->show(APPPATH . 'libraries/securimage/backgrounds/bg6.png');
-	}
-
-	function updatePasswordForm() {
-		$this->load->view('account/updatePasswordForm');
-	}
-
+	/*
+	 * Update the password of the current logged in user.
+	 */
 	function updatePassword() {
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('oldPassword', 'Old Password', 'required');
@@ -155,10 +178,9 @@ class Account extends CI_Controller
 		}
 	}
 
-	function recoverPasswordForm() {
-		$this->load->view('account/recoverPasswordForm');
-	}
-
+	/*
+	 * Recover the password by using the emailing system.
+	 */
 	function recoverPassword() {
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('email', 'email', 'required');
@@ -210,6 +232,37 @@ class Account extends CI_Controller
 				$data['errorMsg']="No record exists for this email!";
 				$this->load->view('account/recoverPasswordForm',$data);
 			}
+		}
+	}
+
+
+	/* Show an image captcha for the forms with the specified settings
+	 * indicated in the configuration files
+	 */
+	function securimage() {
+		$this->load->config('csecurimage');
+		$active = $this->config->item('si_active');
+		$allsettings = array_merge($this->config->item($active), $this->config->item('si_general'));
+
+		$this->load->library('securimage/securimage');
+		$img = new Securimage($allsettings);
+
+		$img->show(APPPATH . 'libraries/securimage/backgrounds/bg6.png');
+	}
+
+	/*
+	 * Validate the captcha is correct and corresponds with the correct
+	 * captcha.
+	 */
+	function _check_captcha() {
+		$this->load->library('securimage/securimage');
+		$securimage = new Securimage();
+
+		if (!$securimage->check($this->input->post('captcha'))) {
+			$this->form_validation->set_message('_check_captcha', 'The code you entered is invalid');
+			return FALSE;
+		} else {
+			return TRUE;
 		}
 	}
 }
