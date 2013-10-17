@@ -40,8 +40,8 @@ class Account extends CI_Controller
 	/*
 	 * Loads the main form for making a new user.
 	 */
-	function newForm() {
-		$this->load->view('account/newForm');
+	function form_new_user() {
+		$this->load->view('account/new_user');
 	}
 
 	/*
@@ -122,7 +122,8 @@ class Account extends CI_Controller
 		$this->form_validation->set_rules('captcha', 'Captcha', "trim|required|callback__check_captcha");
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('account/newForm');
+			$this->form_validation->set_message();
+			$this->load->view('account/new_user');
 		} else {
 			$user = new User();
 
