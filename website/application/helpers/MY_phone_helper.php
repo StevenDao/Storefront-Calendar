@@ -1,0 +1,7 @@
+<?php
+
+/*
+ * Formatting number helpers.
+ */
+
+?>
