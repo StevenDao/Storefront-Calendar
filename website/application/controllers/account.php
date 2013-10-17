@@ -234,36 +234,5 @@ class Account extends CI_Controller
 			}
 		}
 	}
-
-
-	/* Show an image captcha for the forms with the specified settings
-	 * indicated in the configuration files
-	 */
-	function securimage() {
-		$this->load->config('csecurimage');
-		$active = $this->config->item('si_active');
-		$allsettings = array_merge($this->config->item($active), $this->config->item('si_general'));
-
-		$this->load->library('securimage/securimage');
-		$img = new Securimage($allsettings);
-
-		$img->show(APPPATH . 'libraries/securimage/backgrounds/bg6.png');
-	}
-
-	/*
-	 * Validate the captcha is correct and corresponds with the correct
-	 * captcha.
-	 */
-	function _check_captcha() {
-		$this->load->library('securimage/securimage');
-		$securimage = new Securimage();
-
-		if (!$securimage->check($this->input->post('captcha'))) {
-			$this->form_validation->set_message('_check_captcha', 'The code you entered is invalid');
-			return FALSE;
-		} else {
-			return TRUE;
-		}
-	}
 }
 
