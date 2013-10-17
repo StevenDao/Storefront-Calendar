@@ -7,9 +7,7 @@
     </head>
     <body>
         
-        <div class="header">
-            
-        </div>
+        <div class="header"></div>
         
         <div class='banner'>
             <img class='spImage' src="../../images/banner.png" height="auto" width="100%">
@@ -26,14 +24,16 @@
             echo form_open('account/login');
             ?>
             <ul>
-                <li>
+                <li style="height:20px">
+                    <h5 class="specialH">Login</h5>
                     <h5>
                         <?php
                         echo anchor('account/recoverPasswordForm', 'Forgot Password');
                         ?>
                     </h5>
-                    <h2>Login</h2>
+                   
                 </li>
+                <li class="line"></li>
                 <li>
                     <?php
                    
@@ -60,14 +60,7 @@
                                     ));
                     ?>
                 </li>
-                <?php
-                $attributes = array(
-                    'name' => 'submit',
-                    'class' => 'submit');
-                ?>
-                <?php
-                echo form_submit($attributes, 'Login');
-                ?>
+                
             </ul>
             <?php
             echo form_close();
