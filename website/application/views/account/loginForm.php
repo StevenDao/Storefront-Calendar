@@ -10,7 +10,7 @@
         <div class="header"></div>
         
         <div class='banner'>
-            <img class='spImage' src="../../images/banner.png" height="auto" width="100%">
+            <img class='spImage' src="<?= base_url() ?>images/banner.png" height="auto" width="100%">
         </div>
         
         
