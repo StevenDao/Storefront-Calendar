@@ -10,6 +10,25 @@ root {
     display: block;
 }
 
+html, body
+{
+  width: 100%;
+  margin:0px;
+  height: 100%;
+
+
+}
+
+body{
+       
+    background-image: url(../images/photo-Cover.jpg);  
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  
+
+   /* background-origin: content-box */
+}
+
 div {
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;  
     
@@ -17,14 +36,15 @@ div {
 
 
 .centered {
-    
+   margin-top: 3%;
    width:350px;
+   height:auto;
    float:right;
-   padding : 2px;
-   background-color: lightgray;
-   border-radius: 8px;  
+   background-color: rgb(116,142,166);
+   border-radius: 15px;
+   margin-right: 5px;
+   opacity: 0.8;
 }
-
 
 ul {
     width:350px;
@@ -37,7 +57,6 @@ ul {
 li {
     padding:4px; 
     font-size: 12px;
-    border-bottom:1px solid #eee;
     position:relative;
 } 
 
@@ -47,13 +66,22 @@ li h2 {
     padding-top: 0px;
     padding-right: 10px;
     padding-left: 10px;
+    font-size: 1.75em;
+    font-stretch: ultra-expanded;
 }
 
 li h5 {
-    margin: 4px;
-    padding-right: 15px;
-    padding-top: 5px;
+    bottom: 40px;
+    padding-bottom: 10px;
+    margin-right: 10px;
     float: right;
+}
+
+li h5 a{
+    color: black;
+    font-style: normal;
+    text-decoration:none;
+    font-size: 1.2em;
 }
 
 li:first-child, li:last-child {
@@ -73,12 +101,107 @@ input {
     padding:5px 8px;
 }
 
-body {
-    background: url(../images/photo-Cover.jpg) no-repeat;
-    background-size: cover;
-    background-color:gray;
-    opacity:0.9;
+.source-image {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
+
+input[type=text], input[type=password] {
+    border-radius: 20px;
+    border-style: none;
+    margin-left: 5%;
+    margin-right:5%;
+    width:80%   ;
+    font-size: 1.5em;
+    outline:none;
+    
+}
+
+label{
+    font-size: 1.5em;
+    margin-left: 3px;
+}
+
+
+.header{
+    position: fixed;
+    top:0px;
+    left:0px;
+    width : 100%;
+    height: 30px;
+    background-color: rgb(116,142,166);
+    opacity: 0.8;
+}
+
+
+    
+footer {
+clear: both;
+background: #eee;
+padding: 20px 0;
+margin: 0px;
+position: fixed;
+width:100%;
+bottom:0px;
+overflow: hidden;
+}
+
+footer div {
+width: 958px;
+margin: 0 10%;
+}
+
+footer section {
+width: auto;
+float: left;
+margin-right: 10%;
+}
+
+footer section:last-child {
+    margin-right: 0;
+}
+
+.special {
+width: auto;
+float: left;
+list-style: none;
+}
+
+.special li{
+    border-bottom: none;
+}
+
+
+
+h6 {
+font-size: 12px;
+margin: 0 0 8px;
+font-family: sysfoxboxtscregular;
+color: #183354;
+text-transform: uppercase;
+
+border-bottom: 1px solid lightseagreen;
+}
+
+.banner{
+left: 10%;
+width: 20%;
+height:32%;
+background-color:  rgb(116,142,166);
+position :fixed;
+border-radius: 0px 0 20px 20px ;
+
+}
+
+.spImage{
+    position: absolute;
+  
+   bottom:0px;
+}
+
 
 /* === Button Style === */
 input.submit {
@@ -101,11 +224,12 @@ input.submit {
     -moz-box-shadow: 0 1px 0 0 #9fd574 inset;
     -ms-box-shadow: 0 1px 0 0 #9fd574 inset;
     -o-box-shadow: 0 1px 0 0 #9fd574 inset;
-    margin-bottom: 0px;
-    margin-left:35%;
+    margin-bottom: 5px;
+    margin-left:15%;
+    margin-top: 5px;
     color: white;
     font-weight: bold;
-    width: 200px;
+    width:200px;
     height: 30px;
     padding: 6px 20px;
     text-align: center;
@@ -123,3 +247,4 @@ input.submit:active {
     -ms-box-shadow: 0 0 10px 5px #356b0b inset;
     -o-box-shadow: 0 0 10px 5px #356b0b inset;
 }
+
