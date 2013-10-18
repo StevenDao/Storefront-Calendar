@@ -18,22 +18,21 @@ class Account extends CI_Controller
 	public function _remap($method, $params = array()) {
 		// enforce access control to protected functions
 
-		$protected = array('updatePasswordForm','updatePassword','index','logout');
+		$protected = array('updatePasswordForm','updatePassword','logout');
+		$admin = array('create_new_user');
 
+		// Check if the user is logged in
 		if (in_array($method,$protected) && !isset($_SESSION['user']))
-			redirect('account/loginForm', 'refresh'); //Then we redirect to the index page again
+			redirect('account/index', 'refresh');
+
+		// Check if the user is an admin
+		if (in_array($method,$admin) && !($_SESSION['user']->usertype == User::ADMIN))
+			redirect('main/index', 'refresh');
 
 		return call_user_func_array(array($this, $method), $params);
 	}
 
 	function index() {
-		$this->load->view('account/loginForm');
-	}
-
-	/*
-	 * Loads the main login form view.
-	 */
-	function loginForm() {
 		$this->load->view('account/loginForm');
 	}
 
@@ -87,11 +86,11 @@ class Account extends CI_Controller
 
 			if (isset($user) && $user->comparePassword($clearPassword)) {
 				$_SESSION['user'] = $user;
-				$data['user']=$user;
+				$data['user'] = $user;
 
 				redirect('main/index', 'refresh'); //redirect to the main application page
 			} else {
-				redirect('account/loginForm', 'refresh');
+				redirect('account/index', 'refresh');
 			}
 		}
 	}
@@ -111,18 +110,10 @@ class Account extends CI_Controller
 	 * the validation of the form and creates a new instance of a User and
 	 * stores it in the database.
 	 */
-	function createNew() {
+	function create_new_user() {
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('username', 'Username', 'required|is_unique[user.login]');
-		$this->form_validation->set_rules('password', 'Password', 'required');
-		$this->form_validation->set_rules('first', 'First', "required");
-		$this->form_validation->set_rules('last', 'last', "required");
-		$this->form_validation->set_rules('email', 'Email', "required|is_unique[user.email]");
-		$this->form_validation->set_rules('captcha', 'Captcha', "trim|required|callback__check_captcha");
-
 		if ($this->form_validation->run() == FALSE) {
-			$this->form_validation->set_message();
 			$this->load->view('account/new_user');
 		} else {
 			$user = new User();
@@ -141,7 +132,11 @@ class Account extends CI_Controller
 
 			$this->user_model->insert($user);
 
-			$this->load->view('account/loginForm');
+			$this->session->set_flashdata('message',
+				"The new user " .
+				$user->first . " " . $user->last .
+				" has been made!");
+			redirect('main/index', 'refresh'); //redirect to the main application page
 		}
 	}
 
