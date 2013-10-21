@@ -10,7 +10,7 @@
         <div class="header"></div>
         
         <div class='banner'>
-            <img class='spImage' src="<?= base_url() ?>images/banner.png" height="auto" width="100%">
+            <img class='spImage' src="../../images/banner.png" height="auto" width="100%">
         </div>
         
         
@@ -60,21 +60,14 @@
                                     ));
                     ?>
                 </li>
-                <?php
-                $attributes = array(
-                    'name' => 'submit',
-                    'style' => 'position: absolute; left: -9999px; width: 1px; height: 1px;'
-                );
-                ?>
-                <?php
-                echo form_submit($attributes, 'Login');
-                ?>
                 
             </ul>
             <?php
             echo form_close();
             ?>
         </div>
+        
+        <img class="background" src="../../images/photo-Cover.jpg">
         
         <footer>
             
