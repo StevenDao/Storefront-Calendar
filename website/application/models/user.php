@@ -1,43 +1,57 @@
 <?php
 
-class User
-{
-	const ADMIN = 1;
-	const CLIENT = 2;
-	const FRONTDESK = 3;
-	const DEV = 4;
+class User {
+    
+    
+    // User types
+    const ADMIN = 1;
+    const CLIENT = 2;
+    const FRONTDESK = 3;
+    const DEV = 4;
+    
+    
+    // Class members
+    public $id;         // Unique user-id
+    public $clientid;   // If this is a client, this is their client-id; otherwise, 0.
+                        // (multiple users may have the same client-id)
+    public $login;      // Unique username used to login to the website
+    public $first;      // First name
+    public $last;       // Last name
+    public $password;   // Hashed password
+    public $salt;       // Password salt
+    public $email;      // Email address
+    public $usertype = self::ADMIN;  // Type of user; administrator by default
+    
+    
+    // Encrypt a clear-text password by hashing it with SHA-512 and a salt
+    public function encryptPassword($clearPassword) {
+        $this->salt = mt_rand();
+        $this->password = hash('sha512', $this->salt . $clearPassword);
+    }
+    
+    
+    // Initializes the password to a random value
+    public function initPassword() {
+        $this->salt = mt_rand();
+        $clearPassword = mt_rand();
+        $this->password = hash('sha512', $this->salt . $clearPassword);
+        return $clearPassword;
+    }
 
-	public $id;
-	public $clientid;
-	public $login;
-	public $first;
-	public $last;
-	public $password;   // hashed version
-	public $salt;
-	public $email;
-	public $usertype = self::ADMIN;
+    // Check to see if a given clear-text password matches this user's password
+    public function comparePassword($clearPassword) {
+        $hashed_password = hash($this->salt . $clearPassword);
+        if ($this->password == $hased_password) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	public function encryptPassword($clearPassword) {
-		$this->salt = mt_rand();
-		$this->password = sha1($this->salt . $clearPassword);
-	}
-
-	// Initializes the password to a random value
-	public function initPassword() {
-		$this->salt = mt_rand();
-		$clearPassword = mt_rand();
-		$this->password = sha1($this->salt . $clearPassword);
-		return $clearPassword;
-	}
-
-	public function comparePassword($clearPassword) {
-		if ($this->password == sha1($this->salt . $clearPassword))
-			return true;
-		return false;
-	}
-
-	public function fullName() {
-		return $this->first . " " . $this->last;
-	}
+    // Get the full name of this user
+    public function fullName() {
+        return $this->first . " " . $this->last;
+    }
+    
 
 }
