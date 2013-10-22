@@ -26,12 +26,12 @@
                 <ul>
                     <li> 
                         <button>
-                            <input class="imageIcon" type="image" src="image/b_actions.png"/>
+                            <input class="imageIcon" type="image" src="<?= base_url() ?>image/b_actions.png"/>
                          
                         <ul>
-                            <li><a href="#">Add Account</a></li>
-                            <li><a href="#">Manage Account</a></li>
-                            <li><a href="#">Do...</a></li>
+                            <li><a href="account/create_new_user">Create New User</a></li>
+                            <li><a href="account/modify_user">Modify User</a></li>
+                            <li><a href="account/delete_user">Delete User</a></li>
                             <li><a href="#">Do..</a></li>
                         </ul>
                         </button>
@@ -43,7 +43,7 @@
                     
                     <li style="float:right; margin-right:20px;">
                         <button>
-                            <input class="imageIcon" type="image" src="image/b_actions.png"/>
+                            <input class="imageIcon" type="image" src="<?= base_url() ?>image/b_actions.png"/>
                             <ul style="left:85%;">
                             <li><a href="#">Email</a></li>
                             <li><a href="#">User Experience</a></li>
