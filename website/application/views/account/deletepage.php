@@ -13,7 +13,7 @@
 						<td><?php echo $row->login; ?></td>
 						<td><?php echo $row->first; ?></td>
 						<td><?php echo $row->last; ?></td>
-						<td><INPUT TYPE="Submit" Name ="login" value = <?php echo $row->login; ?></td>
+						<td><INPUT TYPE="Submit" Name = <form action="account/delete_user" method="post">value="Delete"></td>
 					</tr>
 				<?php endforeach; ?>
 			</tbody>
