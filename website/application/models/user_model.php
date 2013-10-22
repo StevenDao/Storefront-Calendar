@@ -51,5 +51,7 @@ class User_model extends CI_Model
 		$query = $this->db->select('*')->from('user')->get();
 		return $query->result();
 	}
+	
+	public function 
 }
 ?>
