@@ -47,9 +47,15 @@ class User_model extends CI_Model
 			return null;
 	}
 	
-	public function displayAllUsers() {
+	function displayAllUsers() {
 		$query = $this->db->select('*')->from('user')->get();
 		return $query->result();
+	}
+	
+	function deleteUser($username){
+		$this->db->where('login', $username);
+		$this->db->delete('user');
+		redirect('account/deletepage', 'refresh');
 	}
 }
 ?>
