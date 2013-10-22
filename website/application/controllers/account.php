@@ -27,7 +27,7 @@ class Account extends CI_Controller
 
 		// Check if the user is an admin
 		if (in_array($method,$admin) &&
-				(!issset($_SESSION['user'])) &&
+				(!isset($_SESSION['user'])) &&
 				(!($_SESSION['user']->usertype == User::ADMIN)))
 			redirect('main/index', 'refresh');
 
