@@ -7,7 +7,7 @@
 		<tbody>
 			<?php foreach($query as $row): ?>
 			<tr>
-				<td><?php echo $row->user_id; ?></td>
+				<td><?php echo $row->login; ?></td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>
