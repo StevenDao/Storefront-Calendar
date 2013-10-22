@@ -46,8 +46,10 @@ class User_model extends CI_Model
 		else
 			return null;
 	}
+	
 	public function displayAllUsers() {
 		$query = $this->db->select('*')->from('user')->get();
 		return $query->result();
+	}
 }
 ?>
