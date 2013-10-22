@@ -14,7 +14,7 @@
         </div>
         
         
-        <div class="centered">
+        <div class="centered"＞
 
             
         <?php
