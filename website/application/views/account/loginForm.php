@@ -61,6 +61,16 @@
                     ?>
                 </li>
                 
+                  <?php
++                $attributes = array(
++                    'name' => 'submit',
++                    'style' => 'position: absolute; left: -9999px; width: 1px; height: 1px;'
++                );
++                ?>
++                <?php
++                echo form_submit($attributes, 'Login');
++                ?>
+                
             </ul>
             <?php
             echo form_close();
