@@ -32,16 +32,15 @@ class User {
     
     // Initializes the password to a random value
     public function initPassword() {
-        $this->salt = mt_rand();
         $clearPassword = mt_rand();
-        $this->password = hash('sha512', $this->salt . $clearPassword);
+        $this->encryptPassword($clearPassword)
         return $clearPassword;
     }
 
     // Check to see if a given clear-text password matches this user's password
     public function comparePassword($clearPassword) {
-        $hashed_password = hash($this->salt . $clearPassword);
-        if ($this->password == $hased_password) {
+        $hashed_password = hash('sha512', $this->salt . $clearPassword);
+        if ($this->password == $hashed_password) {
             return true;
         } else {
             return false;
