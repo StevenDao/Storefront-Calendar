@@ -14,7 +14,7 @@
         <script type="text/javascript" src="<?= base_url() ?>js/calendarView.js"></script>
         <script type="text/javascript" src="<?= base_url() ?>/js/selectToUISlider.jQuery.js"></script>
         <script type='text/javascript' src="<?= base_url() ?>js/fullcalendar-1.6.4/fullcalendar/fullcalendar.js"></script>
-        <link href= "<?= base_url() ?>js/css/clientPage.css" rel="stylesheet"/>
+        <link href= "<?= base_url() ?>css/clientPage.css" rel="stylesheet"/>
   
        
     </head>
