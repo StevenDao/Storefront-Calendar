@@ -55,7 +55,6 @@ class User_model extends CI_Model
 	function deleteUser($username){
 		$this->db->where('login', $username);
 		$this->db->delete('user');
-		redirect('account/deletepage', 'refresh');
 	}
 }
 ?>
