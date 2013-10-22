@@ -33,7 +33,7 @@ class User {
     // Initializes the password to a random value
     public function initPassword() {
         $clearPassword = mt_rand();
-        $this->encryptPassword($clearPassword)
+        $this->encryptPassword($clearPassword);
         return $clearPassword;
     }
 
