@@ -246,6 +246,7 @@ class Account extends CI_Controller
 		$this->load->libiary('form_validation');
 		$login = $this->input->post('login');
 		$this->user_model->deleteuser($login); 
+		redirect('account/deletepage', 'refresh');
 	}
 }
 
