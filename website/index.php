@@ -34,12 +34,14 @@ if (defined('ENVIRONMENT'))
 	{
 		case 'development':
 			error_reporting(E_ALL);
-		break;
+			ini_set('display_errors', 1);
+			break;
 	
 		case 'testing':
 		case 'production':
 			error_reporting(0);
-		break;
+			ini_set('display_errors', 0);
+			break;
 
 		default:
 			exit('The application environment is not set correctly.');
