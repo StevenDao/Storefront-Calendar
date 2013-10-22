@@ -14,8 +14,8 @@ if (isset($message))
 
 <ul>
 	<li><?= anchor("account/create_new_user", 'Create New User'); ?></li>
-	＜li><?= anchor("account/deleteuser", 'Delete User'); ?></li>
-	<li><?= anchor("account/modifyuser", 'Modify User); ?<li>>
+	<li><?= anchor("account/delete_user", 'Delete User')?></li>
+	<li><?= anchor("account/modify_user", 'Modify User')?></li>
  	<li><?= anchor("account/logout", 'Logout'); ?></li>
 </ul>
 
