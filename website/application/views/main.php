@@ -31,7 +31,7 @@
                         <ul>
                             <li><a href="account/create_new_user">Create New User</a></li>
                             <li><a href="account/modify_user">Modify User</a></li>
-                            <li><a href="account/delete_user">Delete User</a></li>
+                            <li><a href="account/displayusers">Delete User</a></li>
                             <li><a href="#">Do..</a></li>
                         </ul>
                         </button>
