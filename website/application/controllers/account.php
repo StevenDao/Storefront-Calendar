@@ -244,8 +244,8 @@ class Account extends CI_Controller
 	
 	function delete_user(){
 		$this->load->libiary('form_validation');
-		$login = $this->input->post('login')
-		$this->user_model->deleteuser($login) 
+		$login = $this->input->post('login');
+		$this->user_model->deleteuser($login); 
 	}
 }
 
