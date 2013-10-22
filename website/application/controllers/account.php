@@ -230,5 +230,8 @@ class Account extends CI_Controller
 			}
 		}
 	}
+	
+	function modify_user() {}
+	function delete_user() {}
 }
 
