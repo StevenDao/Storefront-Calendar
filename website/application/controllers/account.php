@@ -237,11 +237,17 @@ class Account extends CI_Controller
 	/*
 	 * Remove specific user and all infos that related to this user
 	 */
-	function delete_user() {
+	function displayusers() {
 		$this->load->library('form_validation');
 		$this->load->model('user_model');
 		$data['query'] = $this->user_model->displayAllUsers();
 		$this->load->view('account/deletepage', $data); 
+	}
+	
+	function delete_user(){
+		$this->load->libiary('form_validation');
+		$login = $this->input->post('login');
+		$this->user_model->deleteuser($login); 
 	}
 }
 

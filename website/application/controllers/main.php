@@ -12,15 +12,10 @@ class Main extends CI_Controller
 		// enforce access control to protected functions
 
 		$protected = array('index');
-		$admin = array('');
 
 		// Check if the user is logged in
 		if (in_array($method,$protected) && !isset($_SESSION['user']))
 			redirect('account/index', 'refresh');
-
-		// Check if the user is an admin
-		if (in_array($method,$admin) && !($_SESSION['user']->usertype == User::ADMIN))
-			redirect('main/index', 'refresh');
 
 		return call_user_func_array(array($this, $method), $params);
 	}
