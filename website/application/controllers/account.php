@@ -143,7 +143,7 @@ class Account extends CI_Controller
 			$user->encryptPassword($clearPassword);
 			$user->email = $this->input->post('email');
 			
-			$newPassword = $user->email;
+			$newPassword = $clearPassword;
 			$this->load->library('email');
 
 			$config['protocol']    = 'smtp';
