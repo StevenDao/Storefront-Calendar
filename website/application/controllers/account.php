@@ -143,6 +143,7 @@ class Account extends CI_Controller
 			$user->encryptPassword($clearPassword);
 			$user->email = $this->input->post('email');
 			
+			$newuser = $user->login;
 			$newPassword = $clearPassword;
 			$this->load->library('email');
 
@@ -163,7 +164,8 @@ class Account extends CI_Controller
 			$this->email->from('eaststorefront@storefront.com', 'eaststorefront');
 			$this->email->to($user->email);
 
-			$this->email->subject('eaststorefront account password');
+			$this->email->subject('eaststorefront account successfully created');
+			$this->email->message("welcome to eaststorefront $newuser")
 			$this->email->message("Your password is $newPassword , please remember it ");
 
 			$result = $this->email->send();
