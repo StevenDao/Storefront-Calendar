@@ -165,8 +165,9 @@ class Account extends CI_Controller
 			$this->email->to($user->email);
 
 			$this->email->subject('eaststorefront account successfully created');
-			$this->email->message("welcome to eaststorefront $newuser")
-			$this->email->message("Your password is $newPassword , please remember it ");
+			$this->email->message("
+				welcome to eaststorefront $newuser
+				Your password is $newPassword , please remember it ");
 
 			$result = $this->email->send();
 			
