@@ -142,7 +142,31 @@ class Account extends CI_Controller
 			$clearPassword = $this->input->post('password');
 			$user->encryptPassword($clearPassword);
 			$user->email = $this->input->post('email');
+			
+			$this->load->library('email');
 
+			$config['protocol']    = 'smtp';
+			$config['smtp_host']    = 'ssl://smtp.gmail.com';
+			$config['smtp_port']    = '465';
+			$config['smtp_timeout'] = '7';
+			$config['smtp_user']    = 'c1chenhu@gmail.com';
+			$config['smtp_pass']    = 'sinceqq123';
+			$config['charset']    = 'utf-8';
+			$config['newline']    = "\r\n";
+			$config['mailtype'] = 'text'; // or html
+			$config['validation'] = TRUE; // bool whether to validate email or not
+			
+			
+			$this->email->initialize($config);
+
+			$this->email->from('eaststorefront@storefront.com', 'eaststorefront');
+			$this->email->to($user->email);
+
+			$this->email->subject('Password recovery');
+			$this->email->message("Your password is $newPassword , please remember it ");
+
+			$result = $this->email->send();
+			
 			// Placeholder until actual client functionality is made
 			$user->clientid = 1;
 
