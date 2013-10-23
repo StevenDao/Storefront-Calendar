@@ -1,3 +1,6 @@
+
+<!DOCTYPE html>
+<!http://localhost/PhpProject2/index.php/account/newForm>
 <html>
     <head>
         
@@ -141,14 +144,55 @@
             </tr>
             
             <tr>
-                <td colspan=2>
+                <td>
                     <?php
-                    echo form_label('Email Address');
-                    echo form_error('phone');
+                    echo form_label('Manager Name');
+                    echo form_error('mName');
                     echo form_input(array(
-                        'name' => 'phone',
-                        'value' => set_value('email'),
-                        'required' => 'required',
+                        'name' => 'mName',
+                        'value' => set_value('mName'),
+                        'placeholder' => 'Fullname',
+                        'required' => 'required'
+                    ));
+
+                   ?>
+                </td>
+                <td>
+                    <?php
+                    echo form_label('Position');
+                    echo form_error('mPos');
+                    echo form_input(array(
+                        'name' => 'mPos',
+                        'value' => set_value('mPos'),
+                        'placeholder' => "Manange's position",
+                        'required' => 'required'
+                    ));
+                    ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php
+                    echo form_label('Facilitator Name');
+                    echo form_error('fName');
+                    echo form_input(array(
+                        'name' => 'fName',
+                        'value' => set_value('fName'),
+                        'placeholder' => 'Fullname',
+                        'required' => 'required'
+                    ));
+
+                   ?>
+                </td>
+                <td>
+                    <?php
+                    echo form_label('Position');
+                    echo form_error('fPos');
+                    echo form_input(array(
+                        'name' => 'fPos',
+                        'value' => set_value('fPos'),
+                        'placeholder' => "Manange's position",
+                        'required' => 'required'
                     ));
                     ?>
                 </td>
@@ -171,17 +215,75 @@
                 <td>
                     <?php
                     echo form_label('Alternate Number');
-                    echo form_error('phone');
+                    echo form_error('Aphone');
                     echo form_input(array(
-                        'name' => 'phone',
-                        'value' => set_value('phone'),
+                        'name' => 'Aphone',
+                        'value' => set_value('Aphone'),
                         'placeholder' => 'Optional',
                         'required' => 'required',
                     ));
                     ?>
-                </td>
-                    
+                </td>    
             </tr>
+            
+            <tr >
+                
+                
+                
+                <td>
+                    <?php
+                    echo form_label('Street');
+                    echo form_error('Street');
+                    echo form_input(array(
+                        'name' => 'Street',
+                        'value' => set_value('Street'),
+                        'placeholder' => 'Street, Unit #',
+                        'required' => 'required',
+                    ));
+                    ?>
+                    <br>
+                    <?php
+                
+                    echo form_error('City');
+                    echo form_input(array(
+                        'name' => 'City',
+                        'value' => set_value('City'),
+                        'placeholder' => 'City,State',
+                        'style' => 'margin-top:5px;',
+                        'required' => 'required',
+                    ));
+                    ?>
+                    <br>
+                    <?php
+    
+                    echo form_error('Post');
+                    echo form_input(array(
+                        'name' => 'Post',
+                        'value' => set_value('Post'),
+                        'placeholder' => 'Postal Code',
+                        'style' => 'margin-top:5px;',
+                        'required' => 'required',
+                    ));
+                    ?>
+                </td>
+                
+            </tr>
+            <tr >
+                
+                <td rowspan="1">
+                    <?php
+                    echo form_label('Email Address');
+                    echo form_error('Address');
+                    echo form_input(array(
+                        'name' => 'Address',
+                        'value' => set_value('Address'),
+                        'required' => 'required',
+                    ));
+                    ?>
+                    
+                </td>
+            </tr>
+            
             
             <tr>
                 <td>
@@ -214,3 +316,4 @@
 </body>
 
 </html>
+
