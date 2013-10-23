@@ -248,8 +248,7 @@ class Account extends CI_Controller
 			}
 		}
 	}
-		
-	function modify_user() {}
+	
 	/*
 	 * Remove specific user and all infos that related to this user
 	 */
@@ -263,7 +262,7 @@ class Account extends CI_Controller
 	function delete_user(){
 		$this->load->libiary('form_validation');
 		$login = $this->input->post('login');
-		$this->user_model->deleteuser($login); 
+		$this->user_model->deleteUser($login); 
 		redirect('account/deletepage', 'refresh');
 	}
 
