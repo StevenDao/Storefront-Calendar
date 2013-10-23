@@ -286,7 +286,9 @@ class Account extends CI_Controller
 		$data['query'] = $this->user_model->displayAllUsers();
 		$this->load->view('account/deletepage', $data); 
 	}
-	
+	/*
+	 * Not works for now
+	*/
 	function delete_user(){
 		$this->load->library('form_validation');
 		
