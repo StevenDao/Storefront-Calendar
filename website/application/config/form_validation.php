@@ -32,5 +32,26 @@ $config = array(
 			'label' => 'Password Confirmation',
 			'rules' => 'required|min_length[6]|matches[password]'
 		)
+	),
+
+	'account/create_new_client' => array(
+		array(
+			'field' => 'name',
+			'label' => 'Name',
+			'rules' => 'required|is_unique[client.name]|min_length[3]|max_length[50]'
+		),
+		array(
+			'field' => 'phone',
+			'label' => 'Phone',
+			'rules' => 'is_unique[client.phone]|alpha_dash'
+		)
+	),
+
+	'account/edit_client' => array(
+		array(
+			'field' => 'phone',
+			'label' => 'Phone',
+			'rules' => 'is_unique[client.phone]|alpha_dash'
+		)
 	)
 );

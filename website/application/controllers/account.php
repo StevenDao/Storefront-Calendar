@@ -19,7 +19,7 @@ class Account extends CI_Controller
 		// enforce access control to protected functions
 
 		$protected = array('updatePasswordForm','updatePassword','logout');
-		$admin = array('create_new_user');
+		$admin = array('create_new_user', 'create_new_client');
 
 		// Check if the user is logged in
 		if (in_array($method,$protected) && !isset($_SESSION['user']))
@@ -43,6 +43,22 @@ class Account extends CI_Controller
 	 */
 	function form_new_user() {
 		$this->load->view('account/new_user');
+	}
+
+	/*
+	 * Loads the main form for making a new client.
+	 */
+	function form_new_client() {
+		$this->load->view('account/new_client');
+	}
+	
+	/*
+	 * Loads the main form for making a new client.
+	 */
+	function form_edit_client() {
+		$this->load->model('client_model');
+		$data['clients'] = $this->client_model->get_clients();
+		$this->load->view('account/edit_client', $data);
 	}
 
 	/*
@@ -250,5 +266,69 @@ class Account extends CI_Controller
 		$this->user_model->deleteuser($login); 
 		redirect('account/deletepage', 'refresh');
 	}
+
+
+
+	/*
+	 * Create a new client and add it to the database. Very simplified version
+	 * of a client for now.
+	 *
+	 * TODO: Create a more sophisticated client class and associated database
+	 * table for it.
+	 */
+	function create_new_client() {
+		$this->load->library('form_validation');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('account/new_client');
+		} else {
+			$client = new Client();
+
+			$client->name = $this->input->post('name');
+			$client->address = $this->input->post('address');
+			$client->phone = $this->input->post('phone');
+
+			$this->load->model('client_model');
+
+			$this->client_model->insert($client);
+
+			$this->session->set_flashdata('message',
+				"The new client " .
+				$client->name .
+				" has been made!");
+			redirect('main/index', 'refresh'); //redirect to the main application page
+		}
+	}
+
+	/*
+	 * Create a new client and add it to the database. Very simplified version
+	 * of a client for now.
+	 *
+	 * TODO: Create a more sophisticated client class and associated database
+	 * table for it.
+	 */
+	function edit_client() {
+		$this->load->library('form_validation');
+
+		if ($this->form_validation->run() == FALSE) {
+			redirect('account/form_edit_client', 'refresh'); //redirect to the main application page
+		} else {
+			$this->load->model('client_model');
+
+			$id = $this->input->post('id');
+
+			$client = $this->client_model->get_from_id($id);
+			$client->address = $this->input->post('address');
+
+			$this->client_model->update_address($client);
+
+			$this->session->set_flashdata('message',
+				"The client " .
+				$client->name .
+				" has been updated!");
+			redirect('main/index', 'refresh'); //redirect to the main application page
+		}
+	}
+
 }
 

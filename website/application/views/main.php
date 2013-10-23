@@ -30,9 +30,11 @@
                             <input class="imageIcon" type="image" src="<?= base_url() ?>images/b_actions.png"/>
 
                             <ul>
-                                <li><?= anchor('account/create_new_user', 'Create New User') ?></li>
+                                <li><?= anchor('account/form_new_user', 'Create New User') ?></li>
                                 <li><?= anchor('account/modify_user', 'Modify User') ?></li>
                                 <li><?= anchor('account/delete_user', 'Delete User') ?></li>
+                                <li><?= anchor('account/form_new_client', 'Create New Client') ?></li>
+                                <li><?= anchor('account/form_edit_client', 'Edit Client') ?></li>
                                 <li><a href="#">Do..</a></li>
                             </ul>
 
