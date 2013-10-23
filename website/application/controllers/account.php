@@ -219,8 +219,8 @@ class Account extends CI_Controller
 				$config['smtp_host']    = 'ssl://smtp.gmail.com';
 				$config['smtp_port']    = '465';
 				$config['smtp_timeout'] = '7';
-				$config['smtp_user']    = 'google_username@gmail.com';
-				$config['smtp_pass']    = 'google_password';
+				$config['smtp_user']    = 'c1chenhu@gmail.com';
+				$config['smtp_pass']    = 'sinceqq123';
 				$config['charset']    = 'utf-8';
 				$config['newline']    = "\r\n";
 				$config['mailtype'] = 'text'; // or html
@@ -228,17 +228,17 @@ class Account extends CI_Controller
 
 				$this->email->initialize($config);
 
-				$this->email->from('csc309Login@cs.toronto.edu', 'Login App');
+				$this->email->from('eaststorefront@storefront.com', 'eaststorefront');
 				$this->email->to($user->email);
 
 				$this->email->subject('Password recovery');
-				$this->email->message("Your new password is $newPassword");
+				$this->email->message("Your new password is $newPassword , please remember it ");
 
 				$result = $this->email->send();
 
 				//$data['errorMsg'] = $this->email->print_debugger();
 
-				//$this->load->view('emailPage',$data);
+				//$this->load->view('account/emailPage',$data);
 				$this->load->view('account/emailPage');
 
 			}
@@ -260,7 +260,8 @@ class Account extends CI_Controller
 	}
 	
 	function delete_user(){
-		$this->load->libiary('form_validation');
+		$this->load->library('form_validation');
+		
 		$login = $this->input->post('login');
 		$this->user_model->deleteUser($login); 
 		redirect('account/deletepage', 'refresh');
