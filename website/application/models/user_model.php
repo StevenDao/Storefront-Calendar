@@ -36,9 +36,22 @@ class User_model extends CI_Model {
         return $this->db->insert('user',$user);
     }
     
+    // Update the email address of an existing user
+    function updateEmail($user) {
+        $this->db->where('id', $user->id);
+        return $this->db->update('user', array('email'=>$user->email));
+    }
+    
+    // Update the first and last names of an existing user
+    function updateName($user) {
+        $this->db->where('id', $user->id);
+        return $this->db->update('user', array('first'=>$user->first,
+                                               'last'=>$user->last));
+    }
+    
     // Update the password of an existing user
     function updatePassword($user) {
-        $this->db->where('id',$user->id);
+        $this->db->where('id', $user->id);
         return $this->db->update('user',array('password'=>$user->password,
                                                 'salt' => $user->salt));
     }
