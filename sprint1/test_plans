@@ -1,0 +1,48 @@
+Testing Plan
+============
+
+## User Story #17
+As an administrator, I want to be able to add a new client to the system, along
+with their information, so that I can quickly sign up clients during meetings.
+I would like to have a dashboard/panel for these kinds of administrator tasks.
+I want to have the system automatically email our new clients a username and a
+randomly generated temporary password when their account is created.
+
+__Test Case 1__
+    - Login with (admin, client, user)
+        - Hover over actions, go to add new client page (only admin)
+            - try empty fields for everything (only address and phone are allowed to be empty)
+            - try empty name, filled in address and/or phone
+            - try name, address and phone filled in
+        - Confirm that it was successfully added to the database
+    - Logout
+
+__Test Case 2__
+    - Login with (admin, client, user)
+        - Hover over actions, go to add new client page (only admin)
+            - Fill in a name and an email that we can check to ensure we got the email
+            - Fill in no name, and a valid email (ensure no email was sent)
+            - Fill in a name, and no email (should not try to email anyone)
+
+## User Story #18
+As an administrator, I want to be able to modify / update client details, by
+clicking on the client's name wherever it appears in the application, so that I
+can perform this task without interrupting my workflow any more than necessary.
+
+__Test Case 1__
+    - Login with (admin, client, user)
+        - Hover over actions, go to edit client (only admin)
+            - Look at drop down, should list all clients
+            - Make no changes (ensure no changes are made in db)
+            - Make a change to any field (ensure correct changes made in db)
+    - Logout
+
+## User Story #30
+As an administrator, see a calendar view of any month, with events listed in
+each day, so that I have an overview of events coming up, and manage my time
+wisely.
+
+__Test Case 1__
+    - Login with (admin, client, user)
+        - Click on month view
+            - See an event title
