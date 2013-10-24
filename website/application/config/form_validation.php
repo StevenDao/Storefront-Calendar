@@ -20,7 +20,7 @@ $config = array(
 		array(
 			'field' => 'email',
 			'label' => 'Email',
-			'rules' => 'required|valid_email|max_length[20]|is_unique[user.email]'
+			'rules' => 'required|valid_email|max_length[120]|is_unique[user.email]'
 		),
 		array(
 			'field' => 'password',
