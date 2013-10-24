@@ -1,0 +1,7 @@
+1. Done basic html for client add page 
+2. Done basic html for modify client page 
+3. Calendar view is done 
+4. Database is completed
+5. Tables are completed
+6. Completed add client page
+7. Completed modify client page
