@@ -5,3 +5,6 @@
 5. Tables are completed
 6. Completed add client page
 7. Completed modify client page
+
+Blue lines represents ideal plan
+Red lines represents actual works
