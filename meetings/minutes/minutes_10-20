@@ -1,0 +1,14 @@
+Minutes – 10 / 20
+
+Calendar view is completed.
+
+The database is completed; all tables have been added. Now we have to add and modify users.
+
+Steve and Zhenya will connect their code with the database.
+
+We decided to create an automated emailing system in order to help us in Sprint 2. We found that booking system will be a huge task, so doing the emailing system now will be very helpful in Sprint 2. Clark will be doing this task. He will incorporate the system with adding users. Once the user is created, the user will receive an email from storefront. The deadline is Oct 23rd.
+
+JP will need to add more functionality to the CodeIgniter framework's models, so that interaction with the database is convenient and full functional. The deadline is Oct. 23rd.
+
+Everyone else worked on coding and tweaking the website itself to meet our agreed upon standards.
+

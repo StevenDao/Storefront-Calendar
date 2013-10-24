@@ -1,0 +1,15 @@
+Minutes -- 10 / 17
+
+We had a stand-up meeting in tutorial.
+
+Zhenya and Steven have completed the HTML/CSS for the Storefront front page. They will have to wait for the calendar view and database framework to be implemented.
+
+We split up the remaining tasks for this sprint.
+
+We discussed creating the MySQL database with the necessary tables. We decided that first we need user and client tables. This is because these tables will be used straight away by Zhenya and Steven in add/modify users. Hence we decided that the DB has to be ready before Monday so that Steven and Zhenya can link the database in to their pages.
+
+JP will add more DB functionality (booking model, room model, etc.) to the CodeIgniter framework. This will be used in the next sprint.
+
+Clark will work on setting up an emailing framework/system.
+
+
