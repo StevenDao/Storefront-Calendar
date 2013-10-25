@@ -134,7 +134,7 @@
                     echo form_label('Password Confirmation');
                     echo form_error('passconf');
                     echo form_password(array(
-                        'name' => 'passcof',
+                        'name' => 'passconf',
                         'id' => 'pass2',
                         'value' => '',
                         'required' => 'required',
