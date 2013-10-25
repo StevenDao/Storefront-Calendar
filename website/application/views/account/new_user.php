@@ -150,10 +150,10 @@
                 <td rowspan="1">
                     <?php
                     echo form_label('Email Address');
-                    echo form_error('Email');
+                    echo form_error('email');
                     echo form_input(array(
-                        'name' => 'Email',
-                        'value' => set_value('Email'),
+                        'name' => 'email',
+                        'value' => set_value('email'),
                         'required' => 'required',
                     ));
                     ?>
@@ -170,17 +170,11 @@
                         'name' => 'submit',
                         'value' => 'Register',
                         'style' => 'float:right;'));
+                echo form_close();
 
                 ?>
                 </td>
-                
-                <td>
-                    <?php
-                    echo anchor('main/index', "Cancel");               
-                    echo form_close();
-                    ?>
-                    
-                </td>
+               
             
             </tr>
             <tr height=70px">
