@@ -176,7 +176,7 @@
                 
                 <td>
                     <?php
-                    echo achor('main/index', "Cancel");               
+                    echo anchor('main/index', "Cancel");               
                     ?>
                     
                 </td>
