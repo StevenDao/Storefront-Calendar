@@ -170,11 +170,17 @@
                         'name' => 'submit',
                         'value' => 'Register',
                         'style' => 'float:right;'));
-                echo form_close();
+                
 
                 ?>
                 </td>
                
+               
+               <td>
+                <?php  
+                echo anchor('main/index', "Cancel");  
+                echo form_close(); ?>
+               </td>
             
             </tr>
             <tr height=70px">
