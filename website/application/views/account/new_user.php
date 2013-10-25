@@ -177,6 +177,7 @@
                 <td>
                     <?php
                     echo anchor('main/index', "Cancel");               
+                    echo form_close();
                     ?>
                     
                 </td>
