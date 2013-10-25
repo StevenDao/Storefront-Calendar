@@ -5,17 +5,17 @@ $config = array(
 		array(
 			'field' => 'username',
 			'label' => 'Username',
-			'rules' => 'required|is_unique[user.login]|min_length[3]|max_length[10]'
+			'rules' => 'required|is_unique[user.login]|min_length[3]|max_length[20]'
 		),
 		array(
 			'field' => 'first',
 			'label' => 'First',
-			'rules' => 'required|max_length[10]'
+			'rules' => 'required|max_length[20]'
 		),
 		array(
 			'field' => 'last',
 			'label' => 'Last',
-			'rules' => 'required|max_length[10]'
+			'rules' => 'required|max_length[20]'
 		),
 		array(
 			'field' => 'email',
