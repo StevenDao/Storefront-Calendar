@@ -70,7 +70,7 @@
             <tr>
                 <td>
                     <?php
-                    echo form_open('account/createNew');
+                    echo form_open('account/create_new_user');
                     echo form_label('Name');
                     echo form_error('first');
                     echo form_input(array(
