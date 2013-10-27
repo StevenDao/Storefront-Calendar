@@ -54,7 +54,7 @@ class Account extends CI_Controller
 	 * Loads the main form for making a new client.
 	 */
 	function form_new_client() {
-		redirect('account/index');
+		
 		$this->load->view('account/new_client');
 	}
 	
