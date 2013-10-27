@@ -12,24 +12,29 @@ class Account extends CI_Controller
 	function __construct() {
 		// Call the Controller constructor
 		parent::__construct();
-		session_start();
+		//session_start();
 	}
 
 	public function _remap($method, $params = array()) {
 		// enforce access control to protected functions
 
-		$protected = array('updatePasswordForm','updatePassword','logout');
-		$admin = array('create_new_user', 'create_new_client');
+		$user = $this->session->userdata('user');
 
-		// Check if the user is logged in
-		if (in_array($method,$protected) && !isset($_SESSION['user']))
+		$protected = array('updatePasswordForm','updatePassword','logout');
+		$admin = array('form_new_user', 'form_new_client', 'create_new_user', 'create_new_client');
+
+		/* Check if the user is logged in */
+		if (in_array($method,array_merge($protected, $admin)) && !$user) {
+
 			redirect('account/index', 'refresh');
 
-		// Check if the user is an admin
-		if (in_array($method,$admin) &&
-				(!isset($_SESSION['user'])) &&
-				(!($_SESSION['user']->usertype == User::ADMIN)))
-			redirect('main/index', 'refresh');
+		} else if (in_array($method,$admin) && !$user) {
+
+			/* Check if the user is an admin */
+			if ($user->usertype != User::ADMIN)
+				redirect('main/index', 'refresh');
+
+		}
 
 		return call_user_func_array(array($this, $method), $params);
 	}
@@ -49,6 +54,7 @@ class Account extends CI_Controller
 	 * Loads the main form for making a new client.
 	 */
 	function form_new_client() {
+		redirect('account/index');
 		$this->load->view('account/new_client');
 	}
 	
@@ -103,7 +109,8 @@ class Account extends CI_Controller
 			$user = $this->user_model->get($login);
 
 			if (isset($user) && $user->comparePassword($clearPassword)) {
-				$_SESSION['user'] = $user;
+				$data = array('user' => $user);
+				$this->session->set_userdata($data);
 				$data['user'] = $user;
 
 				redirect('main/index', 'refresh'); //redirect to the main application page
@@ -114,10 +121,10 @@ class Account extends CI_Controller
 	}
 
 	/*
-	 * Logs out the current user by destroying the session.
+	 * Logs out the current user by unsetting the user class.
 	 */
 	function logout() {
-		session_destroy();
+		$this->session->unset_userdata('user');
 		redirect('account/index', 'refresh'); //Then we redirect to the index page again
 	}
 
@@ -201,7 +208,7 @@ class Account extends CI_Controller
 		}
 		else
 		{
-			$user = $_SESSION['user'];
+			$user = $this->session->userdata('user');
 
 			$oldPassword = $this->input->post('oldPassword');
 			$newPassword = $this->input->post('newPassword');
