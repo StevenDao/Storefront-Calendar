@@ -12,7 +12,30 @@
 <script src='<?= base_url() ?>fullcalendar/fullcalendar.min.js'></script>
 
 <link rel="stylesheet" href="<?= base_url() ?>css/clientPage.css" />
-<script src='<?= base_url() ?>js/calendarView.js'></script>
+<!--<script src='<?= base_url() ?>js/calendarView.js'></script>-->
+<script>
+$(document).ready(function() {
+
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth();
+    var y = date.getFullYear();
+
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        editable: true,
+        //weekends: false,
+
+        height: $(window).height() - 60,
+
+        events: '<?= base_url() ?>/main/get_events'
+    });
+});
+</script>
 
 </head>
 
