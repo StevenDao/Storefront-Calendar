@@ -30,6 +30,15 @@ class User_model extends CI_Model {
         else
             return null;
     }
+	
+	function getSameEmail($email){
+		$this->db->where('email', $email);
+		$query = $this->db->get('user');
+		if($query->num_rows() > 0)
+			return false;
+		else
+			return true;
+	}
     
     // Insert a new user into the 'user' table
     function insert($user) {
@@ -73,8 +82,8 @@ class User_model extends CI_Model {
     }
     
     // Delete a user based on username
-    function deleteUser($username){
-        $this->db->where('login', $username);
+    function deleteUser($login){
+        $this->db->where('login', $login);
         $this->db->delete('user');
     }
 }

@@ -58,6 +58,8 @@ class Account extends CI_Controller
 		$this->load->view('account/new_client');
 	}
 	
+	
+	
 	/*
 	 * Loads the main form for making a new client.
 	 */
@@ -243,8 +245,13 @@ class Account extends CI_Controller
 			$email = $this->input->post('email');
 			$this->load->model('user_model');
 			$user = $this->user_model->getFromEmail($email);
-
-			if (isset($user)) {
+			
+			if(!isset($user)){
+				$this->load->model('client_model');
+				$client = $this->client_model->getFromEmail($email);
+				}
+			
+			if (isset($user) || isset($client)) {
 				$newPassword = $user->initPassword();
 				$this->user_model->updatePassword($user);
 
@@ -270,10 +277,7 @@ class Account extends CI_Controller
 				$this->email->message("Your new password is $newPassword , please remember it ");
 
 				$result = $this->email->send();
-
-				//$data['errorMsg'] = $this->email->print_debugger();
-
-				//$this->load->view('account/emailPage',$data);
+				
 				$this->load->view('account/emailPage');
 
 			}
@@ -287,24 +291,74 @@ class Account extends CI_Controller
 	/*
 	 * Remove specific user and all infos that related to this user
 	 */
-	function displayusers() {
+	function modifyuser() {
 		$this->load->library('form_validation');
 		$this->load->model('user_model');
 		$data['query'] = $this->user_model->displayAllUsers();
-		$this->load->view('account/deletepage', $data); 
+		$this->load->view('account/modifyuser', $data); 
 	}
-	/*
-	 * Not works for now
-	*/
+	
+	
+	
 	function delete_user(){
-		$this->load->library('form_validation');
 		
-		$login = $this->input->post('login');
-		$this->user_model->deleteUser($login); 
-		redirect('account/deletepage', 'refresh');
+		
+		$login = $this->input->post('loginID');
+		$this->load->model('user_model');
+		$user = $this->user_model->get($login);
+		$currentlogin = $_SESSION['user']->login;
+		
+		if($currentlogin == $user->login){
+			redirect('account/modifyuser', 'refresh');		
+		}	
+		if($currentlogin != $user->login){
+			$this->user_model->deleteUser($user->login);		
+			redirect('account/modifyuser', 'refresh');
+		}				
 	}
-
-
+	
+	function edit_user(){
+	
+		$this->load->library('form_validation');
+	
+    	$this->form_validation->set_rules('first', 'First', 'required|max_length[20]');
+		$this->form_validation->set_rules('last', 'Last', 'required|max_length[20]');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[120]');
+		
+		
+		if ($this->form_validation->run() == FALSE)
+		{
+			redirect('account/modifyuser', 'refresh');		
+		}
+		if ($this->form_validation->run() == TRUE)
+		{
+			$first = $this->input->post('first');
+			$last = $this->input->post('last');
+			$email = $this->input->post('email');
+			$login = $this->input->post('loginID');
+		
+			$this->load->model('user_model');
+			$user = $this->user_model->get($login);
+		
+			if(($first == $user->first)&&($last == $user->last)&&($email == $user->email)){
+				redirect('account/modifyuser', 'refresh');
+			}
+			if(!(($first == $user->first)&&($last == $user->last)&&($email == $user->email))){
+				if(($first != $user->first)||($last != $user->last)){
+					$user->first = $first;
+					$user->last = $last;
+					$this->user_model->updateName($user);
+				}
+			
+				if(($email !=$user->email)&&($this->user_model->getSameEmail($email))){
+					$user->email = $email;
+					$this->user_model->updateEmail($user);
+				}
+			
+				redirect('account/modifyuser', 'refresh');			
+			}			
+		}
+	}
 
 	/*
 	 * Create a new client and add it to the database. Very simplified version
@@ -322,9 +376,50 @@ class Account extends CI_Controller
 			$client = new Client();
 
 			$client->name = $this->input->post('name');
+			$client->partnername = $this->input->post('partnername');
+			$client->programname = $this->input->post('programname');
+			$client->manager = $this->input->post('manager');
+			$client->managerposition = $this->input->post('managerposition');
+			$client->programfc = $this->input->post('programfc');
+			$client->fcposition = $this->input->post('fcposition');
 			$client->address = $this->input->post('address');
 			$client->phone = $this->input->post('phone');
+			$client->fax = $this->input->post('fax');
+			$client->email = $this->input->post('email');
+			$client->agreement = $this->input->post('agreement');
+			$client->insurance = $this->input->post('insurance');
+			
+			$clearPassword = $this->input->post('password');
+			$client->encryptPassword($clearPassword);
+			
+			$newclient = $client->name;
+			$newPassword = $clearPassword;
+			$this->load->library('email');
+			
+			$config['protocol']    = 'smtp';
+			$config['smtp_host']    = 'ssl://smtp.gmail.com';
+			$config['smtp_port']    = '465';
+			$config['smtp_timeout'] = '7';
+			$config['smtp_user']    = 'c1chenhu@gmail.com';
+			$config['smtp_pass']    = 'sinceqq123';
+			$config['charset']    = 'utf-8';
+			$config['newline']    = "\r\n";
+			$config['mailtype'] = 'text'; // or html
+			$config['validation'] = TRUE; // bool whether to validate email or not
+			
+			
+			$this->email->initialize($config);
 
+			$this->email->from('eaststorefront@storefront.com', 'eaststorefront');
+			$this->email->to($client->email);
+
+			$this->email->subject('eaststorefront account successfully created');
+			$this->email->message("
+				welcome to eaststorefront $newclient
+				Your password is $newPassword , please remember it ");
+
+			$result = $this->email->send();
+					
 			$this->load->model('client_model');
 
 			$this->client_model->insert($client);

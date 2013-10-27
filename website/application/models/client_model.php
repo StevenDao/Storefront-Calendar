@@ -18,6 +18,15 @@ class Client_model extends CI_Model
 		else
 			return null;
 	}
+	
+    function getFromEmail($email) {
+        $this->db->where('email',$email);
+        $query = $this->db->get('client');
+        if ($query && $query->num_rows() > 0)
+            return $query->row(0,'Client');
+        else
+            return null;
+    }
 
 	function get_clients() {
 		$clients = array();
