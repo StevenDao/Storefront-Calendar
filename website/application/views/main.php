@@ -71,10 +71,10 @@ $(document).ready(function() {
             Storefront Calendar<span id="logo-caret" class="icon"></span>
           </a>
           <ul>
-            <li><a href="#">Add New User</a></li>
-            <li><a href="#">Edit User</a></li>
-            <li><a href="#">Add New Client</a></li>
-            <li><a href="#">Edit Client</a></li>
+            <li><?= anchor('account/form_new_user', 'Add New User') ?></li>
+            <li><?= anchor('account/form_edit_user', 'Edit User') ?></li>
+            <li><?= anchor('account/form_new_client', 'Add New Client') ?></li>
+            <li><?= anchor('account/form_edit_client', 'Edit Client') ?></li>
           </ul>
         </li>
       </ul>

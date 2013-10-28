@@ -8,13 +8,13 @@ class Booking {
     const REJECTED = 3;
     
     // Class members
-    public $id;         // Unique booking-id
-    public $userid;     // The user-id of this booking's user
-    public $roomid;     // The room-id of this booking's location
-    public $title;      // The title of the booking event.
-    public $date_booked;   // Date that this booking was made
-    public $start_time;      // Start-time
-    public $end_time;        // End-time
+    public $id;                         // Unique booking-id
+    public $userid;                     // The user-id of this booking's user
+    public $roomid;                     // The room-id of this booking's location
+    public $title;                      // The title of the booking event.
+    public $date_booked;                // Date that this booking was made
+    public $start_time;                 // Start-time
+    public $end_time;                   // End-time
     public $status = self::TENTATIVE;   // Booking status is tentative by default
     // Note that dates are stored as strings with the form: YYYY-MM-DD
     // This is the same format our MySQL DB uses.
