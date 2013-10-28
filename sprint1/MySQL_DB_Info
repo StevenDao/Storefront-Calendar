@@ -1,0 +1,9 @@
+Connect to the server:
+mysql -u b3f4f7883aeea0 -h us-cdbr-azure-east-c.cloudapp.net -p
+
+Password:
+fb6bc8ed
+
+Use our MySQL DB:
+use thestorAOSyTcKzI
+

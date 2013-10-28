@@ -87,3 +87,4 @@ class User_model extends CI_Model {
         $this->db->delete('user');
     }
 }
+?>

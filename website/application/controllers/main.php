@@ -32,14 +32,13 @@ class Main extends CI_Controller
 		$this->load->view('main', $data);
 	}
 
-	function get_events() {
+	public function get_events() {
 		$this->load->model('booking_model');
 		$bookings = $this->booking_model->get_bookings();
 		$events = array();
 
 		foreach ($bookings as $booking) {
 			$events[] = array(
-				'id' => $booking->id,
 				'title' => $booking->title,
 				'start' => $booking->start_time,
 				'end' => $booking->end_time
@@ -48,31 +47,5 @@ class Main extends CI_Controller
 
 		echo json_encode($events);
 	}
-
-	function move_event() {
-		$data = $this->input->get_post('json');
-		$event = json_decode($data);
-
-		$this->load->model('booking_model');
-
-		$booking = $this->booking_model->get($event->id);
-		$booking->move($event->dayDelta, $event->minuteDelta);
-
-		$this->booking_model->updateDateTime($booking);
-	}
-
-	function resize_event() {
-		$data = $this->input->get_post('json');
-		$event = json_decode($data);
-
-		$this->load->model('booking_model');
-
-		$booking = $this->booking_model->get($event->id);
-		$booking->resize($event->dayDelta, $event->minuteDelta);
-
-		$this->booking_model->updateDateTime($booking);
-	}
 }
-
-/* End of file main.php */
-/* Location: ./application/controllers/main.php */
+?>
