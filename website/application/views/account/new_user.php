@@ -31,40 +31,25 @@
         </script>
     </head>
 <body>
-    <div style="height:100%;">
-        <nav>
+        <header>
+            <nav>
                 <ul>
-                    <li style="margin-left: 20px;">
-                        <button>
-                            <input class="imageIcon" type="image" src="<?= base_url() ?>images/b_actions.png"/>
-                         
+                    <li>
+                         <a href="#" class="logo-link">
+                            Storefront Calendar<span id="logo-caret" class="icon"></span>
+                        </a>
                         <ul>
-                            <li><a href="#">Add Account</a></li>
-                            <li><a href="#">Manage Account</a></li>
-                            <li><a href="#">Do...</a></li>
-                            <li><a href="#">Do..</a></li>
+                            <li><?= anchor('account/form_new_user', 'Add New User') ?></li>
+                            <li><?= anchor('account/form_edit_user', 'Edit User') ?></li>
+                            <li><?= anchor('account/form_new_client', 'Add New Client') ?></li>
+                            <li><?= anchor('account/form_edit_client', 'Edit Client') ?></li>
                         </ul>
-                        </button>
-                    </li>
-                    
-                    <li class="special">
-                            <h5 class="header">STOREFRONT CALENDER</h5>
-                    </li>
-                    
-                    <li style="float:right; margin-right:20px;">
-                        <button>
-                            <input class="imageIcon" type="image" src="<?= base_url() ?>images/b_actions.png"/>
-                            <ul style="left:85%;">
-                            <li><a href="#">Email</a></li>
-                            <li><a href="#">User Experience</a></li>
-                        </ul>
-                        </button>
-                            
                     </li>
                 </ul>
             </nav>
+        </header>
         
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;New Client</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;Add New User</p>
       
         <table>    
             <tr>
@@ -191,7 +176,6 @@
                  
         </table>
     
-</div>
 </body>
 
 </html>
