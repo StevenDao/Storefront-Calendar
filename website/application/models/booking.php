@@ -11,10 +11,10 @@ class Booking {
     public $id;         // Unique booking-id
     public $userid;     // The user-id of this booking's user
     public $roomid;     // The room-id of this booking's location
-    public $bookdate;   // Date that this booking was made
-    public $date;       // Date
-    public $start;      // Start-time
-    public $end;        // End-time
+    public $title;      // The title of the booking event.
+    public $date_booked;   // Date that this booking was made
+    public $start_time;      // Start-time
+    public $end_time;        // End-time
     public $status = self::TENTATIVE;   // Booking status is tentative by default
     // Note that dates are stored as strings with the form: YYYY-MM-DD
     // This is the same format our MySQL DB uses.
@@ -108,9 +108,29 @@ class Booking {
         $this->$end = $timestamp;
         return TRUE;
     }
-    
-    
-    
+
+	public function move($deltaDays, $deltaMinutes) {
+		$arg = $deltaDays . ' days ' . $deltaMinutes . ' minutes';
+		$interval = DateInterval::createFromDateString($arg);
+
+		$date = new DateTime($this->start_time);
+		$date->add($interval);
+		$this->start_time = $date->format('Y-m-d H:i:s');
+
+		$date = new DateTime($this->end_time);
+		$date->add($interval);
+		$this->end_time = $date->format('Y-m-d H:i:s');
+	}
+
+	public function resize($deltaDays, $deltaMinutes) {
+		$arg = $deltaDays . ' days ' . $deltaMinutes . ' minutes';
+		$interval = DateInterval::createFromDateString($arg);
+
+		$date = new DateTime($this->end_time);
+		$date->add($interval);
+		$this->end_time = $date->format('Y-m-d H:i:s');
+	}
+
     // Confirm this booking
     // Always returns true, since this cannot fail
     public function confirm() {

@@ -15,12 +15,6 @@
 <!--<script src='<?= base_url() ?>js/calendarView.js'></script>-->
 <script>
 $(document).ready(function() {
-
-    var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
-
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -28,13 +22,42 @@ $(document).ready(function() {
             right: 'month,agendaWeek,agendaDay'
         },
         editable: true,
+        allDayDefault: false,
         //weekends: false,
 
         height: $(window).height() - 60,
 
-        events: '<?= base_url() ?>/main/get_events'
+        events: '<?= base_url() ?>main/get_events',
+
+        eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+            event.dayDelta = dayDelta;
+            event.minuteDelta = minuteDelta;
+            args = "json=" + JSON.stringify(event);
+            url = "<?= base_url() ?>main/move_event";
+
+            $.ajax({
+                url: url,
+                data: args,
+                type: 'POST'
+            });
+        },
+
+        eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+            event.dayDelta = dayDelta;
+            event.minuteDelta = minuteDelta;
+            args = "json=" + JSON.stringify(event);
+            url = "<?= base_url() ?>main/resize_event";
+
+            $.ajax({
+                url: url,
+                    data: args,
+                    type: 'POST'
+            });
+        }
     });
 });
+
+
 </script>
 
 </head>
@@ -58,7 +81,7 @@ $(document).ready(function() {
     </nav>
   </header>
 
-  <div id="calendar" style="z-index: -99999;" ></div>
+  <div id="calendar"></div>
 
 </body>
 </html>
