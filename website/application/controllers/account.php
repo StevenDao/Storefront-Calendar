@@ -292,7 +292,6 @@ class Account extends CI_Controller
 	 * Remove specific user and all infos that related to this user
 	 */
 	function modifyuser() {
-		$this->load->library('form_validation');
 		$this->load->model('user_model');
 		$data['query'] = $this->user_model->displayAllUsers();
 		$this->load->view('account/modifyuser', $data); 
@@ -439,28 +438,31 @@ class Account extends CI_Controller
 	 * TODO: Create a more sophisticated client class and associated database
 	 * table for it.
 	 */
-	function edit_client() {
-		$this->load->library('form_validation');
-
-		if ($this->form_validation->run() == FALSE) {
-			redirect('account/form_edit_client', 'refresh'); //redirect to the main application page
-		} else {
-			$this->load->model('client_model');
-
-			$id = $this->input->post('id');
-
-			$client = $this->client_model->get_from_id($id);
-			$client->address = $this->input->post('address');
-
-			$this->client_model->update_address($client);
-
-			$this->session->set_flashdata('message',
-				"The client " .
-				$client->name .
-				" has been updated!");
-			redirect('main/index', 'refresh'); //redirect to the main application page
-		}
+	function modifyclient() {
+		$this->load->model('client_model');
+		$data['query'] = $this->client_model->displayAllClients();
+		$this->load->view('account/modifyclient', $data); 		
 	}
-
+	
+	function delete_client(){
+		$name = $this->input->post('loginID');
+		$this->load->model('client_model');
+		$client = $this->client_model->get_from_name($name);	
+		if(isset($client)){
+			$this->client_model->deleteClient($client->name);		
+			redirect('account/modifyclient', 'refresh');
+		}	
+		
+		else{
+			redirect('main', 'refresh');
+		}
+								
+	}
+	
+	function edit_client(){
+		
+		
+	}
+	
 }
 

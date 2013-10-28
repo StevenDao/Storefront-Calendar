@@ -56,5 +56,15 @@ class Client_model extends CI_Model
 		else
 			return null;
 	}
+	
+    function displayAllClients() {
+        $query = $this->db->select('*')->from('client')->get();
+        return $query->result();
+    }
+	
+	function deleteClient($name){
+        $this->db->where('name', $name);
+        $this->db->delete('client');
+	}
 }
 ?>
