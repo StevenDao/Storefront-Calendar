@@ -33,7 +33,7 @@
                                 <li><?= anchor('account/form_new_user', 'Create New User') ?></li>
                                 <li><?= anchor('account/modifyuser', 'Modify User') ?></li>
                                 <li><?= anchor('account/form_new_client', 'Create New Client') ?></li>
-                                <li><?= anchor('account/modifyclient', 'Edit Client') ?></li>
+                                <li><?= anchor('account/form_edit_client', 'Edit Client') ?></li>
                                 <li><a href="#">Do..</a></li>
                             </ul>
 

@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" media="all" href="<?= base_url() ?>css/modifyuser.css"/>
+		<link rel="stylesheet" type="text/css" media="all" href="<?= base_url() ?>css/deletepage.css"/>
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<h1>Modify Users</h1>
 		<script>
