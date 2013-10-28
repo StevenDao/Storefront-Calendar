@@ -1,265 +1,102 @@
-/* 
-    Document   : clientPage
-    Created on : Oct 12, 2013, 11:11:13 PM
-    Author     : Thurairaj
-    Description:
-        Purpose of the stylesheet follows.
-*/
-
-root { 
-    display: block;
-}
-
-.body{
+body {
     margin:0px;
     padding:0px;
-
+    font-size: 11pt;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
 }
 
-nav{   
-    position: relative;
-    margin: 0px;    
-    top:0px; 
-    width: 100%;
-    float:left;
-    z-index: 3;
+header {
+    height: 40px;
+    -webkit-transition:.3s;
+    -moz-transition:.3s;
+    -ms-transition:.3s;
+    transition:.3s;
+    background-color:#2c2c2c;
+    background-image:-moz-linear-gradient(top, #333, #222);
+    background-image:-ms-linear-gradient(top, #333, #222);
+    background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#333), to(#222));
+    background-image:-webkit-linear-gradient(top, #333, #222);
+    background-image:linear-gradient(top, #333, #222);
+    background-repeat:repeat-x;
+    filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr='#ff333333', endColorstr='#ff222222', GradientType=0);
+    -webkit-transform:translateZ(0);
+    -moz-transform:translateZ(0);
+    -ms-transform:translateZ(0);
+    transform:translateZ(0);
 }
 
-nav ul ul {
-    display: none;
-}
-
-nav ul li button{
-    height: 50px;
-    width: 50px;
-    background-color: #6198C2;
-    border-style : none;            
-    border-radius: 5px;
-    margin-left: 25%;
-    margin-top: 5px;
-    padding: 2px;
-    padding-top: 7px;
-    padding-right:5px;
-    
-}
-
-nav ul li button:hover > ul {
-    display: block;
-}
-
-nav ul li:hover > button ul {
-    display: block;
-}
-
-
-
-nav ul {
-    background: #6198C2; 
-    background: linear-gradient(bottom, #6198C2    eaa 10%, #6198C2 100%);  
-    background: -moz-linear-gradient(top, #6198C2 0%,#6198C2 100%); 
-    background: -webkit-linear-gradient(bottom, #6198C2 10%,#6198C2 100%); 
-    box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
-    width: 100%;
-    padding: 0 0px; 
-    list-style: none;
-    position: relative;
-    top:0px;
-    display: inline-table;
-    margin-top: 0px;
-}
-
-nav ul:after {
-    content: ""; clear: both; display: block;
-}
-        
-nav ul li {
+.left {
+    width: 65%;
     float: left;
-    color: white;
-    height: 60px;
-    width:50px;
 }
 
-.special{
-    width:85%;
+.right {
+    width: 35%;
+    float: right;
 }
 
-
-
-nav ul li:hover a {
-    color: #fff;
-}
-
-nav ul li a {
-    display: block;
-    padding: 10px 40px;
-    color: white;
-    text-decoration: none;
-}
-
-nav ul ul {
-    background: #015eaa; 
-    border-radius: 0px;
-    padding: 0;
-    width: 10%;
+header #logo-caret {
     position: absolute;
-    top: 100%;
-    
+    top: 6px;
+    right: 14px;
 }
 
-nav ul ul li {
-    float: none; 
-    background: #015eaa ; 
-    border-bottom: 1px solid white;
-    height: 100%;
+.icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: text-top;
+    background-image: url(../images/caret.png);
+    background-repeat: no-repeat;
+}
+
+.logo-link {
     position: relative;
-    width: 150%;
-    
-}
-
-.specialLi {
-    float: right; 
-    
-}
-
-nav ul ul li a {
+    top: 7px;
     display: block;
-    padding: 10px 40px;
-    color: white;
-    height: 100%;
+    width: 225px;
+    line-height: 30px;
+    height: 30px;
+    text-indent: -9999em;
+    border-right: solid 1px #141414;
+    background-image: url(../images/logo2.png);
+    background-position: 15px 5px;
+    background-repeat: no-repeat;
+}
+
+//nav { display:block; margin:0 auto 20px; border:1px solid #222; position:relative; background-color:#6a6a6a; font:16px Tahoma, Sans-serif; }  
+//nav li a:focus { outline:none; text-decoration:underline; }  
+//nav a span { display:block; float:right; margin-left:5px; }  
+nav ul ul { display:none; width:100%; position:absolute; left:0; background:#6a6a6a; }  
+//nav ul ul a { padding:5px 10px; border-left:none; border-right:none; font-size:14px; }  
+//nav ul ul a:hover { background-color:#555; }  
+
+
+nav { display: block; }
+nav ul:first-child li { height: 40px; }
+nav li { position: relative; float: left; list-style-type: none; }
+nav li:hover ul { display:block; margin-top: 10px; }
+nav ul ul { display: none; }
+nav ul ul li { float:none; }
+nav ul ul a {
+    width: 205px;
+    display: block;
+    padding: 5px 10px;
+    color: #BBB;
+    line-height: 20px;
+    text-decoration: none;
+
+}
+nav ul ul a:hover {
+    color: #FFF;
+    background-color: #333;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+#calendar {
     width: auto;
-    text-decoration: none;
-}	
-
-nav ul ul li a:hover {
-    background: #60C157;
-}
-
-.imageIcon{
-    width:40px;
-    z-index: 4;
-}
-
-.header{
-    margin-top: 15px;
-    font-size: 1.5em;
-    text-align: center;
-    width: 100%;
-}
-
-.views{
-    margin-top: 20px;
-    width:300px;
-    padding: 10px;
-    clear:both;
-    float:right;
-   
-}
-
-.views button{
-    
-    float: left;
-    width:60px;
-    
-    border-style: solid;
-    border-color: #c3ccd7;
-    border-width: 3px;
-    box-shadow: none;
-    border-right: none;
-    
-    font-size: 0.9em;
-    font-family:Arial;
-    font-weight: lighter;
-    color:#c58ea9;
-    
-    background-color: #e7f1fa;
-    margin:0px;
-    outline:none;
-    
-}
-
-.views button:first-child{
-    border-radius: 10px 0px 0px 10px;
-}
-
-.views button:last-child{
-    border-radius: 0px 10px 10px 0px;
-    border-right-color: #c3ccd7;
-    border-right-style: solid;
-    border-right-width: 3px;
-            
-}
-
-.views button:disabled{
-    background: #4A4D50;
-    color: white;
-   border-color: #4A4D50;
-}
-
-.views button:hover{
-    background: #B9C1C8 ;
-    color: white;
-    outline:none;
-    border-color:  #c3ccd7;
-}
-
-.calender{
-    position:relative;
-    float: left;
-    clear:both;
-    margin: 20px;
-    margin-bottom: 15px;
-    margin-top: 20px;
-    width:90%;
-    height:auto;
-    color:black;
-    
-     background-color: white;
-
-}
-
-.calender button{
-    opacity: 0.05;
-    position: absolute;
-    top:50%;
-    font-size: 3em;
-    z-index: 100;
-    background-color: lightgray;
-    border-style: none;
-    outline:none;
-
-}
-
-.calender button:hover{
-    opacity: 1;
-    font-weight: bolder;
-    color: gray;
-}
-
-.calender button:active{
-    opacity: 1;
-    font-weight: bolder;
-    background-color:gray;
-    color: lightgray
-}
-
-#next{
-     right:0%;
-}
-
-#prev{
-     left:0%;
-}
-
-
-.bottom{
-   outline: none;
-   position:relative;
-   clear:both;
-   margin: 4%;
-   margin-top: 60px;
-   padding: 10px;
-   padding-left: 40px;
-   width:80%;
-   height:60px;   /* Height of the footer */
-   background:transparent;
+    margin-left: 235px;
+    margin-top: 10px;
+    margin-right: 10px;
 }
