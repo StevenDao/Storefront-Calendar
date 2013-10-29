@@ -33,7 +33,7 @@ class Booking_model extends CI_Model {
     
     // Get an array of booking objects by the day on which they were made
     function getByDateBooked($year, $month, $day) {
-        $date = Booking->formatDate($year, $month, $day);
+        //$date = Booking->formatDate($year, $month, $day);
         if ($date == FALSE) {
             return null;
         }
@@ -47,7 +47,7 @@ class Booking_model extends CI_Model {
     
     // Get an array of booking objects by their target date
     function getByDate($year, $month, $day) {
-        $date = Booking->formatDate($year, $month, $day);
+        //$date = Booking->formatDate($year, $month, $day);
         if ($date == FALSE) {
             return null;
         }
@@ -61,6 +61,7 @@ class Booking_model extends CI_Model {
     
     // Get an array of booking objects by their status
     // $status should be "tentative", "confirmed", or "rejected"
+	/*
     function getByUserID($status) {
         $code = 0;
         switch ($status) {
@@ -83,6 +84,7 @@ class Booking_model extends CI_Model {
         else
             return null;
     }
+	 */
     
     // Insert a new booking into the 'booking' table
     function insert($booking) {
@@ -104,9 +106,8 @@ class Booking_model extends CI_Model {
     // Update the date, start time, and end time
     function updateDateTime($booking) {
         $this->db->where('id', $booking->id);
-        return $this->db->update('booking', array('date'=>$booking->date,
-                                                  'start_time'=>$booking->start,
-                                                  'end_time'=>$booking->end));
+        return $this->db->update('booking', array('start_time'=>$booking->start_time,
+                                                  'end_time'=>$booking->end_time));
     }
     
     // Update the status
@@ -126,11 +127,17 @@ class Booking_model extends CI_Model {
     }
     
     // Show bookings
-    function displayAllBookings() {
-        $query = $this->db->select('*')->from('booking')->get();
-        return $query->result();
-    }
-    
+	function get_bookings() {
+		$bookings = array();
+		$query = $this->db->query("SELECT * FROM booking;");
+
+		foreach ($query->result('Booking') as $row) {
+			$bookings[$row->id] = $row;
+		}
+
+		return $bookings;
+	}
+
     // Delete a booking based on ID
     function deleteBooking($id){
         $this->db->where('id', $id);

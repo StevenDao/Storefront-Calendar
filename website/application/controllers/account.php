@@ -54,12 +54,18 @@ class Account extends CI_Controller
 	 * Loads the main form for making a new client.
 	 */
 	function form_new_client() {
-		redirect('account/index');
+		
 		$this->load->view('account/new_client');
 	}
-	
-	
-	
+
+
+	function form_edit_user() {
+		$this->load->library('form_validation');
+		$this->load->model('user_model');
+		$data['query'] = $this->user_model->displayAllUsers();
+		$this->load->view('account/edit_user', $data);
+	}
+
 	/*
 	 * Loads the main form for making a new client.
 	 */
@@ -291,12 +297,6 @@ class Account extends CI_Controller
 	/*
 	 * Remove specific user and all infos that related to this user
 	 */
-	function modifyuser() {
-		$this->load->library('form_validation');
-		$this->load->model('user_model');
-		$data['query'] = $this->user_model->displayAllUsers();
-		$this->load->view('account/modifyuser', $data); 
-	}
 	
 	
 	
@@ -463,4 +463,3 @@ class Account extends CI_Controller
 	}
 
 }
-

@@ -1,95 +1,87 @@
 <html>
-    <head>
-        <title></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <link rel="stylesheet" type='text/css' href="<?= base_url() ?>css/ui.slider.extras.css" />
-        <link rel='stylesheet' type='text/css' href="<?= base_url() ?>js/fullcalendar-1.6.4/fullcalendar/fullcalendar.css" />
+<link rel="stylesheet" type="text/css" href="<?= base_url() ?>css/reset.css" />
+<link rel="stylesheet" href="<?= base_url() ?>fullcalendar/fullcalendar.css" />
 
-        <script src="<?= base_url() ?>js/fullcalendar-1.6.4/lib/jquery.min.js"></script>
-        <script src="<?= base_url() ?>js/fullcalendar-1.6.4/lib/jquery-ui.custom.min.js"></script>
-        <script src="<?= base_url() ?>js/fullcalendar-1.6.4/fullcalendar/fullcalendar.min.js"></script>
+<script src='<?= base_url() ?>fullcalendar/lib/jquery.min.js'></script>
+<script src='<?= base_url() ?>fullcalendar/lib/jquery-ui.custom.min.js'></script>
+<script src="<?= base_url() ?>/js/jquery.timers.js"></script>
+<script src='<?= base_url() ?>fullcalendar/fullcalendar.min.js'></script>
 
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="<?= base_url() ?>css/clientPage.css" />
+<!--<script src='<?= base_url() ?>js/calendarView.js'></script>-->
+<script>
+$(document).ready(function() {
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        editable: true,
+        allDayDefault: false,
+        //weekends: false,
 
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-        <script type="text/javascript" src="<?= base_url() ?>js/calendarView.js"></script>
-        <script type="text/javascript" src="<?= base_url() ?>/js/selectToUISlider.jQuery.js"></script>
-        <script type='text/javascript' src="<?= base_url() ?>js/fullcalendar-1.6.4/fullcalendar/fullcalendar.js"></script>
+        height: $(window).height() - 60,
 
-        <link rel="stylesheet" href="<?= base_url() ?>css/clientPage.css" />
-    </head>
-    <body class="body">
-        <div>
+        events: '<?= base_url() ?>main/get_events',
 
-            <nav>
-                <ul>
-                    <li>
-                        <button>
-                            <input class="imageIcon" type="image" src="<?= base_url() ?>images/b_actions.png"/>
+        eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+            event.dayDelta = dayDelta;
+            event.minuteDelta = minuteDelta;
+            args = "json=" + JSON.stringify(event);
+            url = "<?= base_url() ?>main/move_event";
 
-                            <ul>
-                                <li><?= anchor('account/form_new_user', 'Create New User') ?></li>
-                                <li><?= anchor('account/modifyuser', 'Modify User') ?></li>
-                                <li><?= anchor('account/form_new_client', 'Create New Client') ?></li>
-                                <li><?= anchor('account/form_edit_client', 'Edit Client') ?></li>
-                                <li><a href="#">Do..</a></li>
-                            </ul>
+            $.ajax({
+                url: url,
+                data: args,
+                type: 'POST'
+            });
+        },
 
-                        </button>
-                    </li>
+        eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+            event.dayDelta = dayDelta;
+            event.minuteDelta = minuteDelta;
+            args = "json=" + JSON.stringify(event);
+            url = "<?= base_url() ?>main/resize_event";
 
-                    <li class="special">
-                        <h5 class="header">STOREFRONT CALENDER</h5>
-                    </li>
-
-                    <li style="float:right; margin-right:20px;">
-                        <button>
-                            <input class="imageIcon" type="image" src="<?= base_url() ?>images/b_actions.png"/>
-                            <ul style="left:85%;">
-                                <li><a href="#">Email</a></li>
-                                <li><a href="#">User Experience</a></li>
-                            </ul>
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-
-
-            <div id="views" class="views">
-
-                <button id="days" class="button">Days</button>
-                <button id="agendaWeek" class="button">Week</button>
-                <button id="month" class="button">Month</button>
-                <button id="rooms" class="button">Room</button>
-
-            </div>
-
-            <div class="calender">
-
-                <button id="prev" style="z-index: 3;"></button>
-                <button id="next"></button>
-                <div id="calendar" ></div>
-
-            </div>
+            $.ajax({
+                url: url,
+                    data: args,
+                    type: 'POST'
+            });
+        }
+    });
+});
 
 
-            <div class="bottom">
+</script>
 
-                <select name="speed" id="monthsSli" style="display:none">
-                    <option value="Slower">Slower</option>
-                    <option value="Slow">Slow</option>
-                    <option value="Med">Med</option>
-                    <option value="Fast">Fast</option>
-                    <option value="Faster">Faster</option>
-                    </select>
+</head>
 
-            </div>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="#" class="logo-link">
+            Storefront Calendar<span id="logo-caret" class="icon"></span>
+          </a>
+          <ul>
+            <li><?= anchor('account/form_new_user', 'Add New User') ?></li>
+            <li><?= anchor('account/form_edit_user', 'Edit User') ?></li>
+            <li><?= anchor('account/form_new_client', 'Add New Client') ?></li>
+            <li><?= anchor('account/form_edit_client', 'Edit Client') ?></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
 
-        </div>
+  <div id="calendar"></div>
 
-    </body>
+</body>
 </html>
-
-
