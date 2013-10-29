@@ -103,19 +103,6 @@ nav ul ul a:hover {
 }
 
 
-
-nav ul {
-    box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
-    width: 100%;
-    padding: 0 0px; 
-    list-style: none;
-    position: relative;
-    top:0px;
-    display: inline-table;
-    margin-top: 0px;
-}
-
-
 .imageIcon{
     padding:0px;
     width:40px;
