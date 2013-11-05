@@ -33,7 +33,7 @@ class Client_model extends CI_Model
 		$query = $this->db->query("SELECT * FROM client;");
 
 		foreach ($query->result('Client') as $row) {
-			$clients[$row->id] = $row->name;
+			$clients[$row->id] = $row->agency;
 		}
 
 		return $clients;
@@ -76,12 +76,13 @@ class Client_model extends CI_Model
 			return null;
 	}
         
-        // Show users
+    //Shows all clients
     function display_all_clients() {
         $query = $this->db->select('*')->from('client')->get();
         return $query->result();
     }
     
+    //TO DO: delete users properly
     function delete_client($id){
     	$this->db->delete('user', array('clientid' => $id));
         $this->db->delete('client', array('id' => $id));
