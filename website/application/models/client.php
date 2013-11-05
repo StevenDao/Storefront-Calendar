@@ -11,45 +11,42 @@
 class Client
 {
 	public $id;
-	public $name;
-	public $partnername;
-	public $programname;
+	public $agency;
+	public $program;
+        public $category;
 	public $manager;
-	public $managerposition;
-	public $programfc;
-	public $fcposition;
-	public $address;
+	public $manager_position;
+	public $facilitator;
+	public $facilitator_position;
+        public $address;
 	public $phone;
 	public $fax;
 	public $email;
-	public $agreement;
-	public $insurance;
-	public $salt;
-	public $password;
+	public $agreement_status;
+	public $insurance_status;
 
 
-	// Encrypt a clear-text password by hashing it with SHA-512 and a salt
-	public function encrypt_password($password) {
-		$this->salt = mt_rand();
-		$this->password = hash('sha512', $this->salt . $password);
-	}
+    // Encrypt a clear-text password by hashing it with SHA-512 and a salt
+    public function encrypt_password($clearPassword) {
+        $this->salt = mt_rand();
+        $this->password = hash('sha512', $this->salt . $clearPassword);
+    }
+    
+    
+    // Initializes the password to a random value
+    public function init() {
+        $clearPassword = mt_rand();
+        $this->encrypt_password($clearPassword);
+        return $clearPassword;
+    }
 
-
-	// Initializes the password to a random value
-	public function init() {
-		$password = mt_rand();
-		$this->encrypt_password($password);
-		return $password;
-	}
-
-	// Check to see if a given clear-text password matches this user's password
-	public function compare_password($password) {
-		if ($this->password == hash('sha512', $this->salt . $password)) {
-			return true;
-		}
-		return false;
-	}
+    // Check to see if a given clear-text password matches this user's password
+    public function compare_password($clearPassword) {
+        $hashed_password = hash('sha512', $this->salt . $clearPassword);
+        if ($this->password == $hashed_password) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
-
-/* End of file client.php */
-/* Location: ./application/models/client.php */

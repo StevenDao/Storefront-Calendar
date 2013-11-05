@@ -3,3 +3,4 @@ website/application/logs/*
 deploy.php
 
 tags
+/website/nbproject/private/
