@@ -88,7 +88,7 @@ class Account extends CI_Controller {
 
     function form_edit_client() {
         $this->load->model('client_model');
-        $data['clients'] = $this->client_model->get_clients();
+        $data['clients'] = $this->client_model->display_all_clients();
         $data['client'] = new Client();
         $this->load->view('account/edit_client', $data);
     }
