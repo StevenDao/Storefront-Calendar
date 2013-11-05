@@ -83,8 +83,8 @@ class Client_model extends CI_Model
     }
     
     function delete_client($id){
-        $this->db->where('id', $id);
-        return $this->db->delete('client');
+        $this->db->delete('client', array('id' => $id));
+        $this->db->delete('user', array('clientid' => $id));
     }
 }
 ?>
