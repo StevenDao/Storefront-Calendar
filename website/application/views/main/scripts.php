@@ -1,13 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<title></title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<link rel="stylesheet" type="text/css" href="<?= base_url() ?>css/reset.css" />
-<link rel="stylesheet" href="<?= base_url() ?>fullcalendar/fullcalendar.css" />
-<link rel="stylesheet" href="<?= base_url() ?>css/clientPage.css" />
-
 <script src='<?= base_url() ?>fullcalendar/lib/jquery.min.js'></script>
 <script src='<?= base_url() ?>fullcalendar/lib/jquery-ui.custom.min.js'></script>
 <script src="<?= base_url() ?>/js/jquery.timers.js"></script>
@@ -59,29 +49,3 @@ $(document).ready(function() {
 
 
 </script>
-
-</head>
-
-<body>
-  <header>
-    <nav>
-      <ul>
-        <li>
-          <a href="#" class="logo-link">
-            Storefront Calendar<span id="logo-caret" class="icon"></span>
-          </a>
-          <ul>
-            <li><?= anchor('account/form_new_user', 'Add New User') ?></li>
-            <li><?= anchor('account/form_edit_user', 'Edit User') ?></li>
-            <li><?= anchor('account/form_new_client', 'Add New Client') ?></li>
-            <li><?= anchor('account/form_edit_client', 'Edit Client') ?></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </header>
-
-  <div id="calendar"></div>
-
-</body>
-</html>

@@ -29,7 +29,13 @@ class Main extends CI_Controller
 			$data['message'] = $message;
 
 		$data['user'] = $this->session->userdata('user');
-		$this->load->view('main', $data);
+
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'main/body';
+		$data['scripts'] = 'main/scripts';
+		$data['styles'] = 'main/styles';
+
+		$this->load->view('template', $data);
 	}
 
 	function get_events() {

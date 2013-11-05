@@ -1,0 +1,18 @@
+<header>
+<nav>
+<ul>
+    <li>
+    <a href="<?php echo base_url(); ?>" class="logo-link">
+        Storefront Calendar
+        <span class="logo-caret icon"></span>
+    </a>
+    <ul>
+        <li><?= anchor('account/form_new_user', 'Add New User') ?></li>
+        <li><?= anchor('account/form_edit_user', 'Edit User') ?></li>
+        <li><?= anchor('account/form_new_client', 'Add New Client') ?></li>
+        <li><?= anchor('account/form_edit_client', 'Edit Client') ?></li>
+    </ul>
+    </li>
+</ul>
+</nav>
+</header>
