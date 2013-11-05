@@ -37,7 +37,7 @@ class Account extends CI_Controller {
     }
 
     function index() {
-        $this->load->view('account/loginForm');
+        $this->load->view('account/login');
     }
 
     /*
