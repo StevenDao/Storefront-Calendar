@@ -576,7 +576,6 @@ class Account extends CI_Controller {
         }
         else{    
             $this->client_model->delete_client($client_id);
-            $this->user_model->delete_clients($client_id);
             redirect("account/form_edit_client", "refresh");
         }
         
