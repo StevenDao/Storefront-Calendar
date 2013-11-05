@@ -2,7 +2,8 @@
 
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" media="all" href="<?= base_url() ?>css/deletepage.css"/>
+	    <link rel="stylesheet" type="text/css" media="all" href="<?= base_url() ?>css/reset.css"/>
+	    <link rel="stylesheet" type="text/css" media="all" href="<?= base_url() ?>css/newForm.css"/>
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<h1>Modify Users</h1>
 		<script>
@@ -18,83 +19,90 @@
 	</head>
 	
 	<body>
-		<div class='main'>
-			<?php foreach($query as $row): ?>
-				<div class='container'>
-					<h2><?php echo $row->login; ?></h2>
-					
-					<ul>
-						<li>
-						<?php
-						
-						echo form_open('account/edit_user'); 
-						echo form_label("First Name : ");
-	                    echo form_input(array(
-							'name' => "first",
-	                        'class' => $row->login,
-	                        'value' => $row->first,
-	                        'required' => 'required',
-							'disabled' => 'true'
-	                    ));
-						?>
-					</li>
-					<input type="hidden" name="loginID" value = <?php echo $row->login; ?>>
-					<li>
-						<?php
-						echo form_label("Last Name : ");
-	                    echo form_input(array(
-							'name'	=> "last",
-	                        'class' => $row->login,
-	                        'value' => $row->last,
-	                        'required' => 'required',
-							'disabled' => 'true'
-	                    ));
-						?>
-					</li>
-					
-					<li>
-						<?php
-						echo form_label("Email ID &nbsp&nbsp&nbsp&nbsp;: ");
-	                    echo form_input(array(
-							'name' => 'email',
-	                        'class' => $row->login,
-	                        'value' => $row->email,
-	                        'required' => 'required',
-							'disabled' => 'true'
-						));
-						echo form_submit(array(
-							'name' => "save",
-							'class'=> "$row->login specialSubmit",
-						    'value' =>  "SAVE"
-						));
-						 echo form_close();
-								
-	                   
-						?>
-					</li>	
-					
-					</ul>
-					
-					
-					
-					<button id="editable" type="button" class="specialSubmit extraSpecial" onClick='edit("<?php echo $row->login?>")'>EDIT</button>
-					<?php 
-						echo form_open('account/delete_user'); 
-					?>
-					<p>
-						<input type="hidden" name="loginID" value = <?php echo $row->login; ?>>
-						<?php echo form_submit(array(
-						                       		'name' => $row->login,
-													'class' => "close",
-						                        	'value' =>  "X"
-						                        	));?>
-					</p>
-						
-					<?php 
-						echo form_close();
-					?>
-				</div>					
-			<?php endforeach; ?>
-		</div>
+		<?php $options = array();
+				if($user->login == ""){
+					$options["Select user"] = "Select user";
+				}
+				foreach ($query as $row):
+					$options["$row->login"] = "$row->login";
+				endforeach;
+		?>
+		<p>&nbsp;&nbsp;&nbsp;&nbsp;Add New User</p>
+		
+		<table> 
+			<tr>
+			    <td>
+			      <?php
+			          echo form_open('account/change_user');
+			          echo form_label('username');
+			          echo form_error('username');
+					  $js = "value='$user->login' onChange='this.form.submit()'";
+			          echo form_dropdown('user', $options, $user->login, $js);
+					  echo form_close();
+			      ?>
+		    	</td>
+			</tr>
+			<tr>
+			    <td>
+			      <?php
+				      $hidden = array("login" => "$user->login");
+				      echo form_open("account/edit_user", "", $hidden); 
+			          echo form_label("First Name");
+			          echo form_error('first');
+			          echo form_input(array(
+			              'name' => 'first',
+						  "value" => "$user->first",
+			              'required' => 'required'
+			          ));
+			      ?>
+		    	</td>
+			    <td>
+			      <?php
+			          echo form_label("Last Name");
+			          echo form_error('last');
+			          echo form_input(array(
+			              'name' => 'last',
+						  "value" => "$user->last",
+			              'required' => 'required'
+			          ));
+			      ?>
+		    	</td>
+		  </tr>
+			  <tr >
+			    <td rowspan="1">
+			      <?php
+			          echo form_label('Email Address');
+			          echo form_error('email');
+			          echo form_input(array(
+			              'name' => 'email',
+			              'value' => "$user->email",
+			              'required' => 'required',
+			          ));
+			      ?>
+		    </td>
+		  </tr>
+			  <tr>
+			    <td>
+			      <?php
+			          echo form_submit(array(
+			              'name' => 'submit',
+			              'value' => 'Register',
+			              'style' => 'float:right;'));
+						  echo form_close();
+			      ?>
+		    </td>
+			    <td>
+			      <?php
+				      echo form_open("account/delete_user", "", $hidden); 
+			          echo form_submit('submit', "Delete");  
+			          echo form_close();
+			      ?>
+		    </td>
+		  </tr>
+			  <tr height=70px">
+		  </tr>
+		</table>
+		
+		
 	</body>
 </html>

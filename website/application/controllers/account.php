@@ -63,6 +63,7 @@ class Account extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->model('user_model');
 		$data['query'] = $this->user_model->displayAllUsers();
+		$data['user'] = new User();
 		$this->load->view('account/edit_user', $data);
 	}
 
@@ -120,6 +121,8 @@ class Account extends CI_Controller
 				$data = array('user' => $user);
 				$this->session->set_userdata($data);
 				$data['user'] = $user;
+				//to easily retrive the login id later
+				$this->session->set_userdata("login", $user->login);
 
 				redirect('main/index', 'refresh'); //redirect to the main application page
 			} else {
@@ -296,68 +299,105 @@ class Account extends CI_Controller
 	
 	/*
 	 * Remove specific user and all infos that related to this user
-	 */
-	
-	
-	
+	 */	
 	function delete_user(){
 		
 		
-		$login = $this->input->post('loginID');
+		$login = $this->input->post('login');
 		$this->load->model('user_model');
 		$user = $this->user_model->get($login);
-		$currentlogin = $_SESSION['user']->login;
+		$currentlogin = $this->session->userdata('login');
 		
-		if($currentlogin == $user->login){
-			redirect('account/modifyuser', 'refresh');		
+		if($currentlogin == $login){
+			redirect('account/form_edit_user', 'refresh');		
 		}	
-		if($currentlogin != $user->login){
-			$this->user_model->deleteUser($user->login);		
-			redirect('account/modifyuser', 'refresh');
+		if($currentlogin != $login){
+			$this->user_model->deleteUser($login);
+			$this->session->set_flashdata('message',
+				"The user " .
+				$user->first . " " . $user->last .
+				" has been deleted!");		
+			redirect('account/form_edit_user', 'refresh');	
 		}				
 	}
 	
+	function change_user(){
+		$login_id = $this->input->post('user');
+		
+		$this->load->model('user_model');
+		$user = $this->user_model->get($login_id);
+		
+		$data["user"] = $user;
+		$data["query"] = $this->user_model->displayAllUsers();
+		
+		$this->load->view('account/edit_user', $data);
+	}
+	
+	/*Edit the user's information*/
 	function edit_user(){
+		
+		$login = $this->input->post('login');
+		$this->load->model('user_model');
+		$user = $this->user_model->get($login);
 	
 		$this->load->library('form_validation');
 	
     	$this->form_validation->set_rules('first', 'First', 'required|max_length[20]');
 		$this->form_validation->set_rules('last', 'Last', 'required|max_length[20]');
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[120]');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[120]|callback_email_check');
 		
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			redirect('account/modifyuser', 'refresh');		
+			$data["user"] = $user;
+			$data["query"] = $this->user_model->displayAllUsers();
+			
+			$this->load->view('account/edit_user', $data);			
 		}
+		
 		if ($this->form_validation->run() == TRUE)
 		{
 			$first = $this->input->post('first');
 			$last = $this->input->post('last');
 			$email = $this->input->post('email');
-			$login = $this->input->post('loginID');
-		
-			$this->load->model('user_model');
-			$user = $this->user_model->get($login);
-		
-			if(($first == $user->first)&&($last == $user->last)&&($email == $user->email)){
-				redirect('account/modifyuser', 'refresh');
-			}
-			if(!(($first == $user->first)&&($last == $user->last)&&($email == $user->email))){
-				if(($first != $user->first)||($last != $user->last)){
-					$user->first = $first;
-					$user->last = $last;
-					$this->user_model->updateName($user);
-				}
 			
-				if(($email !=$user->email)&&($this->user_model->getSameEmail($email))){
-					$user->email = $email;
-					$this->user_model->updateEmail($user);
-				}
+		
+			$user->first = $first;
+			$user->last = $last;
+			$user->email = $email;
+				
+		
+		    $this->user_model->updateEmail($user);
+			$this->user_model->updateName($user);
 			
-				redirect('account/modifyuser', 'refresh');			
+			$data["user"] = $user;
+			$data["query"] = $this->user_model->displayAllUsers();
+		
+			$this->load->view('account/edit_user', $data);		
 			}			
 		}
+	
+	
+	/*Check the given email is already exist in database or not*/
+	public function email_check($email){
+		
+		$login = $this->input->post('login');
+		
+		$this->load->model("user_model");
+		$user = $this->user_model->get($login);
+		
+		if($user->email != $email){
+			if($this->user_model->getSameEmail($email)){
+				return TRUE;
+			}
+			else{
+				$this->form_validation->set_message("email_check", "The email already exists");
+				return FALSE;
+			}
+		}
+		
+		
+		
 	}
 
 	/*
