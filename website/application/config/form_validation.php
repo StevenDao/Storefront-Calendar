@@ -37,12 +37,6 @@ $config = array(
 	'account/create_new_client' => array(
 		
 		array(
-			'field' => 'name',
-			'label' => 'Name',
-			'rules' => 'required|is_unique[client.name]|min_length[3]|max_length[50]'
-		),
-		
-		array(
 			'field' => 'partnername',
 			'label' => 'Partnername',
 			'rules' => 'required|max_length[60]'
@@ -75,19 +69,18 @@ $config = array(
 		array(
 			'field' => 'phone',
 			'label' => 'Phone',
-			'rules' => 'required|is_unique[client.phone]|alpha_dash'
+			'rules' => 'required|alpha_dash'
 		),
 			
 		array(
 			'field' => 'fax',
-			'label' => 'Fax',
-			'rules' => 'is_unique[client.fax]|alpha_dash'
+			'label' => 'Fax'
 		),
 		
 		array(
 			'field' => 'email',
 			'label' => 'Email',
-			'rules' => 'required|valid_email|max_length[120]|is_unique[user.email]'
+			'rules' => 'required|max_length[120]'
 		),
 		
 		array(
@@ -100,26 +93,64 @@ $config = array(
 			'field' => 'insurance',
 			'label' => 'Insurance',
 			'rules' => 'max_length[40]'
-		),
-		
-		array(
-			'field' => 'password',
-			'label' => 'Password',
-			'rules' => 'required|min_length[6]'
-		),
-		
-		array(
-			'field' => 'passconf',
-			'label' => 'Passconf',
-			'rules' => 'required|min_length[6]|matches[password]'
 		)
+		
 	),
 
 	'account/edit_client' => array(
+		
+		array(
+			'field' => 'managerposition',
+			'label' => 'Managerposition',
+			'rules' => 'required|max_length[60]'
+		),
+		
+		array(
+			'field' => 'programfc',
+			'label' => 'Programfc',
+			'rules' => 'required|max_length[60]'
+		),
+		
+		array(
+			'field' => 'fcposition',
+			'label' => 'Fcposition',
+			'rules' => 'required|max_length[60]'
+		),
+		
+		array(
+			'field' => 'address',
+			'label' => 'Address',
+			'rules' => 'required'
+		),
+		
 		array(
 			'field' => 'phone',
 			'label' => 'Phone',
-			'rules' => 'is_unique[client.phone]|alpha_dash'
+			'rules' => 'required'
+		),
+			
+		array(
+			'field' => 'fax',
+			'label' => 'Fax',
+			'rules' => 'alpha_dash'
+		),
+		
+		array(
+			'field' => 'email',
+			'label' => 'Email',
+			'rules' => 'required|max_length[120]'
+		),
+		
+		array(
+			'field' => 'agreement',
+			'label' => 'Agreement',
+			'rules' => 'max_length[40]'
+		),
+		
+		array(
+			'field' => 'insurance',
+			'label' => 'Insurance',
+			'rules' => 'max_length[40]'
 		)
 	)
 	
