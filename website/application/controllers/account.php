@@ -167,15 +167,15 @@ class Account extends CI_Controller {
             $user->login = $this->input->post('username');
             $user->first = $this->input->post('first');
             $user->last = $this->input->post('last');
-            $clearPassword = $this->input->post('password');
-            $user->encryptPassword($clearPassword);
+            $clear_password = $this->input->post('password');
+            $user->encrypt_password($clear_password);
             $user->clientid = intval($this->input->post("agency"));
             $user->usertype = intval($this->input->post("type"));
 
             $user->email = $this->input->post('email');
 
-            $newuser = $user->login;
-            $newPassword = $clearPassword;
+            $new_user = $user->login;
+            $new_password = $clear_password;
             $this->load->library('email');
 
             $config['protocol'] = 'smtp';
@@ -197,8 +197,8 @@ class Account extends CI_Controller {
 
             $this->email->subject('eaststorefront account successfully created');
             $this->email->message("
-				welcome to eaststorefront $newuser
-				Your password is $newPassword , please remember it ");
+				welcome to eaststorefront $new_user
+				Your password is $new_password , please remember it ");
 
             $result = $this->email->send();
 
