@@ -1,0 +1,7 @@
+Please login trello board with the account below to check program schedule.
+
+Gmail:  csc301ta@gmail.com
+Password: csc301h1
+
+First login the google account, then go to trello, choose login with google account, and choose csc301ta@gmail.com account
+to get access to the trello board. Now you can go through the board infomation as a private member. 
