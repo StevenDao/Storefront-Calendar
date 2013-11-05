@@ -2,8 +2,13 @@
 
 /*
  * TODO: Add validation for the email and ensure that the email is valid.
+ * TODO: Add a new form for adding a client.(DONE)
+ * TODO: Add a new form for editing a client (should load the old values and
+ *       then allow changing the values and update the database after updating). It
+ *       should also validate that all the values are valid. (ALMOST)
  *
- * TODO: Create validation for edit_client, s0 that all the values are valid.
+ * CLARK TODO: Please add a separate email function so that email functionality is
+ *             not repeated code over and over again.
  */
 
 class Account extends CI_Controller {
@@ -19,7 +24,14 @@ class Account extends CI_Controller {
 
         $user = $this->session->userdata('user');
 
-        $protected = array('updatePasswordForm', 'updatePassword', 'logout');
+        $protected = array(
+            'form_update_password',
+            'update_password',
+            'form_recover_password',
+            'recover_password',
+            'logout'
+        );
+
         $admin = array('form_new_user', 'form_new_client', 'create_new_user', 'create_new_client');
 
         /* Check if the user is logged in */
@@ -47,7 +59,7 @@ class Account extends CI_Controller {
     function form_new_user() {
         $this->load->model('client_model');
         $data['clients'] = $this->client_model->display_all_clients();
-        $this->load->view('account/new_user', $data);
+        $this->load->view('account/new_user');
     }
 
     /*
@@ -64,11 +76,9 @@ class Account extends CI_Controller {
         $this->load->model('user_model');
         $this->load->model("client_model");
 
-        $user = new User();
         $data['query'] = $this->user_model->display_all_users();
         $data['clients'] = $this->client_model->display_all_clients();
-        $data['user'] = $user;
-
+        $data['user'] = new User();
         $this->load->view('account/edit_user', $data);
     }
 
@@ -78,7 +88,7 @@ class Account extends CI_Controller {
 
     function form_edit_client() {
         $this->load->model('client_model');
-        $data['clients'] = $this->client_model->display_all_clients();
+        $data['clients'] = $this->client_model->get_clients();
         $data['client'] = new Client();
         $this->load->view('account/edit_client', $data);
     }
@@ -119,17 +129,17 @@ class Account extends CI_Controller {
             $this->load->view('account/login');
         } else {
             $login = $this->input->post('username');
-            $clearPassword = $this->input->post('password');
+            $password = $this->input->post('password');
 
             $this->load->model('user_model');
 
             $user = $this->user_model->get($login);
 
-            if (isset($user) && $user->compare_password($clearPassword)) {
+            if (isset($user) && $user->compare_password($password)) {
                 $data = array('user' => $user);
                 $this->session->set_userdata($data);
                 $data['user'] = $user;
-                
+                //to easily retrive the login id later
                 $this->session->set_userdata("login", $user->login);
 
                 redirect('main/index', 'refresh'); //redirect to the main application page
@@ -145,7 +155,7 @@ class Account extends CI_Controller {
 
     function logout() {
         $this->session->unset_userdata('user');
-        redirect('account/index', 'refresh'); //Then we redirect to the index page again
+        redirect('account/index', 'refresh');
     }
 
     /*
@@ -158,24 +168,19 @@ class Account extends CI_Controller {
         $this->load->library('form_validation');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->model('client_model');
-            $data['clients'] = $this->client_model->display_all_clients();
-            $this->load->view('account/new_user', $data);
+            $this->load->view('account/new_user');
         } else {
             $user = new User();
 
             $user->login = $this->input->post('username');
             $user->first = $this->input->post('first');
             $user->last = $this->input->post('last');
-            $clear_password = $this->input->post('password');
-            $user->encrypt_password($clear_password);
+            $password = $this->input->post('password');
+            $user->encrypt_password($password);
+            $user->email = $this->input->post('email');
             $user->clientid = intval($this->input->post("agency"));
             $user->usertype = intval($this->input->post("type"));
 
-            $user->email = $this->input->post('email');
-
-            $new_user = $user->login;
-            $new_password = $clear_password;
             $this->load->library('email');
 
             $config['protocol'] = 'smtp';
@@ -197,13 +202,11 @@ class Account extends CI_Controller {
 
             $this->email->subject('eaststorefront account successfully created');
             $this->email->message("
-				welcome to eaststorefront $new_user
-				Your password is $new_password , please remember it ");
+                                welcome to eaststorefront $user->login
+                                Your password is $password , please remember it ");
 
             $result = $this->email->send();
 
-            // Placeholder until actual client functionality is made
-           
             $this->load->model('user_model');
 
             $this->user_model->insert($user);
@@ -214,15 +217,15 @@ class Account extends CI_Controller {
             redirect('main/index', 'refresh'); //redirect to the main application page
         }
     }
-    
 
     /*
      * Update the password of the current logged in user.
      */
+
     function update_password() {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('oldPassword', 'Old Password', 'required');
-        $this->form_validation->set_rules('newPassword', 'New Password', 'required');
+        $this->form_validation->set_rules('old_password', 'Old Password', 'required');
+        $this->form_validation->set_rules('new_password', 'New Password', 'required');
 
 
         if ($this->form_validation->run() == FALSE) {
@@ -230,15 +233,15 @@ class Account extends CI_Controller {
         } else {
             $user = $this->session->userdata('user');
 
-            $oldPassword = $this->input->post('old_password');
-            $newPassword = $this->input->post('new_password');
+            $old_password = $this->input->post('old_password');
+            $new_password = $this->input->post('new_password');
 
-            if ($user->comparePassword($oldPassword)) {
-                $user->encryptPassword($newPassword);
+            if ($user->compare_password($old_password)) {
+                $user->encrypt_password($new_password);
                 $this->load->model('user_model');
-                $this->user_model->updatePassword($user);
+                $this->user_model->update_password($user);
                 $data['user'] = $user;
-                $this->load->view('mainPage', $data);
+                $this->load->view('main', $data);
             } else {
                 $data['errorMsg'] = "Incorrect password!";
                 $this->load->view('account/update_password', $data);
@@ -246,10 +249,10 @@ class Account extends CI_Controller {
         }
     }
 
-    
     /*
      * Recover the password by using the emailing system.
      */
+
     function recover_password() {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('email', 'email', 'required');
@@ -306,7 +309,6 @@ class Account extends CI_Controller {
      */
 
     function delete_user() {
-
         $login = $this->input->post('login');
         $this->load->model('user_model');
 
@@ -319,10 +321,6 @@ class Account extends CI_Controller {
             redirect("account/form_edit_user", "refresh");
         }
     }
-
-    /*
-     * Fill up the edit form with choosen user's information
-     */
 
     function change_user() {
         $login = $this->input->post('category');
@@ -338,12 +336,10 @@ class Account extends CI_Controller {
         $this->load->view('account/edit_user', $data);
     }
 
-    /*
-     * Edit choosen user's information and update it on the databease
-     */
+    /* Edit the user's information */
 
     function edit_user() {
-
+        
         $this->load->model('user_model');
         $this->load->model("client_model");
 
@@ -375,6 +371,7 @@ class Account extends CI_Controller {
             $user->clientid = $client_id;
             $user->usertype = $user_type;
 
+            //TO DO : update only one function for efficiency
             $this->user_model->update_email($user);
             $this->user_model->update_name($user);
             $this->user_model->update_usertype($user);
@@ -386,43 +383,39 @@ class Account extends CI_Controller {
 
             $this->load->view('account/edit_user', $data);
         }
+        
     }
-    
 
     /*
      * Check the given email is already exist in database or not
      * XXX: What is this function for? Unique elements can be checked
      *      automatically by doing is_unique[user.email] when validating forms.
-     *  Thurai : is_unique will give false if user's email is not change
-     *           for example : if user edit his name but not the email, 
-     *           is_unique will return false for email because user's email is already in database 
+     * Thurai : is_unique will fail because if user didn't change email the email will be in database hence it no unique
      */
 
     public function email_check($email) {
 
         $login = $this->input->post('login');
-        $this->load->model('user_model');
+
+        $this->load->model("user_model");
         $user = $this->user_model->get($login);
 
         if ($user->email != $email) {
             if ($this->user_model->get_same_email($email)) {
                 return TRUE;
             } else {
-                $this->form_validation->set_message('email_check', 'The email is already exist');
+                $this->form_validation->set_message("email_check", "The email already exists");
                 return FALSE;
             }
         }
     }
 
-    
     /*
      * Create a new client and add it to the database. Very simplified version
      * of a client for now.
      *
      * TODO: Create a more sophisticated client class and associated database
      * table for it.
-     * 
-     * DONE!
      */
 
     function create_new_client() {
@@ -447,11 +440,10 @@ class Account extends CI_Controller {
             $client->agreement_status = $this->input->post('agreement_status');
             $client->insurance_status = $this->input->post('insurance');
             $client->category = $this->input->post('category');
-            
 
-           /*
-            I'm not really sure whether we should do the email things here or not, so I just commented it out
-            * Zenghya or Clark plase have a look into it.
+            /*
+            $newclient = $client->name;
+            $newPassword = $clearPassword;
             $this->load->library('email');
 
             $config['protocol'] = 'smtp';
@@ -473,12 +465,12 @@ class Account extends CI_Controller {
 
             $this->email->subject('eaststorefront account successfully created');
             $this->email->message("
-				welcome to eaststorefront $newclient
-				Your password is $newPassword , please remember it ");
+                                welcome to eaststorefront $newclient
+                                Your password is $newPassword , please remember it ");
 
             $result = $this->email->send();
-            * 
-            */
+             * 
+             */
 
             $this->load->model('client_model');
 
@@ -490,7 +482,7 @@ class Account extends CI_Controller {
             redirect('main/index', 'refresh'); //redirect to the main application page
         }
     }
-    
+
     /*
      * Update client's data according to choosen client
      * 
@@ -506,20 +498,14 @@ class Account extends CI_Controller {
         $this->load->view('account/edit_client', $data);
     }
     
-
     /*
      * Create a new client and add it to the database. Very simplified version
      * of a client for now.
      *
      * TODO: Create a more sophisticated client class and associated database
-     * table for it. (I guess it is done)
-     * 
-     * Thurai: I changed the form_validation/edit_client and i removed 
-     *          is_unique and is_alpha constraints for phone and email because it doesn't
-     *          make sense to make emails exclusive for client
-     * 
-     * 
+     * table for it.
      */
+
     function edit_client() {
         $this->load->model('client_model');
 
@@ -534,9 +520,6 @@ class Account extends CI_Controller {
 
             $this->load->view('account/edit_client', $data);
         } else {
-
-
-
             $client->program = $this->input->post('programname');
             $client->manager = $this->input->post('manager');
             $client->manager_position = $this->input->post('managerposition');
@@ -558,10 +541,15 @@ class Account extends CI_Controller {
             $data['clients'] = $this->client_model->display_all_clients();
             $data['client'] = $client;
 
-            $this->load->view('account/edit_client', $data); //redirect to the main application page
+            $this->load->view('account/edit_client', $data); 
         }
     }
     
+    
+    /*
+     * delete clients from database
+     * TO DO: delete all the connected users as well
+     */
     function delete_client(){
         $this->load->model('client_model');
         $this->load->model('user_model');
