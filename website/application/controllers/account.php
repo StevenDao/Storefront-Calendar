@@ -59,7 +59,7 @@ class Account extends CI_Controller {
     function form_new_user() {
         $this->load->model('client_model');
         $data['clients'] = $this->client_model->display_all_clients();
-        $this->load->view('account/new_user');
+        $this->load->view('account/new_user', $data);
     }
 
     /*
