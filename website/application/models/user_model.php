@@ -118,7 +118,7 @@ class User_model extends CI_Model {
      */
     function delete_user($login){
         $this->db->where('login', $login);
-        $this->db->delete('user');
+        return $this->db->delete('user');
     }
     
     /*
@@ -126,6 +126,6 @@ class User_model extends CI_Model {
      */
     function delete_clients($client_id){
         $this->db->where('clientid', $client_id);
-        $this->db->delete('user');
+        return $this->db->delete('user');
     }
 }
