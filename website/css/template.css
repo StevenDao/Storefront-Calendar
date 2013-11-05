@@ -47,6 +47,16 @@ header {
     background-repeat: no-repeat;
 }
 
+#logout {
+    width: 77px;
+    border-right: none;
+    margin-left: auto;
+    margin-right: 10px;
+    background-image: url(../images/logout.png);
+    background-position: 15px 5px;
+    background-repeat: no-repeat;
+}
+
 /*
  * Header styles for the drop-down navigation toolbar.
  */
@@ -58,6 +68,8 @@ nav ul ul { display: none; width:100%; position:absolute; left:0; background:#6a
 nav ul ul li { float:none; }
 nav ul ul a { width: 205px; display: block; padding: 5px 10px; color: #BBB; line-height: 20px; text-decoration: none; }
 nav ul ul a:hover { color: #FFF; background-color: #333; text-decoration: none; border-radius: 3px; }
+
+
 
 /*
  * Generic classes that may be used anywhere

@@ -15,4 +15,6 @@
     </li>
 </ul>
 </nav>
+
+<?= anchor('account/logout', 'Logout', 'class="logo-link" id=logout') ?>
 </header>
