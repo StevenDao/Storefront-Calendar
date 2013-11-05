@@ -32,13 +32,13 @@
 		echo "<p>" . $errorMsg . "</p>";
 	}
 
-	echo form_open('account/updatePassword');
+	echo form_open('account/update_password');
 	echo form_label('Current Password');
-	echo form_error('oldPassword');
-	echo form_password('oldPassword',set_value('oldPassword'),"required");
+	echo form_error('old_password');
+	echo form_password('old_password',set_value('old_password'),"required");
 	echo form_label('New Password');
-	echo form_error('newPassword');
-	echo form_password('newPassword','',"id='pass1' required");
+	echo form_error('new_passwordj');
+	echo form_password('new_passwordj','',"id='pass1' required");
 	echo form_label('Password Confirmation');
 	echo form_error('passconf');
 	echo form_password('passconf','',"id='pass2' required oninput='checkPassword();'");

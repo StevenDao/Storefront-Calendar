@@ -6,6 +6,9 @@
  * TODO: Add a new form for editing a client (should load the old values and
  *       then allow changing the values and update the database after updating). It
  *       should also validate that all the values are valid.
+ *
+ * CLARK TODO: Please add a separate email function so that email functionality is
+ *             not repeated code over and over again.
  */
 class Account extends CI_Controller
 {
@@ -20,7 +23,14 @@ class Account extends CI_Controller
 
 		$user = $this->session->userdata('user');
 
-		$protected = array('updatePasswordForm','updatePassword','logout');
+		$protected = array(
+			'form_update_password',
+			'update_password',
+			'form_recover_password',
+			'recover_password',
+			'logout'
+		);
+
 		$admin = array('form_new_user', 'form_new_client', 'create_new_user', 'create_new_client');
 
 		/* Check if the user is logged in */
@@ -40,7 +50,7 @@ class Account extends CI_Controller
 	}
 
 	function index() {
-		$this->load->view('account/loginForm');
+		$this->load->view('account/login');
 	}
 
 	/*
@@ -62,7 +72,7 @@ class Account extends CI_Controller
 	function form_edit_user() {
 		$this->load->library('form_validation');
 		$this->load->model('user_model');
-		$data['query'] = $this->user_model->displayAllUsers();
+		$data['query'] = $this->user_model->display_all_users();
 		$data['user'] = new User();
 		$this->load->view('account/edit_user', $data);
 	}
@@ -79,8 +89,8 @@ class Account extends CI_Controller
 	/*
 	 * Loads the main form for updating your password.
 	 */
-	function updatePasswordForm() {
-		$this->load->view('account/updatePasswordForm');
+	function form_update_password() {
+		$this->load->view('account/update_password');
 	}
 
 	/*
@@ -89,8 +99,8 @@ class Account extends CI_Controller
 	 *
 	 * TODO: The emailing system should be setup.
 	 */
-	function recoverPasswordForm() {
-		$this->load->view('account/recoverPasswordForm');
+	function form_recover_password() {
+		$this->load->view('account/recover_password');
 	}
 
 
@@ -108,16 +118,16 @@ class Account extends CI_Controller
 		$this->form_validation->set_rules('password', 'Password', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('account/loginForm');
+			$this->load->view('account/login');
 		} else {
 			$login = $this->input->post('username');
-			$clearPassword = $this->input->post('password');
+			$password = $this->input->post('password');
 
 			$this->load->model('user_model');
 
 			$user = $this->user_model->get($login);
 
-			if (isset($user) && $user->comparePassword($clearPassword)) {
+			if (isset($user) && $user->compare_password($password)) {
 				$data = array('user' => $user);
 				$this->session->set_userdata($data);
 				$data['user'] = $user;
@@ -136,7 +146,7 @@ class Account extends CI_Controller
 	 */
 	function logout() {
 		$this->session->unset_userdata('user');
-		redirect('account/index', 'refresh'); //Then we redirect to the index page again
+		redirect('account/index', 'refresh');
 	}
 
 
@@ -157,12 +167,10 @@ class Account extends CI_Controller
 			$user->login = $this->input->post('username');
 			$user->first = $this->input->post('first');
 			$user->last = $this->input->post('last');
-			$clearPassword = $this->input->post('password');
-			$user->encryptPassword($clearPassword);
+			$password = $this->input->post('password');
+			$user->encrypt_password($password);
 			$user->email = $this->input->post('email');
 			
-			$newuser = $user->login;
-			$newPassword = $clearPassword;
 			$this->load->library('email');
 
 			$config['protocol']    = 'smtp';
@@ -184,8 +192,8 @@ class Account extends CI_Controller
 
 			$this->email->subject('eaststorefront account successfully created');
 			$this->email->message("
-				welcome to eaststorefront $newuser
-				Your password is $newPassword , please remember it ");
+				welcome to eaststorefront $user->login
+				Your password is $password , please remember it ");
 
 			$result = $this->email->send();
 			
@@ -207,33 +215,33 @@ class Account extends CI_Controller
 	/*
 	 * Update the password of the current logged in user.
 	 */
-	function updatePassword() {
+	function update_password() {
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('oldPassword', 'Old Password', 'required');
-		$this->form_validation->set_rules('newPassword', 'New Password', 'required');
+		$this->form_validation->set_rules('old_password', 'Old Password', 'required');
+		$this->form_validation->set_rules('new_password', 'New Password', 'required');
 
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view('account/updatePasswordForm');
+			$this->load->view('account/update_password');
 		}
 		else
 		{
 			$user = $this->session->userdata('user');
 
-			$oldPassword = $this->input->post('oldPassword');
-			$newPassword = $this->input->post('newPassword');
+			$old_password = $this->input->post('old_password');
+			$new_password = $this->input->post('new_password');
 
-			if ($user->comparePassword($oldPassword)) {
-				$user->encryptPassword($newPassword);
+			if ($user->compare_password($old_password)) {
+				$user->encrypt_password($new_password);
 				$this->load->model('user_model');
-				$this->user_model->updatePassword($user);
-				$data['user']=$user;
-				$this->load->view('mainPage',$data);
+				$this->user_model->update_password($user);
+				$data['user'] = $user;
+				$this->load->view('main', $data);
 			}
 			else {
 				$data['errorMsg']="Incorrect password!";
-				$this->load->view('account/updatePasswordForm',$data);
+				$this->load->view('account/update_password', $data);
 			}
 		}
 	}
@@ -241,28 +249,25 @@ class Account extends CI_Controller
 	/*
 	 * Recover the password by using the emailing system.
 	 */
-	function recoverPassword() {
+	function recover_password() {
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('email', 'email', 'required');
 
-		if ($this->form_validation->run() == FALSE)
-		{
-			$this->load->view('account/recoverPasswordForm');
-		}
-		else
-		{
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('account/recover_password');
+		} else {
 			$email = $this->input->post('email');
 			$this->load->model('user_model');
-			$user = $this->user_model->getFromEmail($email);
+			$user = $this->user_model->get_from_email($email);
 			
 			if(!isset($user)){
 				$this->load->model('client_model');
-				$client = $this->client_model->getFromEmail($email);
+				$client = $this->client_model->get_from_email($email);
 				}
 			
 			if (isset($user) || isset($client)) {
-				$newPassword = $user->initPassword();
-				$this->user_model->updatePassword($user);
+				$password = $user->init();
+				$this->user_model->update_password($user);
 
 				$this->load->library('email');
 
@@ -283,16 +288,16 @@ class Account extends CI_Controller
 				$this->email->to($user->email);
 
 				$this->email->subject('Password recovery');
-				$this->email->message("Your new password is $newPassword , please remember it ");
+				$this->email->message("Your new password is $password , please remember it ");
 
 				$result = $this->email->send();
 				
-				$this->load->view('account/emailPage');
+				$this->load->view('account/email_page');
 
 			}
 			else {
 				$data['errorMsg']="No record exists for this email!";
-				$this->load->view('account/recoverPasswordForm',$data);
+				$this->load->view('account/recover_password',$data);
 			}
 		}
 	}
@@ -300,27 +305,25 @@ class Account extends CI_Controller
 	/*
 	 * Remove specific user and all infos that related to this user
 	 */	
-	function delete_user(){
-		
-		
+	function delete_user() {
 		$login = $this->input->post('login');
 		$this->load->model('user_model');
 		$user = $this->user_model->get($login);
-		$currentlogin = $this->session->userdata('login');
-		
-		if($currentlogin == $login){
-			redirect('account/form_edit_user', 'refresh');		
-		}	
-		if($currentlogin != $login){
-			$this->user_model->deleteUser($login);
+		$current_login = $this->session->userdata('login');
+
+		if($current_login == $login) {
+			redirect('account/form_edit_user', 'refresh');
+		}
+		if($current_login != $login) {
+			$this->user_model->delete_user($login);
 			$this->session->set_flashdata('message',
 				"The user " .
 				$user->first . " " . $user->last .
-				" has been deleted!");		
-			redirect('account/form_edit_user', 'refresh');	
-		}				
+				" has been deleted!");
+			redirect('account/form_edit_user', 'refresh');
+		}
 	}
-	
+
 	function change_user(){
 		$login_id = $this->input->post('user');
 		
@@ -328,7 +331,7 @@ class Account extends CI_Controller
 		$user = $this->user_model->get($login_id);
 		
 		$data["user"] = $user;
-		$data["query"] = $this->user_model->displayAllUsers();
+		$data["query"] = $this->user_model->display_all_users();
 		
 		$this->load->view('account/edit_user', $data);
 	}
@@ -350,9 +353,9 @@ class Account extends CI_Controller
 		if ($this->form_validation->run() == FALSE)
 		{
 			$data["user"] = $user;
-			$data["query"] = $this->user_model->displayAllUsers();
+			$data["query"] = $this->user_model->display_all_users();
 			
-			$this->load->view('account/edit_user', $data);			
+			$this->load->view('account/edit_user', $data);
 		}
 		
 		if ($this->form_validation->run() == TRUE)
@@ -366,19 +369,24 @@ class Account extends CI_Controller
 			$user->last = $last;
 			$user->email = $email;
 				
-		
-		    $this->user_model->updateEmail($user);
-			$this->user_model->updateName($user);
+
+			// TODO: update with only one function for efficiency
+		    $this->user_model->update_email($user);
+			$this->user_model->update_name($user);
 			
 			$data["user"] = $user;
-			$data["query"] = $this->user_model->displayAllUsers();
+			$data["query"] = $this->user_model->display_all_users();
 		
-			$this->load->view('account/edit_user', $data);		
-			}			
+			$this->load->view('account/edit_user', $data);
+			}
 		}
 	
 	
-	/*Check the given email is already exist in database or not*/
+	/*
+	 * Check the given email is already exist in database or not
+	 * XXX: What is this function for? Unique elements can be checked
+	 *      automatically by doing is_unique[user.email] when validating forms.
+	 */
 	public function email_check($email){
 		
 		$login = $this->input->post('login');
@@ -387,7 +395,7 @@ class Account extends CI_Controller
 		$user = $this->user_model->get($login);
 		
 		if($user->email != $email){
-			if($this->user_model->getSameEmail($email)){
+			if($this->user_model->get_same_email($email)){
 				return TRUE;
 			}
 			else{
@@ -429,8 +437,8 @@ class Account extends CI_Controller
 			$client->agreement = $this->input->post('agreement');
 			$client->insurance = $this->input->post('insurance');
 			
-			$clearPassword = $this->input->post('password');
-			$client->encryptPassword($clearPassword);
+			$password = $this->input->post('password');
+			$client->encrypt_password($password);
 			
 			$newclient = $client->name;
 			$newPassword = $clearPassword;

@@ -1,4 +1,5 @@
 <?php
+
 class Client_model extends CI_Model
 {
 	function get_from_name($name) {
@@ -18,15 +19,15 @@ class Client_model extends CI_Model
 		else
 			return null;
 	}
-	
-    function getFromEmail($email) {
-        $this->db->where('email',$email);
-        $query = $this->db->get('client');
-        if ($query && $query->num_rows() > 0)
-            return $query->row(0,'Client');
-        else
-            return null;
-    }
+
+	function get_from_email($email) {
+		$this->db->where('email',$email);
+		$query = $this->db->get('client');
+		if ($query && $query->num_rows() > 0)
+			return $query->row(0,'Client');
+		else
+			return null;
+	}
 
 	function get_clients() {
 		$clients = array();
@@ -48,7 +49,7 @@ class Client_model extends CI_Model
 		return $this->db->update('client', array('address' => $client->address));
 	}
 
-	function getExclusive($name) {
+	function get_exclusive($name) {
 		$sql = "SELECT * FROM client WHERE login=? FOR UPDATE";
 		$query = $this->db->query($sql, array($name));
 		if ($query && $query->num_rows() > 0)
@@ -57,4 +58,6 @@ class Client_model extends CI_Model
 			return null;
 	}
 }
-?>
+
+/* End of file client_model.php */
+/* Location: ./application/models/client_model.php */

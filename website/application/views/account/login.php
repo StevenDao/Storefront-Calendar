@@ -28,7 +28,7 @@
                     <h5 class="specialH">Login</h5>
                     <h5>
                         <?php
-                        echo anchor('account/recoverPasswordForm', 'Forgot Password');
+                        echo anchor('account/recover_password', 'Forgot Password');
                         ?>
                     </h5>
                    

@@ -1,5 +1,6 @@
 <?php
-class Booking_model extends CI_Model {
+class Booking_model extends CI_Model
+{
     
     // Get a booking object by id
     function get($id) {
@@ -144,4 +145,7 @@ class Booking_model extends CI_Model {
         $this->db->delete('booking');
     }
 }
-?>
+
+/* End of file booking_model.php */
+/* Location: ./application/models/booking_model.php */
+

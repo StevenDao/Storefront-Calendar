@@ -153,3 +153,6 @@ class Booking {
     }
     
 }
+
+/* End of file booking.php */
+/* Location: ./application/models/booking.php */

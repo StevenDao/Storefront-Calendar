@@ -17,7 +17,7 @@
 		echo "<p>" . $errorMsg . "</p>";
 	}
 
-	echo form_open('account/recoverPassword');
+	echo form_open('account/recover_password');
 	echo form_label('Email');
 	echo form_error('email');
 	echo form_input('email',set_value('email'),"required");
