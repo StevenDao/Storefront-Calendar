@@ -2,512 +2,585 @@
 
 /*
  * TODO: Add validation for the email and ensure that the email is valid.
- * TODO: Add a new form for adding a client.
- * TODO: Add a new form for editing a client (should load the old values and
- *       then allow changing the values and update the database after updating). It
- *       should also validate that all the values are valid.
  *
- * CLARK TODO: Please add a separate email function so that email functionality is
- *             not repeated code over and over again.
+ * TODO: Create validation for edit_client, s0 that all the values are valid.
  */
-class Account extends CI_Controller
-{
-	function __construct() {
-		// Call the Controller constructor
-		parent::__construct();
-		//session_start();
-	}
 
-	public function _remap($method, $params = array()) {
-		// enforce access control to protected functions
+class Account extends CI_Controller {
 
-		$user = $this->session->userdata('user');
+    function __construct() {
+        // Call the Controller constructor
+        parent::__construct();
+        //session_start();
+    }
 
-		$protected = array(
-			'form_update_password',
-			'update_password',
-			'form_recover_password',
-			'recover_password',
-			'logout'
-		);
+    public function _remap($method, $params = array()) {
+        // enforce access control to protected functions
 
-		$admin = array('form_new_user', 'form_new_client', 'create_new_user', 'create_new_client');
+        $user = $this->session->userdata('user');
 
-		/* Check if the user is logged in */
-		if (in_array($method,array_merge($protected, $admin)) && !$user) {
+        $protected = array('updatePasswordForm', 'updatePassword', 'logout');
+        $admin = array('form_new_user', 'form_new_client', 'create_new_user', 'create_new_client');
 
-			redirect('account/index', 'refresh');
+        /* Check if the user is logged in */
+        if (in_array($method, array_merge($protected, $admin)) && !$user) {
 
-		} else if (in_array($method,$admin) && !$user) {
+            redirect('account/index', 'refresh');
+        } else if (in_array($method, $admin) && !$user) {
 
-			/* Check if the user is an admin */
-			if ($user->usertype != User::ADMIN)
-				redirect('main/index', 'refresh');
+            /* Check if the user is an admin */
+            if ($user->usertype != User::ADMIN)
+                redirect('main/index', 'refresh');
+        }
 
-		}
+        return call_user_func_array(array($this, $method), $params);
+    }
 
-		return call_user_func_array(array($this, $method), $params);
-	}
+    function index() {
+        $this->load->view('account/loginForm');
+    }
 
-	function index() {
-		$this->load->view('account/login');
-	}
+    /*
+     * Loads the main form for making a new user.
+     */
 
-	/*
-	 * Loads the main form for making a new user.
-	 */
-	function form_new_user() {
-		$this->load->view('account/new_user');
-	}
+    function form_new_user() {
+        $this->load->model('client_model');
+        $data['clients'] = $this->client_model->display_all_clients();
+        $this->load->view('account/new_user', $data);
+    }
 
-	/*
-	 * Loads the main form for making a new client.
-	 */
-	function form_new_client() {
-		
-		$this->load->view('account/new_client');
-	}
+    /*
+     * Loads the main form for making a new client.
+     */
 
+    function form_new_client() {
 
-	function form_edit_user() {
-		$this->load->library('form_validation');
-		$this->load->model('user_model');
-		$data['query'] = $this->user_model->display_all_users();
-		$data['user'] = new User();
-		$this->load->view('account/edit_user', $data);
-	}
+        $this->load->view('account/new_client');
+    }
 
-	/*
-	 * Loads the main form for making a new client.
-	 */
-	function form_edit_client() {
-		$this->load->model('client_model');
-		$data['clients'] = $this->client_model->get_clients();
-		$this->load->view('account/edit_client', $data);
-	}
+    function form_edit_user() {
+        $this->load->library('form_validation');
+        $this->load->model('user_model');
+        $this->load->model("client_model");
 
-	/*
-	 * Loads the main form for updating your password.
-	 */
-	function form_update_password() {
-		$this->load->view('account/update_password');
-	}
+        $user = new User();
+        $data['query'] = $this->user_model->display_all_users();
+        $data['clients'] = $this->client_model->display_all_clients();
+        $data['user'] = $user;
 
-	/*
-	 * Loads the main form for recovering your lost password with your email
-	 * that you are associated with.
-	 *
-	 * TODO: The emailing system should be setup.
-	 */
-	function form_recover_password() {
-		$this->load->view('account/recover_password');
-	}
+        $this->load->view('account/edit_user', $data);
+    }
 
+    /*
+     * Loads the main form for making a new client.
+     */
 
+    function form_edit_client() {
+        $this->load->model('client_model');
+        $data['clients'] = $this->client_model->display_all_clients();
+        $data['client'] = new Client();
+        $this->load->view('account/edit_client', $data);
+    }
 
-	/*
-	 * Checks the login credentials as stored in the database.
-	 *
-	 * Runs server-side validation. TODO: Add error messages so the user 
-	 * understands and knows when they have entered the right or wrong 
-	 * credentials.
-	 */
-	function login() {
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('username', 'Username', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
+    /*
+     * Loads the main form for updating your password.
+     */
 
-		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('account/login');
-		} else {
-			$login = $this->input->post('username');
-			$password = $this->input->post('password');
+    function form_update_password() {
+        $this->load->view('account/update_password');
+    }
 
-			$this->load->model('user_model');
+    /*
+     * Loads the main form for recovering your lost password with your email
+     * that you are associated with.
+     *
+     * TODO: The emailing system should be setup.
+     */
 
-			$user = $this->user_model->get($login);
+    function form_recover_password() {
+        $this->load->view('account/recover_password');
+    }
 
-			if (isset($user) && $user->compare_password($password)) {
-				$data = array('user' => $user);
-				$this->session->set_userdata($data);
-				$data['user'] = $user;
-				//to easily retrive the login id later
-				$this->session->set_userdata("login", $user->login);
+    /*
+     * Checks the login credentials as stored in the database.
+     *
+     * Runs server-side validation. TODO: Add error messages so the user 
+     * understands and knows when they have entered the right or wrong 
+     * credentials.
+     */
 
-				redirect('main/index', 'refresh'); //redirect to the main application page
-			} else {
-				redirect('account/index', 'refresh');
-			}
-		}
-	}
+    function login() {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
 
-	/*
-	 * Logs out the current user by unsetting the user class.
-	 */
-	function logout() {
-		$this->session->unset_userdata('user');
-		redirect('account/index', 'refresh');
-	}
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('account/login');
+        } else {
+            $login = $this->input->post('username');
+            $clearPassword = $this->input->post('password');
 
+            $this->load->model('user_model');
 
+            $user = $this->user_model->get($login);
 
-	/*
-	 * The functionality for the form in order to create a new user. It checks 
-	 * the validation of the form and creates a new instance of a User and
-	 * stores it in the database.
-	 */
-	function create_new_user() {
-		$this->load->library('form_validation');
+            if (isset($user) && $user->compare_password($clearPassword)) {
+                $data = array('user' => $user);
+                $this->session->set_userdata($data);
+                $data['user'] = $user;
+                
+                $this->session->set_userdata("login", $user->login);
 
-		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('account/new_user');
-		} else {
-			$user = new User();
+                redirect('main/index', 'refresh'); //redirect to the main application page
+            } else {
+                redirect('account/index', 'refresh');
+            }
+        }
+    }
 
-			$user->login = $this->input->post('username');
-			$user->first = $this->input->post('first');
-			$user->last = $this->input->post('last');
-			$password = $this->input->post('password');
-			$user->encrypt_password($password);
-			$user->email = $this->input->post('email');
-			
-			$this->load->library('email');
+    /*
+     * Logs out the current user by unsetting the user class.
+     */
 
-			$config['protocol']    = 'smtp';
-			$config['smtp_host']    = 'ssl://smtp.gmail.com';
-			$config['smtp_port']    = '465';
-			$config['smtp_timeout'] = '7';
-			$config['smtp_user']    = 'c1chenhu@gmail.com';
-			$config['smtp_pass']    = 'sinceqq123';
-			$config['charset']    = 'utf-8';
-			$config['newline']    = "\r\n";
-			$config['mailtype'] = 'text'; // or html
-			$config['validation'] = TRUE; // bool whether to validate email or not
-			
-			
-			$this->email->initialize($config);
+    function logout() {
+        $this->session->unset_userdata('user');
+        redirect('account/index', 'refresh'); //Then we redirect to the index page again
+    }
 
-			$this->email->from('eaststorefront@storefront.com', 'eaststorefront');
-			$this->email->to($user->email);
+    /*
+     * The functionality for the form in order to create a new user. It checks 
+     * the validation of the form and creates a new instance of a User and
+     * stores it in the database.
+     */
 
-			$this->email->subject('eaststorefront account successfully created');
-			$this->email->message("
-				welcome to eaststorefront $user->login
-				Your password is $password , please remember it ");
+    function create_new_user() {
+        $this->load->library('form_validation');
 
-			$result = $this->email->send();
-			
-			// Placeholder until actual client functionality is made
-			$user->clientid = 1;
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->model('client_model');
+            $data['clients'] = $this->client_model->display_all_clients();
+            $this->load->view('account/new_user', $data);
+        } else {
+            $user = new User();
 
-			$this->load->model('user_model');
+            $user->login = $this->input->post('username');
+            $user->first = $this->input->post('first');
+            $user->last = $this->input->post('last');
+            $clearPassword = $this->input->post('password');
+            $user->encryptPassword($clearPassword);
+            $user->clientid = intval($this->input->post("agency"));
+            $user->usertype = intval($this->input->post("type"));
 
-			$this->user_model->insert($user);
+            $user->email = $this->input->post('email');
 
-			$this->session->set_flashdata('message',
-				"The new user " .
-				$user->first . " " . $user->last .
-				" has been made!");
-			redirect('main/index', 'refresh'); //redirect to the main application page
-		}
-	}
+            $newuser = $user->login;
+            $newPassword = $clearPassword;
+            $this->load->library('email');
 
-	/*
-	 * Update the password of the current logged in user.
-	 */
-	function update_password() {
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('old_password', 'Old Password', 'required');
-		$this->form_validation->set_rules('new_password', 'New Password', 'required');
+            $config['protocol'] = 'smtp';
+            $config['smtp_host'] = 'ssl://smtp.gmail.com';
+            $config['smtp_port'] = '465';
+            $config['smtp_timeout'] = '7';
+            $config['smtp_user'] = 'c1chenhu@gmail.com';
+            $config['smtp_pass'] = 'sinceqq123';
+            $config['charset'] = 'utf-8';
+            $config['newline'] = "\r\n";
+            $config['mailtype'] = 'text'; // or html
+            $config['validation'] = TRUE; // bool whether to validate email or not
 
 
-		if ($this->form_validation->run() == FALSE)
-		{
-			$this->load->view('account/update_password');
-		}
-		else
-		{
-			$user = $this->session->userdata('user');
+            $this->email->initialize($config);
 
-			$old_password = $this->input->post('old_password');
-			$new_password = $this->input->post('new_password');
+            $this->email->from('eaststorefront@storefront.com', 'eaststorefront');
+            $this->email->to($user->email);
 
-			if ($user->compare_password($old_password)) {
-				$user->encrypt_password($new_password);
-				$this->load->model('user_model');
-				$this->user_model->update_password($user);
-				$data['user'] = $user;
-				$this->load->view('main', $data);
-			}
-			else {
-				$data['errorMsg']="Incorrect password!";
-				$this->load->view('account/update_password', $data);
-			}
-		}
-	}
+            $this->email->subject('eaststorefront account successfully created');
+            $this->email->message("
+				welcome to eaststorefront $newuser
+				Your password is $newPassword , please remember it ");
 
-	/*
-	 * Recover the password by using the emailing system.
-	 */
-	function recover_password() {
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('email', 'email', 'required');
+            $result = $this->email->send();
 
-		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('account/recover_password');
-		} else {
-			$email = $this->input->post('email');
-			$this->load->model('user_model');
-			$user = $this->user_model->get_from_email($email);
-			
-			if(!isset($user)){
-				$this->load->model('client_model');
-				$client = $this->client_model->get_from_email($email);
-				}
-			
-			if (isset($user) || isset($client)) {
-				$password = $user->init();
-				$this->user_model->update_password($user);
+            // Placeholder until actual client functionality is made
+           
+            $this->load->model('user_model');
 
-				$this->load->library('email');
+            $this->user_model->insert($user);
 
-				$config['protocol']    = 'smtp';
-				$config['smtp_host']    = 'ssl://smtp.gmail.com';
-				$config['smtp_port']    = '465';
-				$config['smtp_timeout'] = '7';
-				$config['smtp_user']    = 'c1chenhu@gmail.com';
-				$config['smtp_pass']    = 'sinceqq123';
-				$config['charset']    = 'utf-8';
-				$config['newline']    = "\r\n";
-				$config['mailtype'] = 'text'; // or html
-				$config['validation'] = TRUE; // bool whether to validate email or not
+            $this->session->set_flashdata('message', "The new user " .
+                    $user->first . " " . $user->last .
+                    " has been made!");
+            redirect('main/index', 'refresh'); //redirect to the main application page
+        }
+    }
+    
 
-				$this->email->initialize($config);
+    /*
+     * Update the password of the current logged in user.
+     */
+    function update_password() {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('oldPassword', 'Old Password', 'required');
+        $this->form_validation->set_rules('newPassword', 'New Password', 'required');
 
-				$this->email->from('eaststorefront@storefront.com', 'eaststorefront');
-				$this->email->to($user->email);
 
-				$this->email->subject('Password recovery');
-				$this->email->message("Your new password is $password , please remember it ");
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('account/update_password');
+        } else {
+            $user = $this->session->userdata('user');
 
-				$result = $this->email->send();
-				
-				$this->load->view('account/email_page');
+            $oldPassword = $this->input->post('old_password');
+            $newPassword = $this->input->post('new_password');
 
-			}
-			else {
-				$data['errorMsg']="No record exists for this email!";
-				$this->load->view('account/recover_password',$data);
-			}
-		}
-	}
-	
-	/*
-	 * Remove specific user and all infos that related to this user
-	 */	
-	function delete_user() {
-		$login = $this->input->post('login');
-		$this->load->model('user_model');
-		$user = $this->user_model->get($login);
-		$current_login = $this->session->userdata('login');
+            if ($user->comparePassword($oldPassword)) {
+                $user->encryptPassword($newPassword);
+                $this->load->model('user_model');
+                $this->user_model->updatePassword($user);
+                $data['user'] = $user;
+                $this->load->view('mainPage', $data);
+            } else {
+                $data['errorMsg'] = "Incorrect password!";
+                $this->load->view('account/update_password', $data);
+            }
+        }
+    }
 
-		if($current_login == $login) {
-			redirect('account/form_edit_user', 'refresh');
-		}
-		if($current_login != $login) {
-			$this->user_model->delete_user($login);
-			$this->session->set_flashdata('message',
-				"The user " .
-				$user->first . " " . $user->last .
-				" has been deleted!");
-			redirect('account/form_edit_user', 'refresh');
-		}
-	}
+    
+    /*
+     * Recover the password by using the emailing system.
+     */
+    function recover_password() {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('email', 'email', 'required');
 
-	function change_user(){
-		$login_id = $this->input->post('user');
-		
-		$this->load->model('user_model');
-		$user = $this->user_model->get($login_id);
-		
-		$data["user"] = $user;
-		$data["query"] = $this->user_model->display_all_users();
-		
-		$this->load->view('account/edit_user', $data);
-	}
-	
-	/*Edit the user's information*/
-	function edit_user(){
-		
-		$login = $this->input->post('login');
-		$this->load->model('user_model');
-		$user = $this->user_model->get($login);
-	
-		$this->load->library('form_validation');
-	
-    	$this->form_validation->set_rules('first', 'First', 'required|max_length[20]');
-		$this->form_validation->set_rules('last', 'Last', 'required|max_length[20]');
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[120]|callback_email_check');
-		
-		
-		if ($this->form_validation->run() == FALSE)
-		{
-			$data["user"] = $user;
-			$data["query"] = $this->user_model->display_all_users();
-			
-			$this->load->view('account/edit_user', $data);
-		}
-		
-		if ($this->form_validation->run() == TRUE)
-		{
-			$first = $this->input->post('first');
-			$last = $this->input->post('last');
-			$email = $this->input->post('email');
-			
-		
-			$user->first = $first;
-			$user->last = $last;
-			$user->email = $email;
-				
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('account/recover_password');
+        } else {
+            $email = $this->input->post('email');
+            $this->load->model('user_model');
+            $user = $this->user_model->get_from_email($email);
 
-			// TODO: update with only one function for efficiency
-		    $this->user_model->update_email($user);
-			$this->user_model->update_name($user);
-			
-			$data["user"] = $user;
-			$data["query"] = $this->user_model->display_all_users();
-		
-			$this->load->view('account/edit_user', $data);
-			}
-		}
-	
-	
-	/*
-	 * Check the given email is already exist in database or not
-	 * XXX: What is this function for? Unique elements can be checked
-	 *      automatically by doing is_unique[user.email] when validating forms.
-	 */
-	public function email_check($email){
-		
-		$login = $this->input->post('login');
-		
-		$this->load->model("user_model");
-		$user = $this->user_model->get($login);
-		
-		if($user->email != $email){
-			if($this->user_model->get_same_email($email)){
-				return TRUE;
-			}
-			else{
-				$this->form_validation->set_message("email_check", "The email already exists");
-				return FALSE;
-			}
-		}
-		
-		
-		
-	}
+            if (!isset($user)) {
+                $this->load->model('client_model');
+                $client = $this->client_model->get_from_email($email);
+            }
 
-	/*
-	 * Create a new client and add it to the database. Very simplified version
-	 * of a client for now.
-	 *
-	 * TODO: Create a more sophisticated client class and associated database
-	 * table for it.
-	 */
-	function create_new_client() {
-		$this->load->library('form_validation');
+            if (isset($user) || isset($client)) {
+                $password = $user->init();
+                $this->user_model->update_password($user);
 
-		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('account/new_client');
-		} else {
-			$client = new Client();
+                $this->load->library('email');
 
-			$client->name = $this->input->post('name');
-			$client->partnername = $this->input->post('partnername');
-			$client->programname = $this->input->post('programname');
-			$client->manager = $this->input->post('manager');
-			$client->managerposition = $this->input->post('managerposition');
-			$client->programfc = $this->input->post('programfc');
-			$client->fcposition = $this->input->post('fcposition');
-			$client->address = $this->input->post('address');
-			$client->phone = $this->input->post('phone');
-			$client->fax = $this->input->post('fax');
-			$client->email = $this->input->post('email');
-			$client->agreement = $this->input->post('agreement');
-			$client->insurance = $this->input->post('insurance');
-			
-			$password = $this->input->post('password');
-			$client->encrypt_password($password);
-			
-			$newclient = $client->name;
-			$newPassword = $clearPassword;
-			$this->load->library('email');
-			
-			$config['protocol']    = 'smtp';
-			$config['smtp_host']    = 'ssl://smtp.gmail.com';
-			$config['smtp_port']    = '465';
-			$config['smtp_timeout'] = '7';
-			$config['smtp_user']    = 'c1chenhu@gmail.com';
-			$config['smtp_pass']    = 'sinceqq123';
-			$config['charset']    = 'utf-8';
-			$config['newline']    = "\r\n";
-			$config['mailtype'] = 'text'; // or html
-			$config['validation'] = TRUE; // bool whether to validate email or not
-			
-			
-			$this->email->initialize($config);
+                $config['protocol'] = 'smtp';
+                $config['smtp_host'] = 'ssl://smtp.gmail.com';
+                $config['smtp_port'] = '465';
+                $config['smtp_timeout'] = '7';
+                $config['smtp_user'] = 'c1chenhu@gmail.com';
+                $config['smtp_pass'] = 'sinceqq123';
+                $config['charset'] = 'utf-8';
+                $config['newline'] = "\r\n";
+                $config['mailtype'] = 'text'; // or html
+                $config['validation'] = TRUE; // bool whether to validate email or not
 
-			$this->email->from('eaststorefront@storefront.com', 'eaststorefront');
-			$this->email->to($client->email);
+                $this->email->initialize($config);
 
-			$this->email->subject('eaststorefront account successfully created');
-			$this->email->message("
+                $this->email->from('eaststorefront@storefront.com', 'eaststorefront');
+                $this->email->to($user->email);
+
+                $this->email->subject('Password recovery');
+                $this->email->message("Your new password is $password , please remember it ");
+
+                $result = $this->email->send();
+
+                $this->load->view('account/email_page');
+            } else {
+                $data['errorMsg'] = "No record exists for this email!";
+                $this->load->view('account/recover_password', $data);
+            }
+        }
+    }
+
+    /*
+     * Remove specific user and all infos that related to this user
+     */
+
+    function delete_user() {
+
+        $login = $this->input->post('login');
+        $this->load->model('user_model');
+
+        $currentlogin = $this->session->userdata('login');
+
+        if ($currentlogin == $login) {
+            redirect("account/form_edit_user", "refresh");
+        } else {
+            $this->user_model->delete_user($login);
+            redirect("account/form_edit_user", "refresh");
+        }
+    }
+
+    /*
+     * Fill up the edit form with choosen user's information
+     */
+
+    function change_user() {
+        $login = $this->input->post('category');
+
+        $this->load->model('user_model');
+        $this->load->model('client_model');
+        $user = $this->user_model->get($login);
+
+        $data['user'] = $user;
+        $data['query'] = $this->user_model->display_all_users();
+        $data['clients'] = $this->client_model->display_all_clients();
+
+        $this->load->view('account/edit_user', $data);
+    }
+
+    /*
+     * Edit choosen user's information and update it on the databease
+     */
+
+    function edit_user() {
+
+        $this->load->model('user_model');
+        $this->load->model("client_model");
+
+        $login = $this->input->post('login');
+        $user = $this->user_model->get($login);
+
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('first', 'First', 'required|max_length[20]');
+        $this->form_validation->set_rules('last', 'Last', 'required|max_length[20]');
+        $this->form_validation->set_rules('email', 'Email', "required|valid_email|max_length[120]|callback_email_check");
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['user'] = $user;
+            $data['query'] = $this->user_model->display_all_users();
+            $data['clients'] = $this->client_model->display_all_clients();
+            $this->load->view('account/edit_user', $data);
+            
+        } else {
+
+            $first = $this->input->post('first');
+            $last = $this->input->post('last');
+            $email = $this->input->post('email');
+            $client_id = intval($this->input->post('agency'));
+            $user_type = intval($this->input->post('type'));
+
+            $user->first = $first;
+            $user->last = $last;
+            $user->email = $email;
+            $user->clientid = $client_id;
+            $user->usertype = $user_type;
+
+            $this->user_model->update_email($user);
+            $this->user_model->update_name($user);
+            $this->user_model->update_usertype($user);
+            $this->user_model->update_clientid($user);
+
+            $data['user'] = $user;
+            $data['query'] = $this->user_model->display_all_users();
+            $data['clients'] = $this->client_model->display_all_clients();
+
+            $this->load->view('account/edit_user', $data);
+        }
+    }
+    
+
+    /*
+     * Check the given email is already exist in database or not
+     * XXX: What is this function for? Unique elements can be checked
+     *      automatically by doing is_unique[user.email] when validating forms.
+     *  Thurai : is_unique will give false if user's email is not change
+     *           for example : if user edit his name but not the email, 
+     *           is_unique will return false for email because user's email is already in database 
+     */
+
+    public function email_check($email) {
+
+        $login = $this->input->post('login');
+        $this->load->model('user_model');
+        $user = $this->user_model->get($login);
+
+        if ($user->email != $email) {
+            if ($this->user_model->get_same_email($email)) {
+                return TRUE;
+            } else {
+                $this->form_validation->set_message('email_check', 'The email is already exist');
+                return FALSE;
+            }
+        }
+    }
+
+    
+    /*
+     * Create a new client and add it to the database. Very simplified version
+     * of a client for now.
+     *
+     * TODO: Create a more sophisticated client class and associated database
+     * table for it.
+     * 
+     * DONE!
+     */
+
+    function create_new_client() {
+        $this->load->library('form_validation');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('account/new_client');
+        } else {
+            $client = new Client();
+
+            //Sorry for inconsistency between client's parameters and input's names but I'll try to change it soon. 
+            $client->agency = $this->input->post('partnername');
+            $client->program = $this->input->post('programname');
+            $client->manager = $this->input->post('manager');
+            $client->manager_position = $this->input->post('managerposition');
+            $client->facilitator = $this->input->post('programfc');
+            $client->facilitator_position = $this->input->post('fcposition');
+            $client->address = $this->input->post('address');
+            $client->phone = $this->input->post('phone');
+            $client->fax = $this->input->post('fax');
+            $client->email = $this->input->post('email');
+            $client->agreement_status = $this->input->post('agreement_status');
+            $client->insurance_status = $this->input->post('insurance');
+            $client->category = $this->input->post('category');
+            
+
+           /*
+            I'm not really sure whether we should do the email things here or not, so I just commented it out
+            * Zenghya or Clark plase have a look into it.
+            $this->load->library('email');
+
+            $config['protocol'] = 'smtp';
+            $config['smtp_host'] = 'ssl://smtp.gmail.com';
+            $config['smtp_port'] = '465';
+            $config['smtp_timeout'] = '7';
+            $config['smtp_user'] = 'c1chenhu@gmail.com';
+            $config['smtp_pass'] = 'sinceqq123';
+            $config['charset'] = 'utf-8';
+            $config['newline'] = "\r\n";
+            $config['mailtype'] = 'text'; // or html
+            $config['validation'] = TRUE; // bool whether to validate email or not
+
+
+            $this->email->initialize($config);
+
+            $this->email->from('eaststorefront@storefront.com', 'eaststorefront');
+            $this->email->to($client->email);
+
+            $this->email->subject('eaststorefront account successfully created');
+            $this->email->message("
 				welcome to eaststorefront $newclient
 				Your password is $newPassword , please remember it ");
 
-			$result = $this->email->send();
-					
-			$this->load->model('client_model');
+            $result = $this->email->send();
+            * 
+            */
 
-			$this->client_model->insert($client);
+            $this->load->model('client_model');
 
-			$this->session->set_flashdata('message',
-				"The new client " .
-				$client->name .
-				" has been made!");
-			redirect('main/index', 'refresh'); //redirect to the main application page
-		}
-	}
+            $this->client_model->insert($client);
 
-	/*
-	 * Create a new client and add it to the database. Very simplified version
-	 * of a client for now.
-	 *
-	 * TODO: Create a more sophisticated client class and associated database
-	 * table for it.
-	 */
-	function edit_client() {
-		$this->load->library('form_validation');
+            $this->session->set_flashdata('message', "The new client " .
+                    $client->name .
+                    " has been made!");
+            redirect('main/index', 'refresh'); //redirect to the main application page
+        }
+    }
+    
+    /*
+     * Update client's data according to choosen client
+     * 
+     * 
+     */
+    function change_client(){
+        $this->load->model('client_model');
+        
+        $id = $this->input->post('agency');
+        $data['clients'] = $this->client_model->display_all_clients();
+        $data['client'] =  $this->client_model->get_from_id($id);
+        
+        $this->load->view('account/edit_client', $data);
+    }
+    
 
-		if ($this->form_validation->run() == FALSE) {
-			redirect('account/form_edit_client', 'refresh'); //redirect to the main application page
-		} else {
-			$this->load->model('client_model');
+    /*
+     * Create a new client and add it to the database. Very simplified version
+     * of a client for now.
+     *
+     * TODO: Create a more sophisticated client class and associated database
+     * table for it. (I guess it is done)
+     * 
+     * Thurai: I changed the form_validation/edit_client and i removed 
+     *          is_unique and is_alpha constraints for phone and email because it doesn't
+     *          make sense to make emails exclusive for client
+     * 
+     * 
+     */
+    function edit_client() {
+        $this->load->model('client_model');
 
-			$id = $this->input->post('id');
+        $id = $this->input->post('id');
+        $client = $this->client_model->get_from_id($id);
+        
+        $this->load->library('form_validation');
 
-			$client = $this->client_model->get_from_id($id);
-			$client->address = $this->input->post('address');
+        if ($this->form_validation->run() == FALSE) {
+            $data['clients'] = $this->client_model->display_all_clients();
+            $data['client'] = $client;
 
-			$this->client_model->update_address($client);
+            $this->load->view('account/edit_client', $data);
+        } else {
 
-			$this->session->set_flashdata('message',
-				"The client " .
-				$client->name .
-				" has been updated!");
-			redirect('main/index', 'refresh'); //redirect to the main application page
-		}
-	}
+
+
+            $client->program = $this->input->post('programname');
+            $client->manager = $this->input->post('manager');
+            $client->manager_position = $this->input->post('managerposition');
+            $client->facilitator = $this->input->post('programfc');
+            $client->facilitator_position = $this->input->post('fcposition');
+            $client->address = $this->input->post('address');
+            $client->phone = $this->input->post('phone');
+            $client->fax = $this->input->post('fax');
+            $client->email = $this->input->post('email');
+            $client->agreement_status = $this->input->post('agreement_status');
+            $client->insurance_status = $this->input->post('insurance');
+            $client->category = $this->input->post('category');
+            
+            $this->client_model->update_client_info($client);
+            
+            $this->session->set_flashdata('message', "The client " .
+                    $client->agency .
+                    " has been updated!");
+            $data['clients'] = $this->client_model->display_all_clients();
+            $data['client'] = $client;
+
+            $this->load->view('account/edit_client', $data); //redirect to the main application page
+        }
+    }
+    
+    function delete_client(){
+        $this->load->model('client_model');
+        $this->load->model('user_model');
+        
+        $login = $this->session->userdata('login'); 
+        $current_user = $this->user_model->get($login);
+        
+        $client_id = $this->input->post('id');
+        
+        if ($current_user->id == $client_id) {
+            redirect("account/form_edit_client", "refresh");
+        }
+        else{    
+            $this->client_model->delete_client($client_id);
+            $this->user_model->delete_clients($client_id);
+            redirect("account/form_edit_client", "refresh");
+        }
+        
+        
+    }
 
 }
