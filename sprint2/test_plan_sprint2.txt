@@ -10,19 +10,26 @@ Testing Plan
  	- Login with(administrator == User)
 		- go to Add New Client
 			- try add new clients by giving specific information
-		    - try add a client which alredy have in the database
-			- try add a client with samilar email account
-			- try leaving the empty slots
+		    - try add a client which alredy have in the database, 
+				it will tell that client must be unique
+			- try add a client with samilar email account, 
+				it will tell that email must be unique
+			- try leaving the empty slots, it will tell you to 
+				fill out the area
 			- try click add and make sure it is upload into databse
-			- try click cancel to cancel current action
+			- try click cancel to cancel current action, it will
+				direct back to calander page
 		- go to Edit client
 			- try select specifc client
 			- try make changes on those information
-			- try click Delete
-			- try click Register without changes
-			- try click Register after changes
+			- try click Delete, it will delete this client
+			- try click Register without changes, it will refresh
+				the page without changes
+			- try click Register after changes, it will save the 
+				changes and refresh page with new information
 			- try click Register after change the email 
-				to a same email that other client is currently using
+				to a same email that other client is currently using, it
+				will refresh current page without changing
 		 	- try left empty spots then click Register
 	- Logout
 	
