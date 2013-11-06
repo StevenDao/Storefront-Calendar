@@ -1,5 +1,5 @@
 <?php
-
+require_once 'application/models/user.php';
 /*
  * TODO: Add validation for the email and ensure that the email is valid.
  * TODO: Add a new form for adding a client.(DONE)
@@ -312,7 +312,8 @@ class Account extends CI_Controller {
         $login = $this->input->post('login');
         $this->load->model('user_model');
 
-        $currentlogin = $this->session->userdata('login');
+        $user = $this->session->userdata('user');
+	$currentlogin = $user->login;
 
         if ($currentlogin == $login) {
             redirect("account/form_edit_user", "refresh");
@@ -554,8 +555,7 @@ class Account extends CI_Controller {
         $this->load->model('client_model');
         $this->load->model('user_model');
         
-        $login = $this->session->userdata('login'); 
-        $current_user = $this->user_model->get($login);
+        $current_user = $this->session->userdata('user'); 
         
         $client_id = $this->input->post('id');
         

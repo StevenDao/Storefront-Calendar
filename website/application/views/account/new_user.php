@@ -44,7 +44,7 @@
 
         <p class="specialP">&nbsp;&nbsp;&nbsp;&nbsp;Add New User</p>
 
-        <table> 
+        <table class="tableS"> 
             <tr>
                 <td>
 

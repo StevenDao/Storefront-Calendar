@@ -32,7 +32,7 @@
                     $options["Select user"] = "Select user";
                 }
         ?>
-        <table>  
+        <table class="tableS">  
             <tr>
                 <td>
                     <?php

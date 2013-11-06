@@ -43,7 +43,7 @@
 
         <p class="specialP">&nbsp;&nbsp;&nbsp;&nbsp;Add New Client</p>
 
-        <table>`
+        <table class="tableS">`
             <?php
                 $agency_list = array();
                 if("$client->id" == ""):

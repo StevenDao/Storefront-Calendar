@@ -45,7 +45,7 @@
 
         <p class="specialP">&nbsp;&nbsp;&nbsp;&nbsp;Add New Client</p>
 
-        <table>`
+        <table class="tableS">`
             
             <tr>
                 <td>

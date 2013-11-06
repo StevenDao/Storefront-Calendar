@@ -148,7 +148,7 @@ p{
       
 }
 
-table{
+.tableS{
     height:auto;
     width:70%;
     float:left; 
@@ -162,7 +162,7 @@ table{
      table-layout: fixed
 }
 
-td{
+.tableS td{
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -242,7 +242,7 @@ input[type=submit]:active {
     background-color:  rgb(120,146,169);
 }
 
-td a {
+.tableS td a {
     border-radius: 15px;
     float:left;
     
@@ -263,10 +263,10 @@ td a {
     text-shadow: 0 -1px 0 #396715;
 }
 
-td a:hover {
+.tableS td a:hover {
     opacity:.85;
     cursor: pointer; 
 }
-td a:active {
+.tableS td a:active {
     background-color:  rgb(120,146,169);
 }
