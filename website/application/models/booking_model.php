@@ -144,6 +144,11 @@ class Booking_model extends CI_Model
         $this->db->where('id', $id);
         $this->db->delete('booking');
     }
+
+   function get_all_rooms() {
+        $query = $this->db->select('*')->from('room')->get();
+        return $query->result();
+    }
 }
 
 /* End of file booking_model.php */
