@@ -67,7 +67,7 @@ $autoload['model'] = array('User', 'Client', 'Booking', 'Room');
 */
 
 //$autoload['libraries'] = array();
-$autoload['libraries'] = array('database','session','email');
+$autoload['libraries'] = array('database','email');
 
 
 /*

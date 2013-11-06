@@ -77,6 +77,7 @@ $(document).ready(function() {
                     });
 
                     booking_title = "";
+                    calendar.fullCalendar('refetchEvents');
                 }
             });
             calendar.fullCalendar('unselect');

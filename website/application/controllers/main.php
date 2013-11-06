@@ -5,7 +5,7 @@ class Main extends CI_Controller
 	function __construct() {
 		// Call the Controller constructor
 		parent::__construct();
-		//session_start();
+		$this->load->library('session');
 	}
 
 	public function _remap($method, $params = array()) {
@@ -87,7 +87,6 @@ class Main extends CI_Controller
 		$booking = new Booking();
 
 		$user = $this->session->userdata('user');
-		error_log(json_encode($user, JSON_PRETTY_PRINT));
 
 		$booking->userid = $user->id;
 		$booking->roomid = 1; // Placeholder
@@ -96,11 +95,14 @@ class Main extends CI_Controller
 		$booking->start_time = $event->start;
 		$booking->end_time = $event->end;
 
-		//$this->booking_model->insert($booking);
+		if ($event->allDay) {
+			$booking->set_start_time(9, 0);
+			$booking->set_end_time(18, 0);
+		}
 
-		error_log(json_encode($booking, JSON_PRETTY_PRINT));
+		$this->booking_model->insert($booking);
 
-		redirect('main/index', 'refresh'); //redirect to the main application page
+		//error_log(json_encode($booking, JSON_PRETTY_PRINT));
 	}
 }
 
