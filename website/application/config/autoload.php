@@ -42,6 +42,20 @@ $autoload['packages'] = array();
 
 /*
 | -------------------------------------------------------------------
+|  Auto-load Models
+| -------------------------------------------------------------------
+| Prototype:
+|
+|	$autoload['model'] = array('model1', 'model2');
+|
+*/
+
+//$autoload['model'] = array('MCats','MProducts','MOrders','MAdmins','MSizes','MColors', 'MPages', 'MSubscribers');
+$autoload['model'] = array('User', 'Client', 'Booking', 'Room');
+
+
+/*
+| -------------------------------------------------------------------
 |  Auto-load Libraries
 | -------------------------------------------------------------------
 | These are the classes located in the system/libraries folder
@@ -99,20 +113,6 @@ $autoload['config'] = array();
 */
 
 $autoload['language'] = array();
-
-
-/*
-| -------------------------------------------------------------------
-|  Auto-load Models
-| -------------------------------------------------------------------
-| Prototype:
-|
-|	$autoload['model'] = array('model1', 'model2');
-|
-*/
-
-//$autoload['model'] = array('MCats','MProducts','MOrders','MAdmins','MSizes','MColors', 'MPages', 'MSubscribers');
-$autoload['model'] = array('User', 'Client', 'Booking', 'Room');
 
 
 /* End of file autoload.php */

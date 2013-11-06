@@ -105,7 +105,7 @@ class Booking_model extends CI_Model
     }
     
     // Update the date, start time, and end time
-    function updateDateTime($booking) {
+    function update_date_time($booking) {
         $this->db->where('id', $booking->id);
         return $this->db->update('booking', array('start_time'=>$booking->start_time,
                                                   'end_time'=>$booking->end_time));
