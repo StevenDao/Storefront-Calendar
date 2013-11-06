@@ -1,102 +1,42 @@
 Testing Plan
 ============
 
-##User Story #3
- As a/an client, I want to make recurring booking requests, so that I do 
- not need to manually book a repetitive schedule
+##User Story #18
+ As a/an administrator, I want to modify/update client details,
+ by clicking on the client's name wherever it appears in the application,
+ so i can have an overview of events coming up and manage my time wisely
  
-##User Story #5
- As a/an client, I want to be notified by email whenever one of my booking
-  requests is confirmed, so that I can be sure my place is reserved
-  
-##User Stroy #6
- As a/an client, I want to be notified by email whenever one of my booking
-requests is cancelled or denied, so that I can make other arrangements
- 
- __Test Case for #3 & #5 $ #6__
- 	- Login with(client)
-		- Make booking request
-			- try booking available event(not full, .. etc)
-			- try booking unavailable event(full, just canceled, ect)
-		- Confirm whether the booking is received by correspoding databse or not
-		- Wait for admin to confirm the booking or cancel it.
-		- Confirm whether the booking is success or not by checking the email
-	- Logout 
+ __Test Case for 18__
+ 	- Login with(administrator == User)
+		- go to Add New Client
+			- try add new clients by giving specific information
+		    - try add a client which alredy have in the database
+			- try add a client with samilar email account
+			- try leaving the empty slots
+			- try click add and make sure it is upload into databse
+			- try click cancel to cancel current action
+		- go to Edit client
+			- try select specifc client
+			- try make changes on those information
+			- try click Delete
+			- try click Register without changes
+			- try click Register after changes
+			- try click Register after change the email 
+				to a same email that other client is currently using
+		 	- try left empty spots then click Register
+	- Logout
 	
-
-##User Story #19
- As a/an administrator, I want to distinguish between various types of events
-  in the calendar, so that I can have a good general overview of the schedule
-  
- __Test Case for #19__
- 	- Login with(administrator)
-		- Making different events
-		- Confirm whether those events are identical or not
-	- Logout
-
 	
-##User Story #21 
- As a/an administrator, I want to confirm or deny tentative bookings on the 
- calendar page without leaving the calendar view, so that I can quickly go 
- through all the requests
- 
- __Test Case for #21__
- 	- Login with(client)
-		-Making booking on events
-	- Logout
-	- Login with(administrator)
-		- confirm or deny the specifc booking at calendar view
-		- confirm whether the result is uploading into the database or not
-	- Logout
-
-
-##User Story #22
- As a/an administrator, I want add/modify room bookings manually, so that I 
- can manage events for all my clients
- 
- __Test Case for #22__
- 	 - Login with(administrator)
-	 	- add room booking 
-		- modify room booking
-		- delect room booking
-		- confirm whether the result is uploading into the databse or not
-  	  	- confirm whether all affecte clients get the email response or not
-	 - Logout
-	 
-
 ##User Story #23
  As a/an administrator, I want to move scheduled events in the calendar view
  using a drag- and-drop approach, so that I can quickly reschedule room bookings 
  
  __Test Case for #23__
  	 - Login with(administrator)
-	 	- modify scheduled events by using drag-and-drop
-		- confirm whether the result is uploading into the databse or not
-  	  	- confirm whether all affecte clients get the email response or not
-	 - Logout
-	
-	 
-##User Story #26
- As a/an administrator, I want to set my email address on a user- settings page, 
- along with some notification preferences, so that I can get automatic email 
- notifications for certain events
- 
- __Test Case for #26__
- 	- Login with(administrator)
-		- check whether get notifications for some specic events or not		
+	 	- try drag and drop a event, and make sure those changes also upload into 
+		  corresponding database
+		  
+		- try drag a event and extend or shrink it to making changes on duration, 
+		and make sure those changes also upload into correspoding database
+		
 	- Logout
-	
-	
-##User Story #31 
- As a/an administrator, I want to click on any day in the calendar view
- to see the schedule for that day, which rooms are booked, etc..., so 
- that I can add/modify/delete events
- 
- __Test Case for #31__
- 
- 
-##User Story #32 
- As a/an administrator, I want to make recurring bookings, 
- so that I don't have to manually add many meetings for frequent clients
- 
- __Test Case for #32__
