@@ -103,7 +103,24 @@ class Booking
 		$this->end_time = $end->format('Y-m-d H:i:s');
 	}
 
-	public function move($deltaDays, $deltaMinutes) {
+	/*
+	 * Set the start and end of this booking when adding an event from the 
+	 * calendar directly.
+	 */
+	function set_times($start, $end) {
+		$start_utc = new DateTime($start, new DateTimeZone('UTC'));
+		$end_utc = new DateTime($end, new DateTimeZone('UTC'));
+
+		$start = $start_utc;
+		$start->setTimeZone(new DateTimeZone('America/New_York'));
+		$end = $end_utc;
+		$end->setTimeZone(new DateTimeZone('America/New_York'));
+
+		$this->start_time = $start->format('Y-m-d H:i:s');
+		$this->end_time = $end->format('Y-m-d H:i:s');
+	}
+
+	function move($deltaDays, $deltaMinutes) {
 		$arg = $deltaDays . ' days ' . $deltaMinutes . ' minutes';
 		$interval = DateInterval::createFromDateString($arg);
 
@@ -116,7 +133,7 @@ class Booking
 		$this->end_time = $date->format('Y-m-d H:i:s');
 	}
 
-	public function resize($deltaDays, $deltaMinutes) {
+	function resize($deltaDays, $deltaMinutes) {
 		$arg = $deltaDays . ' days ' . $deltaMinutes . ' minutes';
 		$interval = DateInterval::createFromDateString($arg);
 

@@ -60,7 +60,7 @@ $(document).ready(function() {
             $( "#new-booking" ).dialog( "open" );
             $( "#new-booking" ).on( "dialogclose" , function(event, ui) {
                 if (booking_title) {
-                    booking = {
+                    var booking = {
                         title: booking_title,
                         start: start,
                         end: end,
@@ -77,6 +77,7 @@ $(document).ready(function() {
                     });
 
                     booking_title = "";
+                    booking = null;
                     calendar.fullCalendar('refetchEvents');
                 }
             });
