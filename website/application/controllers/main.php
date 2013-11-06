@@ -167,7 +167,7 @@ class Main extends CI_Controller
         
         
     }
-}
+
 }
 
 /* End of file main.php */
