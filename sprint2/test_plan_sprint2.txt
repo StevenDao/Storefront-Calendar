@@ -44,6 +44,6 @@ Testing Plan
 		  corresponding database
 		  
 		- try drag a event and extend or shrink it to making changes on duration, 
-		and make sure those changes also upload into correspoding database
+		  and make sure those changes also upload into correspoding database
 		
 	- Logout
