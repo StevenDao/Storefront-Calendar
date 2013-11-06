@@ -5,7 +5,7 @@ class Main extends CI_Controller
 	function __construct() {
 		// Call the Controller constructor
 		parent::__construct();
-		//session_start();
+		$this->load->library('session');
 	}
 
 	public function _remap($method, $params = array()) {
@@ -27,8 +27,6 @@ class Main extends CI_Controller
 		$message = $this->session->flashdata('message');
 		if (isset($message))
 			$data['message'] = $message;
-
-		$data['user'] = $this->session->userdata('user');
 
 		$data['title'] = 'Storefront Calendar';
 		$data['main'] = 'main/body';
@@ -62,9 +60,9 @@ class Main extends CI_Controller
 		$this->load->model('booking_model');
 
 		$booking = $this->booking_model->get($event->id);
-		$booking->move($event->dayDelta, $event->minuteDelta);
+		$booking->move($event->day_delta, $event->minute_delta);
 
-		$this->booking_model->updateDateTime($booking);
+		$this->booking_model->update_date_time($booking);
 	}
 
 	function resize_event() {
@@ -74,9 +72,37 @@ class Main extends CI_Controller
 		$this->load->model('booking_model');
 
 		$booking = $this->booking_model->get($event->id);
-		$booking->resize($event->dayDelta, $event->minuteDelta);
+		$booking->resize($event->day_delta, $event->minute_delta);
 
-		$this->booking_model->updateDateTime($booking);
+		$this->booking_model->update_date_time($booking);
+	}
+
+	function add_event() {
+		$data = $this->input->get_post('json');
+		$event = json_decode($data);
+
+		$this->load->model('booking_model');
+		$this->load->model('user_model');
+
+		$booking = new Booking();
+
+		$user = $this->session->userdata('user');
+
+		$booking->userid = $user->id;
+		$booking->roomid = 1; // Placeholder
+		$booking->title = $event->title;
+		$booking->date_booked = date('d-m-Y');
+		$booking->start_time = $event->start;
+		$booking->end_time = $event->end;
+
+		if ($event->allDay) {
+			$booking->set_start_time(9, 0);
+			$booking->set_end_time(18, 0);
+		}
+
+		$this->booking_model->insert($booking);
+
+		//error_log(json_encode($booking, JSON_PRETTY_PRINT));
 	}
 }
 

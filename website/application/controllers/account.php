@@ -16,7 +16,7 @@ class Account extends CI_Controller {
     function __construct() {
         // Call the Controller constructor
         parent::__construct();
-        //session_start();
+		$this->load->library('session');
     }
 
     public function _remap($method, $params = array()) {
@@ -140,7 +140,7 @@ class Account extends CI_Controller {
                 $this->session->set_userdata($data);
                 $data['user'] = $user;
                 //to easily retrive the login id later
-                $this->session->set_userdata("login", $user->login);
+                //$this->session->set_userdata("login", $user->login);
 
                 redirect('main/index', 'refresh'); //redirect to the main application page
             } else {
