@@ -92,6 +92,7 @@ header #logo-caret {
     font-size:12px;
     color:#999999;
     border:1px #999999 dashed;
+    background-color:#383838;
 }
 .input{
     width: 65%;
