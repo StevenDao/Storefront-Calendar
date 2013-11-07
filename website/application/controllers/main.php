@@ -107,8 +107,7 @@ class Main extends CI_Controller
 	/*
 	 * Thurai edit
 	 */
-	function form_add_event() {
-		$message = $this->session->flashdata('message');
+	function form_add_booking() {
 		$this->load->model('user_model');
 		$this->load->model('booking_model');
 
@@ -121,12 +120,10 @@ class Main extends CI_Controller
 			$book_as = $user;
 		}
 
-		if (isset($message))
-			$data['message'] = $message;
-
 		$data['title'] = 'Storefront Calendar';
 		$data['main'] = 'booking/add_event';
 		$data['styles'] = 'booking/styles';
+		$data['scripts'] = 'booking/scripts';
 		$data['type'] = $type;
 		$data['book_as'] = $book_as;
 		$data['rooms'] = $this->booking_model->get_all_rooms();
