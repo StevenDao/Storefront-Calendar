@@ -92,7 +92,7 @@ class Main extends CI_Controller
 		$booking->roomid = 1; // Placeholder
 		$booking->title = $event->title;
 		$booking->date_booked = date('d-m-Y');
-		$booking->set_times($event->start, $event->end);
+		$booking->set_times($event->start, $event->end, TRUE);
 
 		if ($event->allDay) {
 			$booking->set_start_time(9, 0);
