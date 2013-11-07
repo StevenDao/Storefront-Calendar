@@ -121,7 +121,7 @@
                             </tr>
                             <tr>
                                 <td class="formSectionLeft"><span style="color:#FF0000">*</span>E-Mail ID</td>
-                                <td class="formSectionRight">
+                                <td class="formSectionLast">
                                     <?php echo form_error('email'); ?>
                                     <input size="50" maxlength="50" class="input" type="text" name="email" value="<?php echo $user->email ?>" required="required">
                                 </td>
