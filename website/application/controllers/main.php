@@ -104,70 +104,63 @@ class Main extends CI_Controller
 		//error_log(json_encode($booking, JSON_PRETTY_PRINT));
 	}
 
-    /*
-     * Thurai edit
-     */
-    function form_add_event() {
-        $message = $this->session->flashdata('message');
-        $this->load->model('user_model');
-        $this->load->model('booking_model');
-        
-        $user = $this->session->userdata('user');
-        $type = $user->usertype;
-        
-        if($user->usertype == 1):
-            $book_as = $this->user_model->display_all_users();
-        else:
-            $book_as = $user;
-        endif;
-        
-        if (isset($message))
-            $data['message'] = $message;
+	/*
+	 * Thurai edit
+	 */
+	function form_add_event() {
+		$message = $this->session->flashdata('message');
+		$this->load->model('user_model');
+		$this->load->model('booking_model');
 
-        $data['title'] = 'Storefront Calendar';
-        $data['main'] = 'booking/add_event';
-        $data['styles'] = 'booking/styles';
-        $data['type'] = $type;
-        $data['book_as'] = $book_as;
-        $data['rooms'] = $this->booking_model->get_all_rooms();
+		$user = $this->session->userdata('user');
+		$type = $user->usertype;
 
-        $this->load->view('template', $data);
-    }
+		if ($user->usertype == 1) {
+			$book_as = $this->user_model->display_all_users();
+		} else {
+			$book_as = $user;
+		}
 
+		if (isset($message))
+			$data['message'] = $message;
 
-    function detailed_add_event() {
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'booking/add_event';
+		$data['styles'] = 'booking/styles';
+		$data['type'] = $type;
+		$data['book_as'] = $book_as;
+		$data['rooms'] = $this->booking_model->get_all_rooms();
 
-        $this->load->model('booking_model');
-        $this->load->model('user_model');
-        
-        $booking = new Booking();
+		$this->load->view('template', $data);
+	}
 
 
-        $start_date = $this->input->post('start_date');
-        $start_hour = $this->input->post('start_hour');
-        $start_minute = $this->input->post('start_minute');
+	function detailed_add_event() {
+		$this->load->model('booking_model');
+		$this->load->model('user_model');
 
-        $end_date = $this->input->post('finish_date');
-        $end_hour = $this->input->post('finish_hour');
-        $end_minute = $this->input->post('finish_minute');
+		$booking = new Booking();
 
-        $start = $start_date . " " . $start_hour . ":" . $start_minute . ":00";
-        $end = $end_date . " " . $end_hour . ":" . $end_minute . ":00";
+		$start_date = $this->input->post('start_date');
+		$start_hour = $this->input->post('start_hour');
+		$start_minute = $this->input->post('start_minute');
 
+		$end_date = $this->input->post('finish_date');
+		$end_hour = $this->input->post('finish_hour');
+		$end_minute = $this->input->post('finish_minute');
 
+		$start = $start_date . " " . $start_hour . ":" . $start_minute . ":00";
+		$end = $end_date . " " . $end_hour . ":" . $end_minute . ":00";
 
-        $booking->userid = $this->input->post('userid');
-        $booking->roomid = $this->input->post('room_id');
-        $booking->title = $this->input->post('title');
-        $booking->date_booked = date('d-m-Y');
-        $booking->set_times($start, $end);
+		$booking->userid = $this->input->post('userid');
+		$booking->roomid = $this->input->post('room_id');
+		$booking->title = $this->input->post('title');
+		$booking->date_booked = date('d-m-Y');
+		$booking->set_times($start, $end);
 
-        $this->booking_model->insert($booking);
-        redirect('main/index', 'refresh');
-        
-        
-    }
-
+		$this->booking_model->insert($booking);
+		redirect('main/index', 'refresh');
+	}
 }
 
 /* End of file main.php */
