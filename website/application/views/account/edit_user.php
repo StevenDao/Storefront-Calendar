@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html>
+    <title>Edit User</title>
     <head>
         <link rel="stylesheet" type="text/css" media="all" href="<?= base_url() ?>css/reset.css"/>
         <link rel="stylesheet" type="text/css" media="all" href="<?= base_url() ?>css/newForm.css"/>
@@ -26,139 +27,118 @@
             </nav>
         </header>
 
-        <p class="specialP">&nbsp;&nbsp;&nbsp;&nbsp;Edit User</p>
-        <?php $options = array(); 
-                if($user->login == "" ){
-                    $options["Select user"] = "Select user";
-                }
+        <?php 
+            if($user->login == "" ){
+                $options = array(); 
+                $options["Select user"] = "------------ Select User ------------";
+                $client_type =array();
+                $client_type["Type"] = "------------ Select Type ------------";
+                $agency = array();
+                $agency["Agency"] = "----------- Select Agency -----------";
+            }
         ?>
-        <table class="tableS">  
-            <tr>
-                <td>
-                    <?php
-                    foreach ($query as $row):
-                        $options["$row->login"] = "$row->login ";
+        <table width="550px" class="outter">
+                <tr>
+                    <td>
+                        <table class="text" border="0" cellpadding="4" cellspacing="3" width="100%">
+                            <tr height="40px">
+                                <td colspan="2" class="formHeading">Edit User</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="note" bgcolor="#383838">Field marked with <span style="color:#FF0000">*</span> are compulsory fields
+                                </td>
+                            </tr>
+                            <tr height="10px">
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>Username</td>
+                                <td class="formSectionRight">
+                                    <?php
+                                    //$options = array();
+                                    //$options["0"] = "------------- Select User -------------";
 
-                    endforeach;
-                    ?>
+                                    foreach ($query as $row):
+                                        $options["$row->login"] = "$row->login ";
+                                    endforeach;
 
+                                    echo form_open('account/change_user');
+                                    echo form_error('username');
+                                    $js = "class='input' value='$user->login' onChange='this.form.submit()'";
+                                    echo form_dropdown('category', $options, $user->login, $js);
+                                    echo form_close();
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>First Name</td>
+                                <td class="formSectionRight" width="68%">
+                                    <?php
+                                    $hidden = array("login" => "$user->login", "category" => "$user->login");
+                                    echo form_open('account/edit_user', '', $hidden);
+                                    echo form_error('first');
+                                    ?>
+                                    <input size="35" maxlength="50" class="input" type="text" name="first" value="<?php echo $user->first ?>" required="required">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>Last Name</td>
+                                <td class="formSectionRight" width="68%">
+                                    <?php echo form_error('last'); ?>
+                                    <input size="35" maxlength="50" class="input" type="text" name="last" value="<?php echo $user->last ?>" required="required">
+                                </td>
+                            </tr>   
+                            <tr>
+                                <td class="formSectionLeft"><span style="color:#FF0000">*</span>User Type</td>
 
-                    <?php
-            
-                    
-                    echo form_open('account/change_user');
-                    echo form_label('Username');
-                    echo form_error('username');
-                    $js = "value='$user->login' onChange='this.form.submit()'";
-                    echo form_dropdown('category', $options, $user->login, $js);
-                    echo form_close();
-                    ?>
+                                <td class="formSectionRight">
+                                    <?php
+                                    $client_type["1"] = "admin";
+                                    $client_type["2"] = "client";
+                                    $user_type = strval($user->usertype);
 
-                </td>
-            </tr>
+                                    $class = "class='input'";
 
-            <tr>
-                <td>
-                    <?php
-                    $hidden = array("login" => "$user->login", "category" => "$user->login");
-                    echo form_open('account/edit_user', '', $hidden);
-                    echo form_label('First name');
-                    echo form_error('first');
-                    echo form_input(array(
-                        'name' => 'first',
-                        'value' => "$user->first",
-                        'required' => 'required'
-                    ));
-                    ?>
-                </td>
-                <td>
+                                    echo form_dropdown("type", $client_type, $user_type, $class);
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="formSectionLeft"><span style="color:#FF0000">*</span>Agency</td>
 
-                    <?php
-                    echo form_label("Last Name");
-                    echo form_error('last');
-                    echo form_input(array(
-                        'name' => 'last',
-                        'value' => "$user->last",
-                        'required' => 'required'
-                    ));
-                    ?>
-                </td>
-            </tr>
-              <tr>
-                <td>
-                    <?php
-                        $client_type =array();
-                        $client_type["1"] = "admin";
-                        $client_type["2"] = "client";
-                        $user_type = strval($user->usertype);
-                        
-                        echo form_label('User type');
-                        echo form_dropdown("type", $client_type,$user_type);
-                        
-                    
-                    
-                    ?>
-                </td> 
-                <td>
-                    <?php
-                        $agency = array();
-                        foreach ($clients as $row):
-                        $agency["$row->id"] = "$row->agency";
-                    endforeach;
-                    
-                    $agency_id = strval($user->clientid);
-                    
-                    echo form_label("Agency Name");
-                    echo form_dropdown("agency", $agency, $agency_id);
-                    
-                    ?>
-                </td>
-            </tr>
+                                <td class="formSectionRight">
+                                    <?php
+                                    foreach ($clients as $row):
+                                        $agency["$row->id"] = "$row->agency";
+                                    endforeach;
 
-            <tr>
+                                    $agency_id = strval($user->clientid);
+                                    $class = "class='input'";
 
-                <td>
-                    <?php
-                    echo form_label('Email Address');
-                    echo form_error('email');
-                    echo form_input(array(
-                        'name' => 'email',
-                        'value' => "$user->email",
-                        'required' => 'required',
-                    ));
-                    ?>
-
-                </td>
-            </tr>
-
-
-            <tr>
-                <td>
-                    <?php
-                    echo form_submit(array(
-                        'name' => 'submit',
-                        'value' => 'Save',
-                        'style' => 'float:right;'));
-                    echo form_close();
-                    ?>
-                </td>
-
-
-                <td>
-                    <?php
-                    echo form_open('account/delete_user', '', $hidden);
-                    echo form_submit('delete', "Delete", "style=background-color:red;");
-                    echo form_close();
-                    ?>
-                </td>
-
-            </tr>
-            <tr height=70px">
-
-            </tr>
-
-
-
-        </table>
+                                    echo form_dropdown("agency", $agency, $agency_id, $class);
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="formSectionLeft"><span style="color:#FF0000">*</span>E-Mail ID</td>
+                                <td class="formSectionRight">
+                                    <?php echo form_error('email'); ?>
+                                    <input size="50" maxlength="50" class="input" type="text" name="email" value="<?php echo $user->email ?>" required="required">
+                                </td>
+                            </tr> 
+                            <tr>
+                                <td></td>
+                                <td height="30">     
+                                    <input value="Save" class="btnbg" type="submit" name="submit">&nbsp;&nbsp;
+                                    <?php echo form_close(); ?>
+                                    <?php echo form_open('account/delete_user', '', $hidden); ?>
+                                    <input value="Delete" class="btnbg" type="submit" name="delete">&nbsp;&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                            <?php echo form_close();?>
+                        </table>
+                    </td>
+                </tr>
+            </table>
     </body>
 </html>

@@ -478,7 +478,7 @@ class Account extends CI_Controller {
             $this->client_model->insert($client);
 
             $this->session->set_flashdata('message', "The new client " .
-                    $client->name .
+                    $client->agency .
                     " has been made!");
             redirect('main/index', 'refresh'); //redirect to the main application page
         }

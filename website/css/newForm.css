@@ -72,6 +72,61 @@ header #logo-caret {
     background-repeat: no-repeat;
 }
 
+.outter{
+    border:3px #333333 solid;
+    background-color:#4A4A4A;
+    position: relative;
+    margin-left: 235px;
+    margin-top: 10px;
+}
+
+.outter tr, th, td{
+    padding: 5px;
+    vertical-align: middle;
+}
+
+
+
+.note{
+    font-family:tahoma;
+    font-size:12px;
+    color:#999999;
+    border:1px #999999 dashed;
+}
+.input{
+    width: 65%;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    font-weight:normal;
+    font-size:12px;
+    border:1px #A7BEB7 solid;
+}
+.text{
+    font-family:tahoma;
+    font-size:11px;
+    color:#FFFFFF;
+}
+.formHeading{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:18px;
+    color:#D5D5D5;
+}
+
+.formSectionLeft{
+    text-align:right;
+    background-color:#383838;
+    border-style:solid;
+    border-color:#999999;
+    border-width:1px;
+}
+
+.formSectionRight{
+    border-right:1px solid #999999;
+}
+
+.formSectionLast{
+    border-right:1px solid #999999;
+    border-bottom:1px solid #999999;
+}
 
 nav ul ul { display:none; width:100%; position:absolute; left:0; background:#6a6a6a; }  
 
@@ -96,177 +151,4 @@ nav ul ul a:hover {
     background-color: #333;
     text-decoration: none;
     border-radius: 3px;
-}
-
-
-.imageIcon{
-    padding:0px;
-    width:40px;
-    height:auto;
-    border-radius: 0px;
-    z-index: 4;
-}
-
-.header{
-    margin-top: 15px;
-    font-size: 1.5em;
-    text-align: center;
-    width: 100%;
-}
-
-.container{
-    overflow: hidden;
-    height:100%;
-    
-}
-p{
-    margin:0px;
-    padding:5px;
-    color:red;
-    
-    font-size: 0.8em;
-    font-weight: bold;
-}
-
-.specialP{
-    clear:both;
-    float:left;
-    width:70%;
-    
-    background-color: #2c2c2c;
-    margin-left: 235px;
-    margin-top: 10px;
-    margin-right: 10px;
-    
-    padding-top: 5px;
-    padding-bottom: 5px;
-    
-    font-family: Arial;
-    font-size: 1.5em;
-    font-weight:bold;
-    color: white;
-      
-}
-
-.tableS{
-    height:auto;
-    width:70%;
-    float:left; 
-    clear:both;
-    margin-left: 235px;
-    margin-top: 10px;
-    margin-right: 10px;
-    background-color: #2c2c2c;
-    border-collapse:separate;
-    border-spacing:2.5em;
-     table-layout: fixed
-}
-
-.tableS td{
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-input, select{
-    float:left;
-    width: 100%;
-    
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    
-    font-size: 1.5em;
-
-
-    padding-left: 10px;
-    outline: none;
-    height: 1.5em;
-    
-    border-radius: 15px;
-    border-color: transparent;
-    border-style: none;
-    
-}
-
-select{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-   background: url(arrow.png) no-repeat right #FFFFFF;
-   background-size: 30px 1.2em;
-   background-position: 98% 50%
- 
-}
-
-
-input:focus{
-    border-style:none;
-    
-}
-
-label{
-   float:left;
-   width:100%;
-   font-family: Arial;
-   margin: 2px;
-   margin-bottom: 5px;
-   font-size: 1.3em;
-   font-weight: bold;
-   color:white;
-}
-
-input[type=submit] {
-    float:left;
-    
-    background-color: #545E66;
-    font-size: 1em;
-    font-family: Arial;
-    
-    margin-bottom: 5px;
-    margin-right:10px;
-    margin-top: 15px;
-    
-    width:35%;
-    height: 2em;
-    
-    color:white;
-    text-align: center;
-    text-shadow: 0 -1px 0 #396715;
-}
-
-input[type=submit]:hover {
-    opacity:.85;
-    cursor: pointer; 
-}
-input[type=submit]:active {
-    background-color:  rgb(120,146,169);
-}
-
-.tableS td a {
-    border-radius: 15px;
-    float:left;
-    
-    background-color: #545E66;
-    font-size: 1em;
-    font-family: Arial;
-    
-    margin-bottom: 5px;
-    margin-right:10px;
-    margin-top: 15px;
-    
-    width:30%;
-    height: 2em;
-    
-    color:white;
-    line-height: 1.95;
-    text-align: center;
-    text-shadow: 0 -1px 0 #396715;
-}
-
-.tableS td a:hover {
-    opacity:.85;
-    cursor: pointer; 
-}
-.tableS td a:active {
-    background-color:  rgb(120,146,169);
 }
