@@ -202,7 +202,7 @@
                                     <input value="Save" class="btnbg" type="submit">&nbsp;&nbsp;
                                     <?php 
                                     echo form_close();
-                                    echo form_open('account/delete_client','', $hidden); ?>
+                                    echo form_open('account/delete_client','class="inline-block"', $hidden); ?>
                                     <input value="Delete" class="btnbg" type="submit" name="delete">&nbsp;&nbsp;&nbsp;
                                 </td>
                             </tr>

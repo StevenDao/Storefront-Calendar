@@ -313,7 +313,7 @@ class Account extends CI_Controller {
         $this->load->model('user_model');
 
         $user = $this->session->userdata('user');
-	$currentlogin = $user->login;
+        $currentlogin = $user->login;
 
         if ($currentlogin == $login) {
             redirect("account/form_edit_user", "refresh");

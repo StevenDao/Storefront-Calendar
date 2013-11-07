@@ -131,7 +131,7 @@
                                 <td height="30">     
                                     <input value="Save" class="btnbg" type="submit" name="submit">&nbsp;&nbsp;
                                     <?php echo form_close(); ?>
-                                    <?php echo form_open('account/delete_user', '', $hidden); ?>
+                                    <?php echo form_open('account/delete_user', 'class="inline-block"', $hidden); ?>
                                     <input value="Delete" class="btnbg" type="submit" name="delete">&nbsp;&nbsp;&nbsp;
                                 </td>
                             </tr>
