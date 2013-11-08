@@ -108,25 +108,17 @@ class Main extends CI_Controller
 	 * Thurai edit
 	 */
 	function form_add_booking() {
-		$this->load->model('user_model');
 		$this->load->model('booking_model');
+		$this->load->model('room_model');
+		$this->load->model('client_model');
 
-		$user = $this->session->userdata('user');
-		$type = $user->usertype;
-
-		if ($user->usertype == 1) {
-			$book_as = $this->user_model->display_all_users();
-		} else {
-			$book_as = $user;
-		}
+		$data['rooms'] = $this->room_model->get_rooms();
+		$data['clients'] = $this->client_model->get_clients();
 
 		$data['title'] = 'Storefront Calendar';
 		$data['main'] = 'booking/add_event';
 		$data['styles'] = 'booking/styles';
 		$data['scripts'] = 'booking/scripts';
-		$data['type'] = $type;
-		$data['book_as'] = $book_as;
-		$data['rooms'] = $this->booking_model->get_all_rooms();
 
 		$this->load->view('template', $data);
 	}
