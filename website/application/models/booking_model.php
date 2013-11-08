@@ -88,9 +88,10 @@ class Booking_model extends CI_Model
 	 */
     
     // Insert a new booking into the 'booking' table
-    function insert($booking) {
-        return $this->db->insert('booking',$booking);
-    }
+	function insert($booking) {
+		$this->db->insert('booking', $booking);
+		return ($this->db->affected_rows() != 1) ? false : true;
+	}
     
     // Update the roomid
     function updateRoom($booking) {

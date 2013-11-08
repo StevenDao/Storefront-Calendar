@@ -19,6 +19,8 @@ class Booking
 
 	// NOTE: dates are in the format YYYY-MM-DD
 	// NOTE: datetimes are in the format YYYY-MM-DD HH:MM:SS
+	// TODO: Globalize the format of the date/time so it's consistent and easy
+	// to maintain.
 
 	/*
 	 * Format a date into the database's date format.
@@ -53,11 +55,11 @@ class Booking
 		return $time->format('Y-m-d H:i:s');
 	}
 
-	// Set the booking date (when the booking is made) to today
-	// Returns the datestamp
-	public function initBookDate() {
-		$this->bookdate = date("Y-m-d");
-		return $this->$bookdate;
+	/*
+	 * Set the initial booking date (today).
+	 */
+	function init() {
+		$this->date_booked = date('Y-m-d');
 	}
 
 	/*

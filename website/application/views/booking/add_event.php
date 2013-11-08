@@ -55,13 +55,13 @@ $colours = array(
 				<tr>
 					<td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>Room</td>
 					<td class="formSectionRight" width="68%">
-						<?php echo form_dropdown('rooms', $rooms); ?>
+						<?php echo form_dropdown('room', $rooms); ?>
 					</td>
 				</tr>
 				<tr>
 					<td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>Client</td>
 					<td class="formSectionRight" width="68%">
-						<?php echo form_dropdown('clients', $clients); ?>
+						<?php echo form_dropdown('client', $clients); ?>
 					</td>
 				</tr>
 				<tr>
@@ -79,9 +79,9 @@ $colours = array(
 				<tr>
 					<td class="formSectionLeft" width="32%">Status</td>
 					<td class="formSectionLast" width="68%">
-						<input type="radio" name="status" value="tentative">Tentative&nbsp;&nbsp;
-						<input type="radio" name="status" value="confirmed">Confirmed&nbsp;&nbsp;
-						<input type="radio" name="status" value="rejected">Rejected
+						<input type="radio" name="status" value="2">Tentative&nbsp;&nbsp;
+						<input type="radio" name="status" value="1">Confirmed&nbsp;&nbsp;
+						<input type="radio" name="status" value="3">Rejected
 					</td>
 				</tr>
 				<tr>
