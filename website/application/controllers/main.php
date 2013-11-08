@@ -100,8 +100,6 @@ class Main extends CI_Controller
 		}
 
 		$this->booking_model->insert($booking);
-
-		//error_log(json_encode($booking, JSON_PRETTY_PRINT));
 	}
 
 	function form_add_booking() {
@@ -122,8 +120,6 @@ class Main extends CI_Controller
 
 	function add_booking() {
 		$this->load->model('booking_model');
-		$this->load->model('user_model');
-		$user = $this->session->userdata('user');
 
 		$booking = new Booking();
 		$booking->init();
@@ -137,8 +133,6 @@ class Main extends CI_Controller
 		$booking->userid = $this->input->post('client');
 		$booking->roomid = $this->input->post('room');
 		$booking->status = $this->input->post('status');
-
-		error_log(json_encode($booking, JSON_PRETTY_PRINT));
 
 		$this->booking_model->insert($booking);
 		redirect('main/index', 'refresh');
