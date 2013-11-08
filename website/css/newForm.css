@@ -131,6 +131,17 @@ header #logo-caret {
 
 .inline-block { display: inline-block; }
 
+
+.date {
+    display: inline-block;
+    width: 32%;
+}
+.time {
+    display: inline-block;
+    width: 32%;
+}
+
+
 nav ul ul { display:none; width:100%; position:absolute; left:0; background:#6a6a6a; }  
 
 

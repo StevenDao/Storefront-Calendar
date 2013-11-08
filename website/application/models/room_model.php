@@ -61,6 +61,20 @@ class Room_model extends CI_Model {
             return null;
     }
     
+	/*
+	 * Get all the rooms and return an array of id => name
+	 */
+	function get_rooms() {
+		$rooms = array();
+		$query = $this->db->query("SELECT * FROM room;");
+
+		foreach ($query->result('Room') as $row) {
+			$rooms[$row->id] = $row->name;
+		}
+
+		return $rooms;
+	}
+
     // Insert a new room into the 'room' table
     function insert($room) {
         return $this->db->insert('room',$room);
@@ -94,4 +108,6 @@ class Room_model extends CI_Model {
         $this->db->delete('room');
     }
 }
-?>
+
+/* End of file room_model.php */
+/* Location: ./application/models/room_model.php */

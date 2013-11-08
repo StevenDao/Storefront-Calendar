@@ -1,1 +1,4 @@
-<?php echo $message ?>
+<?php 
+if (isset($message))
+	echo $message;
+?>
