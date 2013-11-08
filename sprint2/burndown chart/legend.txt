@@ -1,0 +1,22 @@
+
+1) User story #23 is completed
+2) User story #18 is completed
+
+
+Expected velocity
+----------------
+
+Expected Velocity = hours/ days
+		  = 51 hours/12 days
+		  = 4.25 hours/day
+
+Actual Velocity
+----------------
+
+Actual velocity = (96-80)hours / 12days
+		= 16/12
+		1.333 hours/day
+
+Conclusion
+---------
+We know the velocity is much slower than expected, however all the backend works for booking and edit bookings are done. Hence, in next few days a lot of works will be done in short period of time.
