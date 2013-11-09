@@ -3,19 +3,23 @@
 class Booking
 {
 	// Booking status types
+	const TENTATIVE = 0;
 	const CONFIRMED = 1;
-	const TENTATIVE = 2;
-	const REJECTED = 3;
+	const REJECTED = 2;
 
 	// Class members
 	public $id;                         // Unique booking-id
 	public $userid;                     // The user-id of this booking's user
 	public $roomid;                     // The room-id of this booking's location
 	public $title;                      // The title of the booking event.
+	public $description;
 	public $date_booked;                // Date that this booking was made
 	public $start_time;                 // Start datetime
 	public $end_time;                   // End datetime
 	public $status = self::TENTATIVE;   // Booking status is tentative by default
+	public $repeat;
+	public $repeat_freq;
+	public $repeat_end;
 
 	// NOTE: dates are in the format YYYY-MM-DD
 	// NOTE: datetimes are in the format YYYY-MM-DD HH:MM:SS
@@ -166,28 +170,8 @@ class Booking
 	}
 
 	/*
-	 * Helper function that confirms this booking.
+	 * TODO: Recurring event function
 	 */
-	private function confirm() {
-		$this->status = self::CONFIRMED;
-		return true;
-	}
-
-	/*
-	 * Helper function that rejects this booking.
-	 */
-	private function reject() {
-		$this->status = self::REJECTED;
-		return true;
-	}
-
-	/*
-	 * Helper function that make this booking tentative.
-	 */
-	private function tentative() {
-		$this->status = self::TENTATIVE;
-		return true;
-	}
 }
 
 /* End of file booking.php */

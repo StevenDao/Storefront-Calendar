@@ -110,13 +110,27 @@ class Main extends CI_Controller
 		$data['clients'] = $this->client_model->get_clients();
 
 		$data['title'] = 'Storefront Calendar';
-		$data['main'] = 'booking/add_event';
+		$data['main'] = 'booking/add_booking';
 		$data['styles'] = 'booking/styles';
 		$data['scripts'] = 'booking/scripts';
 
 		$this->load->view('template', $data);
 	}
 
+	function form_edit_booking() {
+		$this->load->model('room_model');
+		$this->load->model('client_model');
+
+		$data['rooms'] = $this->room_model->get_rooms();
+		$data['clients'] = $this->client_model->get_clients();
+
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'booking/add_booking';
+		$data['styles'] = 'booking/styles';
+		$data['scripts'] = 'booking/scripts';
+
+		$this->load->view('template', $data);
+	}
 
 	function add_booking() {
 		$this->load->model('booking_model');
@@ -124,15 +138,23 @@ class Main extends CI_Controller
 		$booking = new Booking();
 		$booking->init();
 
-		$start = $this->input->post('from_date') . 't' . $this->input->post('from_time');
-		$end = $this->input->post('to_date') . 't' . $this->input->post('to_time');
+		if ($this->input->post('all_day') == TRUE) {
+			$booking->set_start_time(9, 0);
+			$booking->set_end_time(18, 0);
+		} else {
+			$start = $this->input->post('from_date') . 't' . $this->input->post('from_time');
+			$end = $this->input->post('to_date') . 't' . $this->input->post('to_time');
+			$booking->set_times($start, $end);
+		}
 
 		$booking->title = $this->input->post('title');
-		$booking->set_times($start, $end);
+		$booking->description = $this->input->post('description');
 
 		$booking->userid = $this->input->post('client');
 		$booking->roomid = $this->input->post('room');
 		$booking->status = $this->input->post('status');
+		$booking->repeat = $this->input->post('repeat');
+		$booking->repeat_feq = $this->input->post('repeat_freq');
 
 		$this->booking_model->insert($booking);
 		redirect('main/index', 'refresh');
