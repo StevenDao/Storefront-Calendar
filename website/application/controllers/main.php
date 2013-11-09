@@ -46,11 +46,37 @@ class Main extends CI_Controller
 				'id' => $booking->id,
 				'title' => $booking->title,
 				'start' => $booking->start_time,
-				'end' => $booking->end_time
+				'end' => $booking->end_time,
+				'resourceId' => intval($booking->roomid)
 			);
 		}
 
 		echo json_encode($events);
+	}
+
+	function next($limit){
+		//move the page to next set of rooms
+		$limit = intval($limit) + 6;
+
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'main/body';
+		$data['scripts'] = 'main/scripts';
+		$data['styles'] = 'main/styles';
+		$data['lower_limit'] = $limit;
+
+		$this->load->view('template', $data);
+	}
+
+	function get_rooms($id){	
+		$var = intval($id);
+		
+		for($i=$var; $i<$var+6; $i++){
+			$rooms[] = array(
+				'id' => $i,
+				'name' => "room ". strval($i)
+				);
+		}
+		echo json_encode($rooms);
 	}
 
 	function move_event() {

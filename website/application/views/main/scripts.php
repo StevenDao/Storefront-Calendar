@@ -1,8 +1,9 @@
 <script src='<?= base_url() ?>fullcalendar/lib/jquery.min.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.22/jquery-ui.min.js"></script>
 <script src='<?= base_url() ?>fullcalendar/lib/jquery-ui.custom.min.js'></script>
 <script src="<?= base_url() ?>/js/jquery.timers.js"></script>
 <script src='<?= base_url() ?>fullcalendar/fullcalendar.min.js'></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
 
 <script>
     $(function() {
@@ -12,22 +13,63 @@
 <script>
 $(document).ready(function() {
     var booking_title = "";
+    var page = $('#lower_limit').val();
+    var view = $('#view').val();
+    
+    if(view != 'resourceDay'){
+        $('#nextRooms').hide();
+    }
+
+    $("#month").click(function(e){
+        $('#calendar').fullCalendar( 'changeView', 'month' );
+        var view = $('#calendar').fullCalendar( 'getView');
+        $('#pageTitle').html(view.title);
+        $('#nextRooms').hide();
+    });  
+
+    $("#week").click(function(e){
+        $('#calendar').fullCalendar( 'changeView', 'agendaWeek' );
+        var view = $('#calendar').fullCalendar( 'getView');
+        $('#pageTitle').html(view.title);
+        $('#nextRooms').hide();
+    });  
+
+    $("#day").click(function(e){
+        $('#calendar').fullCalendar( 'changeView', 'resourceDay' );
+        var view = $('#calendar').fullCalendar( 'getView');
+        $('#pageTitle').html(view.title);
+        $('#nextRooms').show();
+    });
+
+    $('#nextCal').click(function(e){
+        $('#calendar').fullCalendar('next');
+        var view = $('#calendar').fullCalendar( 'getView');
+        $('#pageTitle').html(view.title);
+    });
+
+    $('#prevCal').click(function(e){
+        $('#calendar').fullCalendar('prev');
+        var view = $('#calendar').fullCalendar( 'getView');
+        $('#pageTitle').html(view.title);
+    });
 
     var calendar = $('#calendar').fullCalendar({
         header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
+            left: '',
+            center: '',
+            right: ''
         },
         editable: true,
         allDayDefault: false,
         firstHour: 9,
         //weekends: false,
 
-        height: $(window).height() - 60,
+        height: $(window).height() - 150,
 
         events: '<?= base_url() ?>main/get_events',
+        resources: '<?= base_url() ?>main/get_rooms/'+page,
 
+        
         eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
             event.day_delta = dayDelta;
             event.minute_delta = minuteDelta;
@@ -84,6 +126,13 @@ $(document).ready(function() {
             calendar.fullCalendar('unselect');
         }
     });
+
+     $('#calendar').fullCalendar( 'changeView', view );
+    
+
+    var view = $('#calendar').fullCalendar( 'getView');
+    $('#pageTitle').html(view.title);
+
 
     allFields = $( [] ).add( title );
     $( "#new-booking" ).dialog({
