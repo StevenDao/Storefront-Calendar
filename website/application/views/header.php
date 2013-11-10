@@ -12,6 +12,7 @@
 					<li><?= anchor('account/form_new_client', 'Add New Client') ?></li>
 					<li><?= anchor('account/form_edit_client', 'Edit Client') ?></li>
 					<li><?= anchor('main/form_add_booking', 'New Event') ?></li>
+					<li><?= anchor('main/form_event_booking', 'Edit Event') ?></li>
 				</ul>
 			</li>
 		</ul>

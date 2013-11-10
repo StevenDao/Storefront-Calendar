@@ -163,6 +163,139 @@ class Main extends CI_Controller
 		$this->booking_model->insert($booking);
 		redirect('main/index', 'refresh');
 	}
+
+		function form_edit_booking(){
+		$this->load->model('booking_model');
+		$this->load->model('client_model');
+		$this->load->model('user_model');
+		$this->load->model('room_model');
+
+		$user =  $this->session->userdata('user'); 
+
+		if ($user->usertype == 1){
+			$data['booking_list'] =  $this->booking_model->get_bookings();
+		} 
+		else{
+			$data['booking'] = $this->booking_model->getByUserID($user->clientid);
+		}
+
+		$data['rooms'] = $this->room_model->get_rooms();
+		$data['clients'] = $this->client_model->get_clients();
+		$data['booking'] = new Booking();
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'booking/edit_event';
+		$data['styles'] = 'booking/styles';
+		$data['scripts'] = 'booking/scripts';
+
+		$this->load->view('template', $data);
+	}
+
+	function edit_booking(){
+
+		$this->load->model('booking_model');
+		$this->load->model('client_model');
+		$this->load->model('room_model');
+
+
+		$id = $this->input->post('id');
+		$booking = $this->booking_model->get($id);
+
+		$start = $this->input->post('from_date') . 't' . $this->input->post('from_time');
+		$end = $this->input->post('to_date') . 't' . $this->input->post('to_time');
+
+		$booking->set_times($start, $end);
+		$booking->userid = $this->input->post('client');
+		$booking->roomid = $this->input->post('room');
+		$booking->status = $this->input->post('status');
+
+		$this->booking_model->updateRoom($booking);
+		$this->booking_model->update_date_time($booking);
+		$this->booking_model->updateStatus($booking);
+
+		$user =  $this->session->userdata('user'); 
+
+		if ($user->usertype == 1){
+			$data['booking_list'] =  $this->booking_model->get_bookings();
+		} 
+		else{
+			$data['booking'] = $this->booking_model->getByUserID($user->clientid);
+		}
+
+		$data['rooms'] = $this->room_model->get_rooms();
+		$data['clients'] = $this->client_model->get_clients();
+		$data['booking'] = new Booking();
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'booking/edit_event';
+		$data['styles'] = 'booking/styles';
+		$data['scripts'] = 'booking/scripts';
+		$data['message'] = $booking->title . " has been updated";
+
+		$this->load->view('template', $data);
+
+	}
+
+	function delete_booking(){
+
+		$this->load->model('booking_model');
+		$this->load->model('client_model');
+		$this->load->model('room_model');
+
+		$user =  $this->session->userdata('user'); 
+
+		if ($user->usertype == 1){
+			$data['booking_list'] =  $this->booking_model->get_bookings();
+		} 
+		else{
+			$data['booking'] = $this->booking_model->getByUserID($user->clientid);
+		}
+
+
+		$id = $this->input->post('id');
+		$booking = $this->booking_model->get($id);
+
+		$this->booking_model->deleteBooking($id);
+
+		$data['rooms'] = $this->room_model->get_rooms();
+		$data['clients'] = $this->client_model->get_clients();
+		$data['booking'] = new Booking();
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'booking/edit_event';
+		$data['styles'] = 'booking/styles';
+		$data['scripts'] = 'booking/scripts';
+		$data['message'] = $booking->title . " has been deleted";
+
+		$this->load->view('template', $data);
+
+	}
+
+
+	function change_booking(){
+
+		$this->load->model('booking_model');
+		$this->load->model('client_model');
+		$this->load->model('room_model');
+
+		$id = $this->input->post('booking_id');
+		$user =  $this->session->userdata('user'); 
+
+		if ($user->usertype == 1){
+			$data['booking_list'] =  $this->booking_model->get_bookings();
+		} 
+		else{
+			$data['booking'] = $this->booking_model->getByUserID($user->clientid);
+		}
+
+		$data['rooms'] = $this->room_model->get_rooms();
+		$data['clients'] = $this->client_model->get_clients();
+		$data['booking'] = $this->booking_model->get($id);
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'booking/edit_event';
+		$data['styles'] = 'booking/styles';
+		$data['scripts'] = 'booking/scripts';
+
+		$this->load->view('template', $data);
+
+	}
 }
 
 /* End of file main.php */
