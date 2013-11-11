@@ -14,6 +14,7 @@
 	
 	<button id="prevCal" style="float:left;"><</button>
 	<button id="nextCal" style="float:left;">></button>
+	<button id="today" style="float:left;margin-left:10px;">Today</button>
 
 	<p id='pageTitle' class='center'>jj</p>
 </div>

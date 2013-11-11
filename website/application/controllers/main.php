@@ -86,7 +86,7 @@ class Main extends CI_Controller
 		$this->load->model('booking_model');
 
 		$booking = $this->booking_model->get($event->id);
-		$booking->move($event->day_delta, $event->minute_delta);
+		$booking->move($event->day_delta, $event->minute_delta, $event->resourceId);
 
 		$this->booking_model->update_date_time($booking);
 	}

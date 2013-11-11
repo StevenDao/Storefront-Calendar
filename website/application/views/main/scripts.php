@@ -41,6 +41,19 @@ $(document).ready(function() {
         $('#nextRooms').show();
     });
 
+    $("#today").click(function(e){
+        var d = new Date();
+
+        var month = d.getMonth();
+        var day = d.getDate();
+        var year = d.getFullYear();
+
+        $('#calendar').fullCalendar( 'gotoDate', year, month, day );
+        var view = $('#calendar').fullCalendar( 'getView');
+        $('#pageTitle').html(view.title);
+        $('#nextRooms').hide();
+    });
+
     $('#nextCal').click(function(e){
         $('#calendar').fullCalendar('next');
         var view = $('#calendar').fullCalendar( 'getView');
