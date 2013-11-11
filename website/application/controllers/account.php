@@ -572,7 +572,7 @@ class Account extends CI_Controller
 		$data['main'] = 'account/edit_client';
 		$data['scripts'] = 'account/scripts';
 		$data['styles'] = 'account/styles';
-		$data['clients'] = $this->client_model->display_all_clients();
+		
 
 
 		$current_user = $this->session->userdata('user'); 
@@ -580,12 +580,14 @@ class Account extends CI_Controller
 		$client = $this->client_model->get_from_id($client_id);
 
 		if ($current_user->id == $client_id) {
+			$data['clients'] = $this->client_model->display_all_clients();
 			$data['message'] = "You cannot delete yourself!";
 			$data['client'] = $client;
 			$this->load->view('template', $data); 
 		}
 		else {
 			$this->client_model->delete_client($client_id);
+			$data['clients'] = $this->client_model->display_all_clients();
 			$data['message'] = "The client " . $client->agency . " has been deleted!";
 			$data['client'] = new Client();
 			$this->load->view('template', $data); 
