@@ -89,6 +89,7 @@ class Main extends CI_Controller
 		$booking->move($event->day_delta, $event->minute_delta, $event->resourceId);
 
 		$this->booking_model->update_date_time($booking);
+		$this->booking_model-> updateRoom($booking);
 	}
 
 	function resize_event() {
@@ -101,7 +102,7 @@ class Main extends CI_Controller
 		$booking->resize($event->day_delta, $event->minute_delta);
 
 		$this->booking_model->update_date_time($booking);
-		$this->booking_model-> updateRoom($booking);
+
 	}
 
 	function add_event() {
