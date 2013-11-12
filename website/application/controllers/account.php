@@ -1,6 +1,4 @@
 <?php
-/* XXX: This should definately not be here... */
-require_once 'application/models/user.php';
 /*
  * TODO: Add validation for the email and ensure that the email is valid.
  * TODO: Add a new form for adding a client.(DONE)
@@ -59,7 +57,13 @@ class Account extends CI_Controller
 	function form_new_user() {
 		$this->load->model('client_model');
 		$data['clients'] = $this->client_model->display_all_clients();
-		$this->load->view('account/new_user', $data);
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'account/new_user';
+		$data['scripts'] = 'account/scripts';
+		$data['styles'] = 'account/styles';
+
+
+		$this->load->view('template', $data);
 	}
 
 	/*
@@ -67,7 +71,13 @@ class Account extends CI_Controller
 	 */
 	function form_new_client() {
 
-		$this->load->view('account/new_client');
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'account/new_client';
+		$data['scripts'] = 'account/scripts';
+		$data['styles'] = 'account/styles';
+
+
+		$this->load->view('template', $data);
 	}
 
 	function form_edit_user() {
@@ -75,10 +85,16 @@ class Account extends CI_Controller
 		$this->load->model('user_model');
 		$this->load->model("client_model");
 
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'account/edit_user';
+		$data['scripts'] = 'account/scripts';
+		$data['styles'] = 'account/styles';
+
 		$data['query'] = $this->user_model->display_all_users();
 		$data['clients'] = $this->client_model->display_all_clients();
 		$data['user'] = new User();
-		$this->load->view('account/edit_user', $data);
+
+		$this->load->view('template', $data);
 	}
 
 	/*
@@ -86,9 +102,20 @@ class Account extends CI_Controller
 	 */
 	function form_edit_client() {
 		$this->load->model('client_model');
+
+		$message = $this->session->flashdata('message');
+		if (isset($message))
+			$data['message'] = $message;
+
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'account/edit_client';
+		$data['scripts'] = 'account/scripts';
+		$data['styles'] = 'account/styles';
+
 		$data['clients'] = $this->client_model->display_all_clients();
 		$data['client'] = new Client();
-		$this->load->view('account/edit_client', $data);
+
+		$this->load->view('template', $data);
 	}
 
 	/*
@@ -301,15 +328,28 @@ class Account extends CI_Controller
 	function delete_user() {
 		$login = $this->input->post('login');
 		$this->load->model('user_model');
+		$this->load->model('client_model');
+
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'account/edit_user';
+		$data['scripts'] = 'account/scripts';
+		$data['styles'] = 'account/styles';
+		$data['query'] = $this->user_model->display_all_users();
+		$data['clients'] = $this->client_model->display_all_clients();
+
 
 		$user = $this->session->userdata('user');
 		$currentlogin = $user->login;
 
 		if ($currentlogin == $login) {
-			redirect("account/form_edit_user", "refresh");
+			$data['user'] = $user;
+			$data['message'] = 'You cannot delete yourself';
+			$this->load->view('template', $data);
 		} else {
 			$this->user_model->delete_user($login);
-			redirect("account/form_edit_user", "refresh");
+			$data['user'] = new User();
+			$data['message'] = "The user " . $user->login . " has been deleted!";
+			$this->load->view('template', $data);
 		}
 	}
 
@@ -324,7 +364,13 @@ class Account extends CI_Controller
 		$data['query'] = $this->user_model->display_all_users();
 		$data['clients'] = $this->client_model->display_all_clients();
 
-		$this->load->view('account/edit_user', $data);
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'account/edit_user';
+		$data['scripts'] = 'account/scripts';
+		$data['styles'] = 'account/styles';
+
+
+		$this->load->view('template', $data);
 	}
 
 	/* Edit the user's information */
@@ -332,6 +378,11 @@ class Account extends CI_Controller
 
 		$this->load->model('user_model');
 		$this->load->model("client_model");
+
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'account/edit_user';
+		$data['scripts'] = 'account/scripts';
+		$data['styles'] = 'account/styles';
 
 		$login = $this->input->post('login');
 		$user = $this->user_model->get($login);
@@ -345,7 +396,7 @@ class Account extends CI_Controller
 			$data['user'] = $user;
 			$data['query'] = $this->user_model->display_all_users();
 			$data['clients'] = $this->client_model->display_all_clients();
-			$this->load->view('account/edit_user', $data);
+			$this->load->view('template', $data);
 
 		} else {
 
@@ -367,11 +418,13 @@ class Account extends CI_Controller
 			$this->user_model->update_usertype($user);
 			$this->user_model->update_clientid($user);
 
+			$data['message'] = "The client " . $user->login . " has been updated!";
+
 			$data['user'] = $user;
 			$data['query'] = $this->user_model->display_all_users();
 			$data['clients'] = $this->client_model->display_all_clients();
 
-			$this->load->view('account/edit_user', $data);
+			$this->load->view('template', $data);
 		}
 
 	}
@@ -387,7 +440,7 @@ class Account extends CI_Controller
 		$user = $this->user_model->get($login);
 
 		if ($user->email != $email) {
-			if ($this->user_model->get_same_email($email)) {
+			if ($this->user_model->get_from_email($email)) {
 				return TRUE;
 			} else {
 				$this->form_validation->set_message("email_check", "The email already exists");
@@ -396,13 +449,7 @@ class Account extends CI_Controller
 		}
 	}
 
-	/*
-	 * Create a new client and add it to the database. Very simplified version
-	 * of a client for now.
-	 *
-	 * TODO: Create a more sophisticated client class and associated database
-	 * table for it.
-	 */
+	
 	function create_new_client() {
 		$this->load->library('form_validation');
 
@@ -426,37 +473,7 @@ class Account extends CI_Controller
 			$client->insurance_status = $this->input->post('insurance');
 			$client->category = $this->input->post('category');
 
-			/*
-			$newclient = $client->name;
-			$newPassword = $clearPassword;
-			$this->load->library('email');
-
-			$config['protocol'] = 'smtp';
-			$config['smtp_host'] = 'ssl://smtp.gmail.com';
-			$config['smtp_port'] = '465';
-			$config['smtp_timeout'] = '7';
-			$config['smtp_user'] = 'c1chenhu@gmail.com';
-			$config['smtp_pass'] = 'sinceqq123';
-			$config['charset'] = 'utf-8';
-			$config['newline'] = "\r\n";
-			$config['mailtype'] = 'text'; // or html
-			$config['validation'] = TRUE; // bool whether to validate email or not
-
-
-			$this->email->initialize($config);
-
-			$this->email->from('eaststorefront@storefront.com', 'eaststorefront');
-			$this->email->to($client->email);
-
-			$this->email->subject('eaststorefront account successfully created');
-			$this->email->message("
-								welcome to eaststorefront $newclient
-								Your password is $newPassword , please remember it ");
-
-			$result = $this->email->send();
-			 * 
-			 */
-
+		
 			$this->load->model('client_model');
 
 			$this->client_model->insert($client);
@@ -475,11 +492,20 @@ class Account extends CI_Controller
 	function change_client(){
 		$this->load->model('client_model');
 
+		$message = $this->session->flashdata('message');
+		if (isset($message))
+			$data['message'] = $message;
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'account/edit_client';
+		$data['scripts'] = 'account/scripts';
+		$data['styles'] = 'account/styles';
+
+
 		$id = $this->input->post('agency');
 		$data['clients'] = $this->client_model->display_all_clients();
 		$data['client'] =  $this->client_model->get_from_id($id);
 
-		$this->load->view('account/edit_client', $data);
+		$this->load->view('template', $data);
 	}
 
 	/*
@@ -492,16 +518,23 @@ class Account extends CI_Controller
 	function edit_client() {
 		$this->load->model('client_model');
 
+
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'account/edit_client';
+		$data['scripts'] = 'account/scripts';
+		$data['styles'] = 'account/styles';
+
 		$id = $this->input->post('id');
 		$client = $this->client_model->get_from_id($id);
 
 		$this->load->library('form_validation');
 
 		if ($this->form_validation->run() == FALSE) {
+
 			$data['clients'] = $this->client_model->display_all_clients();
 			$data['client'] = $client;
 
-			$this->load->view('account/edit_client', $data);
+			$this->load->view('template', $data);
 		} else {
 			$client->program = $this->input->post('programname');
 			$client->manager = $this->input->post('manager');
@@ -518,13 +551,11 @@ class Account extends CI_Controller
 
 			$this->client_model->update_client_info($client);
 
-			$this->session->set_flashdata('message', "The client " .
-				$client->agency .
-				" has been updated!");
+			$data['message'] =  "The client " . $client->agency . " has been updated!";
 			$data['clients'] = $this->client_model->display_all_clients();
 			$data['client'] = $client;
 
-			$this->load->view('account/edit_client', $data); 
+			$this->load->view('template', $data); 
 		}
 	}
 
@@ -537,16 +568,29 @@ class Account extends CI_Controller
 		$this->load->model('client_model');
 		$this->load->model('user_model');
 
-		$current_user = $this->session->userdata('user'); 
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'account/edit_client';
+		$data['scripts'] = 'account/scripts';
+		$data['styles'] = 'account/styles';
+		
 
+
+		$current_user = $this->session->userdata('user'); 
 		$client_id = $this->input->post('id');
+		$client = $this->client_model->get_from_id($client_id);
 
 		if ($current_user->id == $client_id) {
-			redirect("account/form_edit_client", "refresh");
+			$data['clients'] = $this->client_model->display_all_clients();
+			$data['message'] = "You cannot delete yourself!";
+			$data['client'] = $client;
+			$this->load->view('template', $data); 
 		}
 		else {
 			$this->client_model->delete_client($client_id);
-			redirect("account/form_edit_client", "refresh");
+			$data['clients'] = $this->client_model->display_all_clients();
+			$data['message'] = "The client " . $client->agency . " has been deleted!";
+			$data['client'] = new Client();
+			$this->load->view('template', $data); 
 		}
 	}
 }

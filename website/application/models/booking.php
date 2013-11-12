@@ -136,7 +136,7 @@ class Booking
 	 * @param delta_days: integer
 	 * @param delta_minutes: integer
 	 */
-	function move($delta_days, $delta_minutes) {
+	function move($delta_days, $delta_minutes, $room_id) {
 		// Use the createFromDateString function in order to gracefully handle
 		// negative days and minutes.
 		$arg = $delta_days . ' days ' . $delta_minutes . ' minutes';
@@ -149,6 +149,9 @@ class Booking
 		$date = new DateTime($this->end_time);
 		$date->add($interval);
 		$this->end_time = $this->format_datetime($date);
+
+		$this->roomid = $room_id;
+
 	}
 
 	/*
