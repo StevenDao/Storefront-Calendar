@@ -90,9 +90,14 @@ $colours = array(
 				<tr>
 					<td class="formSectionLeft" width="32%">Status</td>
 					<td class="formSectionLast" width="68%">
-						<input type="radio" name="status" value="2">Tentative&nbsp;&nbsp;
+						<input type="radio" name="status" value="2" checked>Tentative&nbsp;&nbsp;
+						<?php
+						$user = $this->session->userdata('user');
+						if($user->usertype == 1){
+						?>
 						<input type="radio" name="status" value="1">Confirmed&nbsp;&nbsp;
 						<input type="radio" name="status" value="3">Rejected
+						<?php } ?>
 					</td>
 				</tr>
 				<tr>

@@ -61,8 +61,8 @@ class Booking_model extends CI_Model
 
 	// Insert a new booking into the 'booking' table
 	function insert($booking) {
-		$this->db->insert('booking', $booking);
-		return ($this->db->affected_rows() != 1) ? false : true;
+		return $this->db->insert('booking', $booking);
+		//return ($this->db->affected_rows() != 1);
 	}
 
 	// Update the roomid
@@ -88,6 +88,11 @@ class Booking_model extends CI_Model
 	function updateStatus($booking) {
 		$this->db->where('id', $booking->id);
 		return $this->db->update('booking', array('status'=>$booking->status));
+	}
+	// update
+	function update_client($booking) {
+		$this->db->where('id', $booking->id);
+		return $this->db->update('booking', array('userid'=>$booking->userid));
 	}
 
 	// Exclusive lookup of a booking by ID

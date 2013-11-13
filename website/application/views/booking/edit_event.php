@@ -56,7 +56,7 @@ $colours = array(
 						
 						<?php
 
-							
+						if(sizeof($booking_list) > 0 ){
 							foreach ($booking_list as $element) {
 								$bookings["$element->id"] = "$element->title";
 							}
@@ -65,6 +65,11 @@ $colours = array(
 							$js = "onChange='this.form.submit()'";
 							echo form_dropdown("booking_id", $bookings, $booking->id, $js);
 							echo form_close();
+						}
+						else{
+							echo form_label("You don't have a booking!!");
+							return;
+						}
 						?>
 						
 					</td>

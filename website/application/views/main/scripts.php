@@ -108,6 +108,15 @@ $(document).ready(function() {
                     type: 'POST'
             });
         },
+		
+		eventClick: function(event, jsEnvent, view){
+			args= "json=" + JSON.stringify(event);
+			ar = event.id;
+			url = "<?= base_url()?>main/cal_edit_event/"+ ar;
+			window.open(url);
+		
+			return;			
+		},
 
         selectable: true,
         selectHelper: true,

@@ -70,6 +70,7 @@ class Main extends CI_Controller
 					'title' => $booking->title,
 					'start' => $booking->start_time,
 					'end' => $booking->end_time,
+					'color' => 'red',
 					'resourceId' => intval($booking->roomid)
 				);
 			}
@@ -102,6 +103,45 @@ class Main extends CI_Controller
 		}
 		echo json_encode($rooms);
 	}
+	
+	function cal_edit_event($id){
+		
+			$this->load->model('booking_model');
+			$this->load->model('client_model');
+			$this->load->model('room_model');
+
+			$booking =  $this->booking_model->get($id);
+			$user =  $this->session->userdata('user'); 
+
+			$data['title'] = 'Storefront Calendar';
+			$data['styles'] = 'booking/styles';
+			$data['scripts'] = 'booking/scripts';
+			$data['rooms'] = $this->room_model->get_rooms();
+			$data['booking'] = $booking;
+
+			if ($user->usertype == 1){
+				$data['booking_list'] =  $this->booking_model->get_bookings();
+				$data['clients'] = $this->client_model->get_clients();
+				$data['main'] = 'booking/edit_event';
+				$res = $this->load->view('template', $data, TRUE);	
+			} 
+			else if ($booking->userid == $user->clientid){
+				$client = $this->client_model->get_from_id($user->clientid);
+				$clients = array();
+				$clients[$client->id] = $client->agency;
+
+				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid);
+				$data['clients'] = $clients;
+				$data['main'] = 'booking/edit_event';
+				$res = $this->load->view('template', $data, TRUE);
+			}
+			else{
+				$data['main'] = 'booking/forbidden';
+				$res = $this->load->view('template', $data, TRUE);
+			}
+
+			echo $res;
+		}
 
 	function move_event() {
 		$data = $this->input->get_post('json');
@@ -157,10 +197,21 @@ class Main extends CI_Controller
 	function form_add_booking() {
 		$this->load->model('room_model');
 		$this->load->model('client_model');
+		$this->load->model('booking_model');
+		
+		$user = $this->session->userdata('user');
+		
+		if ($user->usertype != 2){ 
+				$data['booking_list'] = $this->booking_model->get_bookings(); 
+				$data['clients'] = $this->client_model->get_clients();
+		}else{
+				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
+				$client = $this->client_model->get_from_id($user->clientid); 
+				$clients = array($client->id => $client->agency ); 
+				$data['clients'] = $clients;
+		}
 
 		$data['rooms'] = $this->room_model->get_rooms();
-		$data['clients'] = $this->client_model->get_clients();
-
 		$data['title'] = 'Storefront Calendar';
 		$data['main'] = 'booking/add_booking';
 		$data['styles'] = 'booking/styles';
@@ -174,7 +225,7 @@ class Main extends CI_Controller
 
 		$booking = new Booking();
 		$booking->init();
-
+		
 		if ($this->input->post('all_day') == TRUE) {
 			$booking->set_start_time(9, 0);
 			$booking->set_end_time(18, 0);
@@ -186,11 +237,9 @@ class Main extends CI_Controller
 
 		$booking->title = $this->input->post('title');
 		$booking->description = $this->input->post('description');
-
 		$booking->userid = $this->input->post('client');
 		$booking->roomid = $this->input->post('room');
 		$booking->status = $this->input->post('status');
-
 		$repeat = $this->input->post('repeat');
 
 		if ($repeat == 'repeat') {
@@ -199,36 +248,45 @@ class Main extends CI_Controller
 			$booking->repeat_end = $this->input->post('repeat_end');
 		}
 
-		$this->booking_model->insert($booking);
-		redirect('main/index', 'refresh');
-	}
-
-	function form_edit_booking(){
-		$this->load->model('booking_model');
-		$this->load->model('client_model');
-		$this->load->model('user_model');
-		$this->load->model('room_model');
-
-		$user =  $this->session->userdata('user'); 
-
-		if ($user->usertype == 1){
-			$data['booking_list'] =  $this->booking_model->get_bookings();
-		} 
-		else{
-			$data['booking'] = $this->booking_model->getByUserID($user->clientid);
-		}
-
-		$data['rooms'] = $this->room_model->get_rooms();
-		$data['clients'] = $this->client_model->get_clients();
-		$data['booking'] = new Booking();
+		$return = $this->booking_model->insert($booking);
+		
+		
 		$data['title'] = 'Storefront Calendar';
-		$data['main'] = 'booking/edit_event';
-		$data['styles'] = 'booking/styles';
-		$data['scripts'] = 'booking/scripts';
+		$data['main'] = 'main/body';
+		$data['scripts'] = 'main/scripts';
+		$data['styles'] = 'main/styles';
+		$data['message'] = "$return";
 
 		$this->load->view('template', $data);
 	}
 
+	function form_edit_booking(){ 
+		$this->load->model('booking_model'); 
+		$this->load->model('client_model'); 
+		$this->load->model('user_model'); 
+		$this->load->model('room_model');
+
+		$user = $this->session->userdata('user');
+
+		if ($user->usertype != 2){ 
+			$data['booking_list'] = $this->booking_model->get_bookings(); 
+			$data['clients'] = $this->client_model->get_clients(); 
+		} 
+		else{ 
+			$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
+			$client = $this->client_model->get_from_id($user->clientid); 
+			$clients = array($client->id => $client->agency ); 
+			$data['clients'] = $clients; 
+		}
+
+			$data['rooms'] = $this->room_model->get_rooms(); 
+			$data['booking'] = new Booking(); 
+			$data['title'] = 'Storefront Calendar'; 
+			$data['main'] = 'booking/edit_event'; 			
+			$data['styles'] = 'booking/styles'; $data['scripts'] = 'booking/scripts';
+
+			$this->load->view('template', $data); 
+	}
 	function edit_booking(){
 
 		$this->load->model('booking_model');
@@ -250,18 +308,21 @@ class Main extends CI_Controller
 		$this->booking_model->updateRoom($booking);
 		$this->booking_model->update_date_time($booking);
 		$this->booking_model->updateStatus($booking);
+		$this->booking_model->update_client($booking);
 
 		$user =  $this->session->userdata('user'); 
 
-		if ($user->usertype == 1){
-			$data['booking_list'] =  $this->booking_model->get_bookings();
-		} 
-		else{
-			$data['booking'] = $this->booking_model->getByUserID($user->clientid);
+		if ($user->usertype != 2){ 
+				$data['booking_list'] = $this->booking_model->get_bookings(); 
+				$data['clients'] = $this->client_model->get_clients();
+		}else{
+				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
+				$client = $this->client_model->get_from_id($user->clientid); 
+				$clients = array($client->id => $client->agency ); 
+				$data['clients'] = $clients;
 		}
 
 		$data['rooms'] = $this->room_model->get_rooms();
-		$data['clients'] = $this->client_model->get_clients();
 		$data['booking'] = new Booking();
 		$data['title'] = 'Storefront Calendar';
 		$data['main'] = 'booking/edit_event';
@@ -281,11 +342,14 @@ class Main extends CI_Controller
 
 		$user =  $this->session->userdata('user'); 
 
-		if ($user->usertype == 1){
-			$data['booking_list'] =  $this->booking_model->get_bookings();
-		} 
-		else{
-			$data['booking'] = $this->booking_model->getByUserID($user->clientid);
+		if ($user->usertype != 2){ 
+				$data['booking_list'] = $this->booking_model->get_bookings(); 
+				$data['clients'] = $this->client_model->get_clients();
+		}else{
+				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
+				$client = $this->client_model->get_from_id($user->clientid); 
+				$clients = array($client->id => $client->agency ); 
+				$data['clients'] = $clients;
 		}
 
 
@@ -295,7 +359,6 @@ class Main extends CI_Controller
 		$this->booking_model->delete($id);
 
 		$data['rooms'] = $this->room_model->get_rooms();
-		$data['clients'] = $this->client_model->get_clients();
 		$data['booking'] = new Booking();
 		$data['title'] = 'Storefront Calendar';
 		$data['main'] = 'booking/edit_event';
@@ -316,15 +379,17 @@ class Main extends CI_Controller
 		$id = $this->input->post('booking_id');
 		$user =  $this->session->userdata('user'); 
 
-		if ($user->usertype == 1){
-			$data['booking_list'] =  $this->booking_model->get_bookings();
-		} 
-		else{
-			$data['booking'] = $this->booking_model->getByUserID($user->clientid);
+		if ($user->usertype != 2){ 
+				$data['booking_list'] = $this->booking_model->get_bookings(); 
+				$data['clients'] = $this->client_model->get_clients();
+		}else{
+				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
+				$client = $this->client_model->get_from_id($user->clientid); 
+				$clients = array($client->id => $client->agency ); 
+				$data['clients'] = $clients;
 		}
 
 		$data['rooms'] = $this->room_model->get_rooms();
-		$data['clients'] = $this->client_model->get_clients();
 		$data['booking'] = $this->booking_model->get($id);
 		$data['title'] = 'Storefront Calendar';
 		$data['main'] = 'booking/edit_event';

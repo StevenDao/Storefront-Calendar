@@ -18,7 +18,7 @@ class Booking
 	public $end_time;                   // End datetime
 	public $status = self::TENTATIVE;   // Booking status is tentative by default
 	public $repeat;
-	public $repeat_freq;
+	public $repeat_freq = 0;
 	public $repeat_end;
 
 	// NOTE: dates are in the format YYYY-MM-DD
