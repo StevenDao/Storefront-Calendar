@@ -250,8 +250,7 @@ class Main extends CI_Controller
             $repeat = 1;
 		} else {
 		    $repeat = 0;
-		    $repeat_freq = 1;
-		    $repeat_end = $from_date;
+		    $repeat_freq = 0;
 		}
         
         // Load the booking model
