@@ -260,7 +260,7 @@ class Main extends CI_Controller
         // Validate any data that needs to be validated
         // If there is an error, redirect to the input_error view, which will explain the problem,
         // and link back to this page.
-        $errno = $booking->validate_booking_details
+        $errno = $this->booking_model->validate_booking_details
             ($title, $from_date, $to_date, $from_time, $to_time,
              $repeat, $repeat_freq, $repeat_end, $description);
         if ($errno != 0) {
