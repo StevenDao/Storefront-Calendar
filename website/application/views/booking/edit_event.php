@@ -77,7 +77,7 @@ $colours = array(
 				<tr>
 					<?php 
 					$hidden = array("id" => "$booking->id");
-					echo form_open("main/edit_booking",'',$hidden);
+					echo form_open("main/edit_booking/" . "$booking->id");
 					?>
 					<td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>From</td>
 					<td class="formSectionRight" width="68%">
