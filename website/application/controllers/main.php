@@ -258,15 +258,17 @@ class Main extends CI_Controller
         $this->load->model('booking_model');
         
         // Validate any data that needs to be validated
-        // If there is an error, redirect to the input_error view, which will explain the problem,
-        // and link back to this page.
+        // If there is an error, redirect to the invalid_input view, which will
+        // explain the problem, and ask the user to click 'back' in the browser
         $errno = $this->booking_model->validate_booking_details
             ($title, $from_date, $to_date, $from_time, $to_time,
              $repeat, $repeat_freq, $repeat_end, $description);
         if ($errno != 0) {
             // Load the input_error view
+            $data['title'] = 'Invalid form input';
+            $data['main'] = 'invalid_input';
             $data['errno'] = $errno;
-            $this->load->view('input_error', $data);
+            $this->load->view('template', $data);
         }
         
         // Create a new Booking object
