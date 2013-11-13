@@ -38,10 +38,24 @@ class Main extends CI_Controller
 
 	function get_events() {
 		$this->load->model('booking_model');
+		$this->load->model('client_model');
+		$this->load->model('room_model');
+
 		$bookings = $this->booking_model->get_bookings();
 		$events = array();
+		$color = array('1' => 'blue' , '2' => 'green', '3' => 'red' );
 
 		foreach ($bookings as $booking) {
+			$client = $this->client_model->get_from_id($booking->userid);
+			$room = $this->room_model->getFromId($booking->roomid);
+
+			$date = new DateTime("$booking->start_time");
+			$start = $date->format('h:ia');
+			$date = new DateTime("$booking->end_time");
+			$end = $date->format('h:ia');
+
+			$str = "Booked by :" . "$client->agency" . "<br>" . "Initialy, booked $room->name" .  " from ". "$start to  $end" ."<br>" ."$booking->description";
+
 			if ($booking->repeat == 1) {
 				$repeat = true;
 				$repeat_end = new DateTime($booking->repeat_end);
@@ -51,8 +65,10 @@ class Main extends CI_Controller
 						'id' => $booking->id,
 						'title' => $booking->title,
 						'start' => $booking->start_time,
+						'color' => $color[$booking->status],
 						'end' => $booking->end_time,
-						'resourceId' => intval($booking->roomid)
+						'resourceId' => intval($booking->roomid),
+						'description' => "$str"
 					);
 
 					$booking->move($booking->repeat_freq, 0, $booking->roomid);
@@ -70,8 +86,9 @@ class Main extends CI_Controller
 					'title' => $booking->title,
 					'start' => $booking->start_time,
 					'end' => $booking->end_time,
-					'color' => 'red',
-					'resourceId' => intval($booking->roomid)
+					'color' => $color[$booking->status],
+					'resourceId' => intval($booking->roomid),
+					'description' => "$str"
 				);
 			}
 		}
@@ -83,6 +100,7 @@ class Main extends CI_Controller
 		//move the page to next set of rooms
 		$limit = intval($limit) + 6;
 
+		$data['go_date'] = $this->input->post('date');
 		$data['title'] = 'Storefront Calendar';
 		$data['main'] = 'main/body';
 		$data['scripts'] = 'main/scripts';
@@ -104,44 +122,6 @@ class Main extends CI_Controller
 		echo json_encode($rooms);
 	}
 	
-	function cal_edit_event($id){
-		
-			$this->load->model('booking_model');
-			$this->load->model('client_model');
-			$this->load->model('room_model');
-
-			$booking =  $this->booking_model->get($id);
-			$user =  $this->session->userdata('user'); 
-
-			$data['title'] = 'Storefront Calendar';
-			$data['styles'] = 'booking/styles';
-			$data['scripts'] = 'booking/scripts';
-			$data['rooms'] = $this->room_model->get_rooms();
-			$data['booking'] = $booking;
-
-			if ($user->usertype == 1){
-				$data['booking_list'] =  $this->booking_model->get_bookings();
-				$data['clients'] = $this->client_model->get_clients();
-				$data['main'] = 'booking/edit_event';
-				$res = $this->load->view('template', $data, TRUE);	
-			} 
-			else if ($booking->userid == $user->clientid){
-				$client = $this->client_model->get_from_id($user->clientid);
-				$clients = array();
-				$clients[$client->id] = $client->agency;
-
-				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid);
-				$data['clients'] = $clients;
-				$data['main'] = 'booking/edit_event';
-				$res = $this->load->view('template', $data, TRUE);
-			}
-			else{
-				$data['main'] = 'booking/forbidden';
-				$res = $this->load->view('template', $data, TRUE);
-			}
-
-			echo $res;
-		}
 
 	function move_event() {
 		$data = $this->input->get_post('json');
@@ -287,28 +267,47 @@ class Main extends CI_Controller
 
 			$this->load->view('template', $data); 
 	}
-	function edit_booking(){
+
+	function edit_booking($id){
 
 		$this->load->model('booking_model');
 		$this->load->model('client_model');
 		$this->load->model('room_model');
 
-
-		$id = $this->input->post('id');
+		
 		$booking = $this->booking_model->get($id);
 
-		$start = $this->input->post('from_date') . 't' . $this->input->post('from_time');
-		$end = $this->input->post('to_date') . 't' . $this->input->post('to_time');
+		if ($this->input->post('all_day') == TRUE) {
+			$booking->set_start_time(9, 0);
+			$booking->set_end_time(18, 0);
+		} else {
+			$start = $this->input->post('from_date') . 't' . $this->input->post('from_time');
+			$end = $this->input->post('to_date') . 't' . $this->input->post('to_time');
+			$booking->set_times($start, $end);
+		}
 
-		$booking->set_times($start, $end);
+		$booking->description = $this->input->post('description');
 		$booking->userid = $this->input->post('client');
 		$booking->roomid = $this->input->post('room');
 		$booking->status = $this->input->post('status');
+		$repeat = $this->input->post('repeat');
+
+		if ($repeat == 'repeat') {
+			$booking->repeat = 1;
+			$booking->repeat_freq = $this->input->post('repeat_freq');
+			$booking->repeat_end = $this->input->post('repeat_end');
+		}
+		else{
+			$booking->repeat = 0;
+			$booking->repeat_freq = 0;
+			$booking->repeat_end = NULL;
+		}
 
 		$this->booking_model->updateRoom($booking);
 		$this->booking_model->update_date_time($booking);
 		$this->booking_model->updateStatus($booking);
 		$this->booking_model->update_client($booking);
+		$this->booking_model->update_freq($booking);
 
 		$user =  $this->session->userdata('user'); 
 
@@ -370,13 +369,16 @@ class Main extends CI_Controller
 
 	}
 
-	function change_booking(){
+	function change_booking($id=""){
 
 		$this->load->model('booking_model');
 		$this->load->model('client_model');
 		$this->load->model('room_model');
 
-		$id = $this->input->post('booking_id');
+		if($id == ""){
+			$id = $this->input->post('booking_id');
+		}
+
 		$user =  $this->session->userdata('user'); 
 
 		if ($user->usertype != 2){ 
@@ -399,6 +401,9 @@ class Main extends CI_Controller
 		$this->load->view('template', $data);
 
 	}
+
+	
+
 }
 
 /* End of file main.php */

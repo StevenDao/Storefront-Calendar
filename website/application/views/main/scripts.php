@@ -1,5 +1,6 @@
 <script src='<?= base_url() ?>fullcalendar/lib/jquery.min.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.22/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/jquery.qtip-1.0.0.min.js"></script>
 <script src='<?= base_url() ?>fullcalendar/lib/jquery-ui.custom.min.js'></script>
 <script src="<?= base_url() ?>/js/jquery.timers.js"></script>
 <script src='<?= base_url() ?>fullcalendar/fullcalendar.min.js'></script>
@@ -15,7 +16,8 @@ $(document).ready(function() {
     var booking_title = "";
     var page = $('#lower_limit').val();
     var view = $('#view').val();
-    
+    var given_date =  $("[name='date']").val().split(" ");
+
     if(view != 'resourceDay'){
         $('#nextRooms').hide();
     }
@@ -51,19 +53,24 @@ $(document).ready(function() {
         $('#calendar').fullCalendar( 'gotoDate', year, month, day );
         var view = $('#calendar').fullCalendar( 'getView');
         $('#pageTitle').html(view.title);
-        $('#nextRooms').hide();
+
     });
 
     $('#nextCal').click(function(e){
+        
         $('#calendar').fullCalendar('next');
         var view = $('#calendar').fullCalendar( 'getView');
         $('#pageTitle').html(view.title);
+        $("[name='date']").val($.datepicker.formatDate('dd mm yy', view.start));
+
+        
     });
 
     $('#prevCal').click(function(e){
         $('#calendar').fullCalendar('prev');
         var view = $('#calendar').fullCalendar( 'getView');
         $('#pageTitle').html(view.title);
+        $("[name='date']").val($.datepicker.formatDate('dd mm yy', view.start));
     });
 
     var calendar = $('#calendar').fullCalendar({
@@ -72,6 +79,7 @@ $(document).ready(function() {
             center: '',
             right: ''
         },
+
         editable: true,
         allDayDefault: false,
         firstHour: 9,
@@ -82,7 +90,6 @@ $(document).ready(function() {
         events: '<?= base_url() ?>main/get_events',
         resources: '<?= base_url() ?>main/get_rooms/'+page,
 
-        
         eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
             event.day_delta = dayDelta;
             event.minute_delta = minuteDelta;
@@ -94,9 +101,22 @@ $(document).ready(function() {
                 data: args,
                 type: 'POST'
             });
+            $(".qtip").remove();
+            $('#calendar').fullCalendar( 'rerenderEvents' );
+        },
+
+        eventRender: function(event, element) {
+
+            element.qtip({
+                show: 'mouseover',
+                hide: 'mouseout',
+                content: event.description
+            });
         },
 
         eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+             $("*").qtip("remove");
+
             event.day_delta = dayDelta;
             event.minute_delta = minuteDelta;
             args = "json=" + JSON.stringify(event);
@@ -107,12 +127,14 @@ $(document).ready(function() {
                     data: args,
                     type: 'POST'
             });
+            $('#calendar').fullCalendar('refetchEvents');
+            $('#calendar').fullCalendar('rerenderEvents');
         },
 		
 		eventClick: function(event, jsEnvent, view){
 			args= "json=" + JSON.stringify(event);
-			ar = event.id;
-			url = "<?= base_url()?>main/cal_edit_event/"+ ar;
+			id = event.id;
+			url = "<?= base_url()?>main/change_booking/"+ id;
 			window.open(url);
 		
 			return;			
@@ -143,6 +165,7 @@ $(document).ready(function() {
                     booking_title = "";
                     booking = null;
                     calendar.fullCalendar('refetchEvents');
+                    calendar.fullCalendar( 'rerenderEvents' );
                 }
             });
             calendar.fullCalendar('unselect');
@@ -150,8 +173,8 @@ $(document).ready(function() {
     });
 
      $('#calendar').fullCalendar( 'changeView', view );
+      $('#calendar').fullCalendar( 'gotoDate',  parseInt(given_date[2]),  parseInt(given_date[1])-1,  parseInt(given_date[0]) );
     
-
     var view = $('#calendar').fullCalendar( 'getView');
     $('#pageTitle').html(view.title);
 
