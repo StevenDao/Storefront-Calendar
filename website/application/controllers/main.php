@@ -222,6 +222,22 @@ class Main extends CI_Controller
 	}
 
 	function add_booking() {
+        /*
+        // If the event is all day, set the start and end times accordingly
+        if ($this->input->post('all_day') == TRUE) {
+			$start_hr = 9;
+            $start_min = 0;
+            $end_hr = 18;
+            $end_min = 0;
+		} else {
+			$start = $this->input->post('from_date') . 't' . $this->input->post('from_time');
+			$end = $this->input->post('to_date') . 't' . $this->input->post('to_time');
+			$booking->set_times($start, $end);
+		}
+        
+        */
+        
+        
 		$this->load->model('booking_model');
 
 		$booking = new Booking();
@@ -235,8 +251,8 @@ class Main extends CI_Controller
 			$end = $this->input->post('to_date') . 't' . $this->input->post('to_time');
 			$booking->set_times($start, $end);
 		}
-
-		$booking->title = $this->input->post('title');
+// modified
+		$booking->title = $this->input->post('title') . '*' . $this->input->post('from_date') . '*' . $this->input->post('from_date') . '*';
 		$booking->description = $this->input->post('description');
 		$booking->userid = $this->input->post('client');
 		$booking->roomid = $this->input->post('room');
