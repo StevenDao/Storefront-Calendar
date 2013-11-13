@@ -36,9 +36,6 @@
         case 7:
             echo 'You requested a repeating event with an \'end-repeat\' date that is before the original event\'s \'from\' date.';
             break;
-        case 8:
-            echo 'You did not enter a description for the event.';
-            break;
         default:
             echo 'We\'re really not sure what it was, but you entered something invalid. (Please try again!)';
     }

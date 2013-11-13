@@ -263,36 +263,41 @@ class Main extends CI_Controller
         $errno = $this->booking_model->validate_booking_details
             ($title, $from_date, $to_date, $from_time, $to_time,
              $repeat, $repeat_freq, $repeat_end, $description);
-        if ($errno == 0 || $errno != 0 ) {
+        
+        if ($errno != 0 ) {
+            
             // Load the input_error view
             $data['title'] = 'Invalid form input';
             $data['main'] = 'invalid_input';
             $data['errno'] = $errno;
             $this->load->view('invalid_input', $data);
+            
         } else {
-        
-        // Create a new Booking object
-        $booking = new Booking();
-        $booking->init();
-        
-        // Set the relevant properties in the Booking object
-        $start = $from_date . 't' . $from_time;
-		$end = $to_date . 't' . $to_time;
-		$booking->set_times($start, $end);
-
-        $booking->title = $title;
-        $booking->description = $description;
-        $booking->userid = $client;
-        $booking->roomid = $room;
-        $booking->status = $status;
-        $booking->repeat = $repeat;
-        $booking->repeat_freq = $repeat_freq;
-        $booking->repeat_end = $repeat_end;
-        
-		$booking->date_booked = date_format(new DateTime(), 'Y-m-d');
-		
-		$this->booking_model->insert($booking);
-        redirect('main/index', 'refresh');
+            
+            // Add the event
+            
+            // Create a new Booking object
+            $booking = new Booking();
+            $booking->init();
+            
+            // Set the relevant properties in the Booking object
+            $start = $from_date . 't' . $from_time;
+            $end = $to_date . 't' . $to_time;
+            $booking->set_times($start, $end);
+    
+            $booking->title = $title;
+            $booking->description = $description;
+            $booking->userid = $client;
+            $booking->roomid = $room;
+            $booking->status = $status;
+            $booking->repeat = $repeat;
+            $booking->repeat_freq = $repeat_freq;
+            $booking->repeat_end = $repeat_end;
+            
+            $booking->date_booked = date_format(new DateTime(), 'Y-m-d');
+            
+            $this->booking_model->insert($booking);
+            redirect('main/index', 'refresh');
         }
     }
 

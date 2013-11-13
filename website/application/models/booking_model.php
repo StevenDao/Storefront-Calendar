@@ -139,6 +139,8 @@ class Booking_model extends CI_Model
      * controller function (main controller). Note that the all_day, room,
      * client, and status properties of a booking are set up in our forms so
      * that they will always have valid values, so they are not checked here.
+     * The description field may be blank, or anything, so that isn't checked
+     * either.
      * 
      * Returns 0 on successful validation of details, or one of the following:
      * 1 = The 'title' field is blank
@@ -148,11 +150,10 @@ class Booking_model extends CI_Model
      * 5 = A repeating event has a non-integer frequency
      * 6 = A repeating event has a frequency that is less than 1 day
      * 7 = A repeating event has an end-date that is before its from-date
-     * 8 = The 'description' field is blank
      */
     function validate_booking_details
         ( $title, $from_date, $to_date, $from_time, $to_time,
-          $repeat, $repeat_freq, $repeat_end, $description ){
+          $repeat, $repeat_freq, $repeat_end ){
         
         // If the title field is empty, return error code 1
         if ($title == '') {
@@ -205,11 +206,6 @@ class Booking_model extends CI_Model
             if ($end < $from) {
                 return 7;
             }
-        }
-        
-        // If the description field is blank, return error code 8
-        if ($description == '') {
-            return 8;
         }
         
         // If we got here, then there are no errors in the input, so return 0
