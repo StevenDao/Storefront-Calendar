@@ -251,8 +251,8 @@ class Main extends CI_Controller
 			$end = $this->input->post('to_date') . 't' . $this->input->post('to_time');
 			$booking->set_times($start, $end);
 		}
-// modified
-		$booking->title = $this->input->post('title') . '*' . $this->input->post('from_date') . '*' . $this->input->post('from_time') . '*';
+        
+		$booking->title = $this->input->post('title');
 		$booking->description = $this->input->post('description');
 		$booking->userid = $this->input->post('client');
 		$booking->roomid = $this->input->post('room');
