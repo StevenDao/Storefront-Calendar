@@ -6,8 +6,6 @@
  *       then allow changing the values and update the database after updating). It
  *       should also validate that all the values are valid. (ALMOST)
  *
- * CLARK TODO: Please add a separate email function so that email functionality is
- *             not repeated code over and over again.
  */
 
 class Account extends CI_Controller
@@ -185,10 +183,18 @@ class Account extends CI_Controller
 	 * stores it in the database.
 	 */
 	function create_new_user() {
+		$this->load->model('client_model');
 		$this->load->library('form_validation');
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('account/new_user');
+			$data['clients'] = $this->client_model->display_all_clients();
+			$data['title'] = 'Storefront Calendar';
+			$data['main'] = 'account/new_user';
+			$data['scripts'] = 'account/scripts';
+			$data['styles'] = 'account/styles';
+
+			$this->load->view('template', $data);
+			
 		} else {
 			$user = new User();
 
@@ -204,8 +210,8 @@ class Account extends CI_Controller
 			$this->load->model('user_model');
 			
 			$this->user_model->auto_email($user->email, "Welcome to Storefront", 
-											"Welcome to Storefront $user->login, 
-											your password is $password, please remember it")
+											"Welcome to Storefront $user->login: 
+								your password is $password, please remember it");
 
 			$this->user_model->insert($user);
 
@@ -238,7 +244,7 @@ class Account extends CI_Controller
 				$this->load->model('user_model');
 				$this->user_model->update_password($user);
 				$this->user_model->auto_email($user->email, "new password", 
-											"your new password is $password, please remember it")							
+											"your new password is $password, please remember it");						
 				$data['user'] = $user;
 				$this->load->view('main', $data);
 			} else {

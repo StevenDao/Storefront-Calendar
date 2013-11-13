@@ -126,7 +126,7 @@ class User_model extends CI_Model {
 	/*
 	* Auto email system
 	*/
-	function email($email, $subject, $message){
+	function auto_email($email, $subject, $message){
 		$this->load->library('email');
 
 		$config['protocol'] = 'smtp';

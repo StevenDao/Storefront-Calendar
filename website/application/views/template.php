@@ -21,8 +21,15 @@
 </head>
 
 <body>
-
- <?php $this->load->view('header'); ?>
+ <?php
+  $user =  $this->session->userdata('user');
+  if ($user->usertype == 1){
+  	$this->load->view('header'); 
+  }
+  else{
+	  $this->load->view('client_head');
+  }
+  ?>
 
  <?php $this->load->view('message'); ?>
 

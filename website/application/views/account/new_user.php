@@ -26,7 +26,7 @@ if (p1.val() == p2.val()) {
     <tr>
         <td>
             <table class="text" border="0" cellpadding="4" cellspacing="3" width="100%">
-                <?php  echo form_open('account/change_user'); ?>
+                <?php  echo form_open('account/create_new_user'); ?>
                 <tr height="40px">
                     <td colspan="2" class="formHeading">Add New User</td>
                 </tr>
@@ -95,14 +95,14 @@ if (p1.val() == p2.val()) {
                 </tr>
                 <tr>
                     <td class="formSectionLeft"><span style="color:#FF0000">*</span>Password</td>
-                    <td class="formSectionRight"><input size="25" class="input" type="password" required="required">
+                    <td class="formSectionRight"><input name="password" size="25" class="input" type="password" required="required">
                         <?php echo form_error('password'); ?>
                     </td>
                 </tr>
 
                 <tr>
                     <td class="formSectionLeft"><span style="color:#FF0000">*</span>Re - Enter Password</td>
-                    <td class="formSectionLast"><input size="25" class="input" type="password" required="required">
+                    <td class="formSectionLast"><input name="passconf" size="25" class="input" type="password" required="required">
                         <?php echo form_error('passconf'); ?>
                     </td>
                 </tr>
