@@ -66,6 +66,11 @@ class Booking
 		$this->date_booked = date('Y-m-d');
 	}
 
+	function get_start_date() {
+		$start = new DateTime($this->start_time);
+		return $start->format('Y-m-d');
+	}
+
 	/*
 	 * Set the start date of the booking.
 	 */

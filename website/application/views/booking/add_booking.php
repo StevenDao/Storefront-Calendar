@@ -8,6 +8,15 @@ $colours = array(
 	'green' => 'green'
 );
 ?>
+<div id="repeat-form" title="Repeat...">
+	<form id="target">
+		<label for="tmp_freq">Frequency</label>
+		<input id="tmp_freq" type="text" name="tmp_freq" class="ui-widget-content ui-corner-all" />
+		<br />
+		<label for="tmp_end">Repeat End Date</label>
+		<input id="tmp_end" type="text" name="tmp_end" class="ui-widget-content ui-corner-all" />
+	</form>
+</div>
 
 <table width="auto" class="outter">
 	<tr>
@@ -50,7 +59,8 @@ $colours = array(
 					<td class="formSectionRight" width="68%">
 						<input id="all_day" type="checkbox" name="all_day" value="all_day">All Day&nbsp;&nbsp;
 						<input id="repeat" type="checkbox" name="repeat" value="repeat">Repeat... <br />
-						<input id="repeat_freq" class="input" type="text" name="repeat_freq">
+						<input id="repeat_freq" type="hidden" name="repeat_freq" />
+						<input id="repeat_end" type="hidden" name="repeat_end" />
 					</td>
 				</tr>
 				<tr>

@@ -9,6 +9,58 @@ $(function() {
 	$( "#end_picker" ).datepicker({ dateFormat: 'yy-mm-dd' });
 	$( "#start_time" ).timepicker({ 'timeFormat': 'H:i:s' });
 	$( "#end_time" ).timepicker({ 'timeFormat': 'H:i:s' });
+
+	$( "#tmp_end" ).datepicker({ dateFormat: 'yy-mm-dd' });
+
+	function checkRegexp(o, regexp, n) {
+		if ( !( regexp.test( o.val() ) ) ) {
+			o.addClass( "ui-state-error" );
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	$( "#repeat" ).change(function () {
+		if (this.checked) {
+			$( "#repeat-form" ).dialog( "open" );
+		}
+	});
+
+	var tmp_freq = $( "#tmp_freq" ),
+	    tmp_end = $( "#tmp_end" ),
+	    repeat_freq = $( "#repeat_freq" ),
+	    repeat_end = $( "#repeat_end" ),
+	    allFields = $( [] ).add( repeat_freq ).add( repeat_end );
+	$( "#repeat-form" ).dialog({
+		autoOpen: false,
+		height: "auto",
+		width: "auto",
+		buttons: {
+			"Save": function() {
+				var bValid = true;
+				allFields.removeClass( "ui-state-error" );
+
+				bValid = bValid && checkRegexp(tmp_freq, /^\d+$/i, "e.g. 7");
+
+				if (bValid) {
+					repeat_freq.val(tmp_freq.val());
+					repeat_end.val(tmp_end.val());
+					$( this ).dialog( "close" );
+				}
+			}
+		},
+		close: function() {
+			allFields.removeClass( "ui-state-error" );
+		}
+	});
+
+	$( "#target" ).submit(function (e) {
+		$( "#repeat-form button" ).click();
+		return false;
+	});
+
 });
+
 
 </script>
