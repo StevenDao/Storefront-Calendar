@@ -191,9 +191,10 @@ class Main extends CI_Controller
 		$booking->roomid = $this->input->post('room');
 		$booking->status = $this->input->post('status');
 
-		$booking->repeat = $this->input->post('repeat');
+		$repeat = $this->input->post('repeat');
 
-		if ($booking->repeat == 'repeat') {
+		if ($repeat == 'repeat') {
+			$booking->repeat = 1;
 			$booking->repeat_freq = $this->input->post('repeat_freq');
 			$booking->repeat_end = $this->input->post('repeat_end');
 		}
@@ -291,7 +292,7 @@ class Main extends CI_Controller
 		$id = $this->input->post('id');
 		$booking = $this->booking_model->get($id);
 
-		$this->booking_model->deleteBooking($id);
+		$this->booking_model->delete($id);
 
 		$data['rooms'] = $this->room_model->get_rooms();
 		$data['clients'] = $this->client_model->get_clients();

@@ -7,8 +7,8 @@
 $(function() {
 	$( "#start_picker" ).datepicker({ dateFormat: 'yy-mm-dd' });
 	$( "#end_picker" ).datepicker({ dateFormat: 'yy-mm-dd' });
-	$( "#start_time" ).timepicker({ 'timeFormat': 'H:i:s' });
-	$( "#end_time" ).timepicker({ 'timeFormat': 'H:i:s' });
+	$( "#start_time" ).timepicker({ 'timeFormat': 'H:i:s', 'scrollDefaultNow': true });
+	$( "#end_time" ).timepicker({ 'timeFormat': 'H:i:s', 'scrollDefaultNow': true });
 
 	$( "#tmp_end" ).datepicker({ dateFormat: 'yy-mm-dd' });
 
