@@ -35,22 +35,6 @@ class Main extends CI_Controller
 
 		$this->load->view('template', $data);
 	}
-	
-	function confirm_event(){
-		$data = $this->input->get_post('json');
-		$event = json_decode($data);
-
-		$this->load->model('booking_model');
-		$booking = $this->booking_model->get($event->id);
-
-		$user = $this->session->userdata('user');
-		
-		if ($user->usertype == 1){
-			$booking->status = 1;
-			$this->booking_model->updateStatus($booking);
-		}
-
-	}
 
 	function get_events() {
 		$this->load->model('booking_model');
@@ -165,6 +149,22 @@ class Main extends CI_Controller
 
 	}
 
+	function confirm_event(){
+		$data = $this->input->get_post('json');
+		$event = json_decode($data);
+
+		$this->load->model('booking_model');
+		$booking = $this->booking_model->get($event->id);
+
+		$user = $this->session->userdata('user');
+		
+		if ($user->usertype == 1){
+			$booking->status = 1;
+			$this->booking_model->updateStatus($booking);
+		}
+
+	}
+
 	function add_event() {
 		$data = $this->input->get_post('json');
 		$event = json_decode($data);
@@ -244,16 +244,9 @@ class Main extends CI_Controller
 			$booking->repeat_end = $this->input->post('repeat_end');
 		}
 
-		$return = $this->booking_model->insert($booking);
+		$this->booking_model->insert($booking);
 		
-		
-		$data['title'] = 'Storefront Calendar';
-		$data['main'] = 'main/body';
-		$data['scripts'] = 'main/scripts';
-		$data['styles'] = 'main/styles';
-		$data['message'] = "$return";
-
-		$this->load->view('template', $data);
+		redirect('main/index', 'refresh');
 	}
 
 	function form_edit_booking(){ 
@@ -279,7 +272,8 @@ class Main extends CI_Controller
 			$data['booking'] = new Booking(); 
 			$data['title'] = 'Storefront Calendar'; 
 			$data['main'] = 'booking/edit_event'; 			
-			$data['styles'] = 'booking/styles'; $data['scripts'] = 'booking/scripts';
+			$data['styles'] = 'booking/styles';
+			$data['scripts'] = 'booking/scripts';
 
 			$this->load->view('template', $data); 
 	}

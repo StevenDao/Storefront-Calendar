@@ -1,6 +1,6 @@
 <script src='<?= base_url() ?>fullcalendar/lib/jquery.min.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.22/jquery-ui.min.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/jquery.qtip-1.0.0.min.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/jquery.qtip.js"></script>
 <script src='<?= base_url() ?>fullcalendar/lib/jquery-ui.custom.min.js'></script>
 <script src="<?= base_url() ?>/js/jquery.timers.js"></script>
 <script src='<?= base_url() ?>fullcalendar/fullcalendar.min.js'></script>
@@ -101,7 +101,7 @@ $(document).ready(function() {
                 data: args,
                 type: 'POST'
             });
-            $(".qtip").remove();
+            $('#calendar').fullCalendar('refetchEvents');
             $('#calendar').fullCalendar( 'rerenderEvents' );
         },
 
@@ -131,12 +131,12 @@ $(document).ready(function() {
                     data: args,
                     type: 'POST'
             });
-            $("*").qtip("remove");
             $('#calendar').fullCalendar('refetchEvents');
             $('#calendar').fullCalendar('rerenderEvents');
         },
 		
 		eventClick: function(event, jsEnvent, view){
+            $("*").qtip("remove");
             args = "json=" + JSON.stringify(event);
             url = "<?= base_url() ?>main/confirm_event";
 
@@ -145,8 +145,9 @@ $(document).ready(function() {
                     data: args,
                     type: 'POST'
             });
-            $("*").qtip("remove");
+            
             $('#calendar').fullCalendar('refetchEvents');
+
 
 		},
 
