@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+
+<head>
+    <title><?php echo $title ?>
+</head>
+
+<body>
+    
 <h1>Oops! There was an error processing your request.</h1>
 
 <h2>What happened?</h2>
@@ -39,3 +47,5 @@
 <h2>What do I do now?</h2>
 <p>Please click the 'back' button in your web-browser to try again.</p>
 
+</body>
+</html>

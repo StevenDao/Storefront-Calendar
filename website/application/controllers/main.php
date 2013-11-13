@@ -268,8 +268,8 @@ class Main extends CI_Controller
             $data['title'] = 'Invalid form input';
             $data['main'] = 'invalid_input';
             $data['errno'] = $errno;
-            $this->load->view('template', $data);
-        }
+            $this->load->view('invalid_input', $data);
+        } else {
         
         // Create a new Booking object
         $booking = new Booking();
@@ -293,7 +293,7 @@ class Main extends CI_Controller
 		
 		$this->booking_model->insert($booking);
         redirect('main/index', 'refresh');
-    
+        }
     }
 
 	function form_edit_booking(){ 
