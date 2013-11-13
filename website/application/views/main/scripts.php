@@ -140,8 +140,7 @@ $(document).ready(function() {
             $('#calendar').fullCalendar('rerenderEvents');
         },
 		
-		eventClick: function(event, jsEnvent, view){
-            $("*").qtip("remove");
+	eventClick: function(event, jsEnvent, view){
             args = "json=" + JSON.stringify(event);
             url = "<?= base_url() ?>main/confirm_event";
 
