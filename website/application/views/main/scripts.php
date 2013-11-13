@@ -40,7 +40,7 @@ $(document).ready(function() {
         $('#calendar').fullCalendar( 'changeView', 'resourceDay' );
         var view = $('#calendar').fullCalendar( 'getView');
         $('#pageTitle').html(view.title);
-        $('#nextRooms').show();
+        //$('#nextRooms').show();
     });
 
     $("#today").click(function(e){
