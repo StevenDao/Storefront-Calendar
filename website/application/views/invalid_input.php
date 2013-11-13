@@ -15,6 +15,7 @@
 <h2>What went wrong?</h2>
 <p>
 <?php
+    echo '(Error code: ' . $errno . ')<br />';
     switch ($errno) {
         case 1:
             echo 'You did not enter a title for the event.';
