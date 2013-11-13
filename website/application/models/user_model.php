@@ -122,6 +122,35 @@ class User_model extends CI_Model {
         $this->db->where('login', $login);
         $this->db->delete('user');
     }
+	
+	/*
+	* Auto email system
+	*/
+	function email($email, $subject, $message){
+		$this->load->library('email');
+
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'ssl://smtp.gmail.com';
+		$config['smtp_port'] = '465';
+		$config['smtp_timeout'] = '7';
+		$config['smtp_user'] = 'nettilling@gmail.com';
+		$config['smtp_pass'] = 'csc301h1';
+		$config['charset'] = 'utf-8';
+		$config['newline'] = "\r\n";
+		$config['mailtype'] = 'text'; // or html
+		$config['validation'] = TRUE; // bool whether to validate email or not
+
+		$this->email->initialize($config);
+
+		$this->email->from('eaststorefront@storefront.com', 'eaststorefront');
+		$this->email->to($email);
+
+		$this->email->subject($subject);
+		$this->email->message($message);
+
+		$result = $this->email->send();
+		
+	}
 
 }
 

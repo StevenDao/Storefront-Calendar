@@ -201,33 +201,11 @@ class Account extends CI_Controller
 			$user->clientid = intval($this->input->post("agency"));
 			$user->usertype = intval($this->input->post("type"));
 
-			$this->load->library('email');
-
-			$config['protocol'] = 'smtp';
-			$config['smtp_host'] = 'ssl://smtp.gmail.com';
-			$config['smtp_port'] = '465';
-			$config['smtp_timeout'] = '7';
-			$config['smtp_user'] = 'c1chenhu@gmail.com';
-			$config['smtp_pass'] = 'sinceqq123';
-			$config['charset'] = 'utf-8';
-			$config['newline'] = "\r\n";
-			$config['mailtype'] = 'text'; // or html
-			$config['validation'] = TRUE; // bool whether to validate email or not
-
-
-			$this->email->initialize($config);
-
-			$this->email->from('eaststorefront@storefront.com', 'eaststorefront');
-			$this->email->to($user->email);
-
-			$this->email->subject('eaststorefront account successfully created');
-			$this->email->message("
-				welcome to eaststorefront $user->login
-				Your password is $password , please remember it ");
-
-			$result = $this->email->send();
-
 			$this->load->model('user_model');
+			
+			$this->user_model->auto_email($user->email, "Welcome to Storefront", 
+											"Welcome to Storefront $user->login, 
+											your password is $password, please remember it")
 
 			$this->user_model->insert($user);
 
@@ -254,11 +232,13 @@ class Account extends CI_Controller
 
 			$old_password = $this->input->post('old_password');
 			$new_password = $this->input->post('new_password');
-
+			
 			if ($user->compare_password($old_password)) {
 				$user->encrypt_password($new_password);
 				$this->load->model('user_model');
 				$this->user_model->update_password($user);
+				$this->user_model->auto_email($user->email, "new password", 
+											"your new password is $password, please remember it")							
 				$data['user'] = $user;
 				$this->load->view('main', $data);
 			} else {
@@ -290,30 +270,6 @@ class Account extends CI_Controller
 			if (isset($user) || isset($client)) {
 				$password = $user->init();
 				$this->user_model->update_password($user);
-
-				$this->load->library('email');
-
-				$config['protocol'] = 'smtp';
-				$config['smtp_host'] = 'ssl://smtp.gmail.com';
-				$config['smtp_port'] = '465';
-				$config['smtp_timeout'] = '7';
-				$config['smtp_user'] = 'c1chenhu@gmail.com';
-				$config['smtp_pass'] = 'sinceqq123';
-				$config['charset'] = 'utf-8';
-				$config['newline'] = "\r\n";
-				$config['mailtype'] = 'text'; // or html
-				$config['validation'] = TRUE; // bool whether to validate email or not
-
-				$this->email->initialize($config);
-
-				$this->email->from('eaststorefront@storefront.com', 'eaststorefront');
-				$this->email->to($user->email);
-
-				$this->email->subject('Password recovery');
-				$this->email->message("Your new password is $password , please remember it ");
-
-				$result = $this->email->send();
-
 				$this->load->view('account/email_page');
 			} else {
 				$data['errorMsg'] = "No record exists for this email!";
