@@ -225,10 +225,10 @@ class Main extends CI_Controller
         
         // Get the input data from the POST data
         $title       = $this->input->post('title');
-        $from_date   = $this->input->post('from_date')
-        $from_time   = $this->input->post('from_time')
-        $to_date     = $this->input->post('to_date')
-        $to_time     = $this->input->post('to_time')
+        $from_date   = $this->input->post('from_date');
+        $from_time   = $this->input->post('from_time');
+        $to_date     = $this->input->post('to_date');
+        $to_time     = $this->input->post('to_time');
         $all_day     = $this->input->post('all_day');
         $repeat      = $this->input->post('repeat');
         $repeat_freq = $this->input->post('repeat_freq');
