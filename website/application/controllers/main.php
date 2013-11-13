@@ -115,10 +115,10 @@ class Main extends CI_Controller
 		$this->load->model('room_model');
 		
 		for($i=$var; $i<$var+7; $i++){
-			$name = $this->room_model->getFromId($i);
+			$room = $this->room_model->getFromId($i);
 			$rooms[] = array(
 				'id' => $i,
-				'name' => $name
+				'name' => $room->name
 				);
 		}
 		echo json_encode($rooms);
