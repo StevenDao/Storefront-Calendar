@@ -40,7 +40,7 @@ $(document).ready(function() {
         $('#calendar').fullCalendar( 'changeView', 'resourceDay' );
         var view = $('#calendar').fullCalendar( 'getView');
         $('#pageTitle').html(view.title);
-        $('#nextRooms').show();
+        //$('#nextRooms').show();
     });
 
     $("#today").click(function(e){
@@ -115,7 +115,12 @@ $(document).ready(function() {
             element.qtip({
                 show: 'mouseover',
                 hide: 'mouseout',
-                content: event.description
+                content: event.description,
+                position: {
+        		my: 'top right',  // Position my top left...
+        		at: 'top left', // at the bottom right of...
+						 // my target
+    		}
             });
         },
 
