@@ -76,9 +76,7 @@ class Booking
      * 7 = A repeating event has an end-date that is before its from-date
      * 8 = The 'description' field is blank
      */
-    functon validate_booking_details
-        ( $title, $from_date, $to_date, $from_time, $to_time,
-          $repeat, $repeat_freq, $repeat_end, $description ){
+    functon validate_booking_details( $title, $from_date, $to_date, $from_time, $to_time, $repeat, $repeat_freq, $repeat_end, $description ){
         
         // If the title field is empty, return error code 1
         if ($title == '') {
