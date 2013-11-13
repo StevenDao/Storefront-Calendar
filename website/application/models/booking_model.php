@@ -191,10 +191,14 @@ class Booking_model extends CI_Model
         
         // If the event is repeating...
         if ($repeat == 1) {
+            
+            /** Deprecated, since this is checked by the form itself **/
+            /*
             // ... and doesn't have an integer frequency, return error code 5
             if ( !is_int($repeat_freq) ? (ctype_digit($repeat_freq)) : true ) {
                 return 5;
-            }
+            }*/
+            
             // ... and doesn't have a frequency of at least 1 day, return error code 6
             if ($repeat_freq < 1) {
                 return 6;
