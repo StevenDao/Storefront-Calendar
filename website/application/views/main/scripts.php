@@ -106,6 +106,11 @@ $(document).ready(function() {
         },
 
         eventRender: function(event, element) {
+            element.bind('dblclick', function() {
+                    id = event.id;
+                    url = "<?= base_url()?>main/change_booking/"+ id;
+                    window.open(url);         
+            });
 
             element.qtip({
                 show: 'mouseover',
@@ -115,8 +120,7 @@ $(document).ready(function() {
         },
 
         eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
-             $("*").qtip("remove");
-
+             
             event.day_delta = dayDelta;
             event.minute_delta = minuteDelta;
             args = "json=" + JSON.stringify(event);
@@ -127,17 +131,23 @@ $(document).ready(function() {
                     data: args,
                     type: 'POST'
             });
+            $("*").qtip("remove");
             $('#calendar').fullCalendar('refetchEvents');
             $('#calendar').fullCalendar('rerenderEvents');
         },
 		
 		eventClick: function(event, jsEnvent, view){
-			args= "json=" + JSON.stringify(event);
-			id = event.id;
-			url = "<?= base_url()?>main/change_booking/"+ id;
-			window.open(url);
-		
-			return;			
+            args = "json=" + JSON.stringify(event);
+            url = "<?= base_url() ?>main/confirm_event";
+
+            $.ajax({
+                url: url,
+                    data: args,
+                    type: 'POST'
+            });
+            $("*").qtip("remove");
+            $('#calendar').fullCalendar('refetchEvents');
+
 		},
 
         selectable: true,

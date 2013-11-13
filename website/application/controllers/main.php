@@ -35,6 +35,22 @@ class Main extends CI_Controller
 
 		$this->load->view('template', $data);
 	}
+	
+	function confirm_event(){
+		$data = $this->input->get_post('json');
+		$event = json_decode($data);
+
+		$this->load->model('booking_model');
+		$booking = $this->booking_model->get($event->id);
+
+		$user = $this->session->userdata('user');
+		
+		if ($user->usertype == 1){
+			$booking->status = 1;
+			$this->booking_model->updateStatus($booking);
+		}
+
+	}
 
 	function get_events() {
 		$this->load->model('booking_model');
