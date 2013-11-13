@@ -65,6 +65,14 @@ class Booking_model extends CI_Model
 		//return ($this->db->affected_rows() != 1);
 	}
 
+	function update_freq($booking) {
+		$this->db->where('id', $booking->id);
+		return $this->db->update('booking', array('repeat'=>$booking->repeat,
+							'repeat_freq' => $booking->repeat_freq,
+							'repeat_end' => $booking->repeat_end));
+	}
+
+
 	// Update the roomid
 	function updateRoom($booking) {
 		$this->db->where('id', $booking->id);
