@@ -29,13 +29,13 @@ class Account extends CI_Controller
 			'logout'
 		);
 
-		$admin = array('form_new_user', 'form_new_client', 'create_new_user', 'create_new_client');
+		$admin = array('form_new_user', 'form_new_client', 'form_edit_user', 'edit_user','delete_user' , 'form_edit_client', 'change_user' , 'create_new_user', 'create_new_client', ' delete_client');
 
 		/* Check if the user is logged in */
 		if (in_array($method, array_merge($protected, $admin)) && !$user) {
 
 			redirect('account/index', 'refresh');
-		} else if (in_array($method, $admin) && !$user) {
+		} else if (in_array($method, $admin) && $user) {
 
 			/* Check if the user is an admin */
 			if ($user->usertype != User::ADMIN)
