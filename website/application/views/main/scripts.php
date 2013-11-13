@@ -91,6 +91,7 @@ $(document).ready(function() {
         resources: '<?= base_url() ?>main/get_rooms/'+page,
 
         eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+            event.description = "";
             event.day_delta = dayDelta;
             event.minute_delta = minuteDelta;
             args = "json=" + JSON.stringify(event);
@@ -125,7 +126,7 @@ $(document).ready(function() {
         },
 
         eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
-             
+            event.description = "";
             event.day_delta = dayDelta;
             event.minute_delta = minuteDelta;
             args = "json=" + JSON.stringify(event);
@@ -141,6 +142,7 @@ $(document).ready(function() {
         },
 		
 	eventClick: function(event, jsEnvent, view){
+	    event.description = "";
             args = "json=" + JSON.stringify(event);
             url = "<?= base_url() ?>main/confirm_event";
 
