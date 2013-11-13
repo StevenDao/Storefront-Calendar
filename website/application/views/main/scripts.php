@@ -115,7 +115,12 @@ $(document).ready(function() {
             element.qtip({
                 show: 'mouseover',
                 hide: 'mouseout',
-                content: event.description
+                content: event.description,
+                position: {
+        		my: 'top right',  // Position my top left...
+        		at: 'top left', // at the bottom right of...
+						 // my target
+    		}
             });
         },
 
