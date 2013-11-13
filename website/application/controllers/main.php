@@ -59,7 +59,7 @@ class Main extends CI_Controller
 
 		$bookings = $this->booking_model->get_bookings();
 		$events = array();
-		$color = array('1' => 'blue' , '2' => 'green', '3' => 'red' );
+		$color = array('0' => 'blue' , '1' => 'green', '2' => 'red' );
 
 		foreach ($bookings as $booking) {
 			$client = $this->client_model->get_from_id($booking->userid);
