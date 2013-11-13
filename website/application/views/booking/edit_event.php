@@ -137,9 +137,9 @@ $colours = array(
 				<tr>
 					<td class="formSectionLeft" width="32%">Status</td>
 					<td class="formSectionLast" width="68%">
-						<input type="radio" name="status" value="2"
+						<input type="radio" name="status" value="0"
 							<?php
-								if ($booking->status == 2){
+								if ($booking->status == 0){
 									echo 'checked';
 								}
 							?>
@@ -151,9 +151,9 @@ $colours = array(
 								}
 							?>
 						>Confirmed&nbsp;&nbsp;
-						<input type="radio" name="status" value="3"
+						<input type="radio" name="status" value="2"
 							<?php
-								if ($booking->status == 3){
+								if ($booking->status == 2){
 									echo 'checked';
 								}
 							?>
