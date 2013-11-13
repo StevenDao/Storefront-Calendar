@@ -263,7 +263,7 @@ class Main extends CI_Controller
         $errno = $this->booking_model->validate_booking_details
             ($title, $from_date, $to_date, $from_time, $to_time,
              $repeat, $repeat_freq, $repeat_end, $description);
-        if ($errno != 0) {
+        if ($errno == 0 || $errno != 0 ) {
             // Load the input_error view
             $data['title'] = 'Invalid form input';
             $data['main'] = 'invalid_input';
