@@ -54,7 +54,10 @@ class Main extends CI_Controller
 			$date = new DateTime("$booking->end_time");
 			$end = $date->format('h:ia');
 
-			$str = "Booked by :" . "$client->agency" . "<br>" . "Initialy, booked $room->name" .  " from ". "$start to  $end" ."<br>" ."$booking->description";
+			$str = "Room: " . $room->name . "<br />" .
+                   "Booked from: " . $start . " to " . $end . "<br />" .
+                   "Booked by: " . $client->agency . "<br />";
+                   "Description: " . $booking->description;
 
 			if ($booking->repeat == 1) {
 				$repeat = true;
