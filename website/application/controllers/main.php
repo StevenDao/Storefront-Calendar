@@ -222,53 +222,77 @@ class Main extends CI_Controller
 	}
 
 	function add_booking() {
-        /*
-        // If the event is all day, set the start and end times accordingly
-        if ($this->input->post('all_day') == TRUE) {
-			$start_hr = 9;
-            $start_min = 0;
-            $end_hr = 18;
-            $end_min = 0;
+        
+        // Get the input data from the POST data
+        $title       = $this->input->post('title');
+        $from_date   = $this->input->post('from_date')
+        $from_time   = $this->input->post('from_time')
+        $to_date     = $this->input->post('to_date')
+        $to_time     = $this->input->post('to_time')
+        $all_day     = $this->input->post('all_day');
+        $repeat      = $this->input->post('repeat');
+        $repeat_freq = $this->input->post('repeat_freq');
+        $repeat_end  = $this->input->post('repeat_end');
+        $description = $this->input->post('description');
+        $client      = $this->input->post('client');
+        $room        = $this->input->post('room');
+        $status      = $this->input->post('status');
+        
+        // All day events default to same-day events running from 9-7
+        if ($all_day == TRUE) {
+            $to_date = $from_date;
+            $from_time = '09:00:00';
+            $to_time = '19:00:00';
+        }
+        
+        // Handle repeating events
+        if ($repeat == 'repeat') {
+            $repeat = 1;
 		} else {
-			$start = $this->input->post('from_date') . 't' . $this->input->post('from_time');
-			$end = $this->input->post('to_date') . 't' . $this->input->post('to_time');
-			$booking->set_times($start, $end);
+		    $repeat = 0;
+		    $repeat_freq = 1;
+		    $repeat_end = $from_date;
 		}
         
-        */
+        // Load the booking model
+        $this->load->model('booking_model');
         
+        // Validate any data that needs to be validated
+        // If there is an error, redirect to the input_error view, which will explain the problem,
+        // and link back to this page.
+        $errno = $this->booking_model->validate_booking_details
+            ($title, $from_date, $to_date, $from_time, $to_time,
+             $repeat, $repeat_freq, $repeat_end, $description);
+        if ($errno != 0) {
+            // Load the input_error view
+            $data['errno'] = $errno;
+            $this->load->view('input_error', $data);
+        }
         
-		$this->load->model('booking_model');
+        // Create a new Booking object
+        $booking = new Booking();
+        $booking->init();
+        
+        // Set the relevant properties in the Booking object
+        $start = $from_date . 't' . $from_time;
+		$end = $to_date . 't' . $to_time;
+		$booking->set_times($start, $end);
 
-		$booking = new Booking();
-		$booking->init();
+        $booking->title = $title;
+        $booking->description = $description;
+        $booking->userid = $client;
+        $booking->roomid = $room;
+        $booking->status = $status;
+        $booking->repeat = $repeat;
+        $booking->repeat_freq = $repeat_freq;
+        $booking->repeat_end = $repeat_end;
+        
+		$booking->date_booked = date_format(new DateTime(), 'Y-m-d');
 		
-		if ($this->input->post('all_day') == TRUE) {
-			$booking->set_start_time(9, 0);
-			$booking->set_end_time(18, 0);
-		} else {
-			$start = $this->input->post('from_date') . 't' . $this->input->post('from_time');
-			$end = $this->input->post('to_date') . 't' . $this->input->post('to_time');
-			$booking->set_times($start, $end);
-		}
-        
-		$booking->title = $this->input->post('title');
-		$booking->description = $this->input->post('description');
-		$booking->userid = $this->input->post('client');
-		$booking->roomid = $this->input->post('room');
-		$booking->status = $this->input->post('status');
-		$repeat = $this->input->post('repeat');
-
-		if ($repeat == 'repeat') {
-			$booking->repeat = 1;
-			$booking->repeat_freq = $this->input->post('repeat_freq');
-			$booking->repeat_end = $this->input->post('repeat_end');
-		}
-
 		$this->booking_model->insert($booking);
-		
-		redirect('main/index', 'refresh');
-	}
+        redirect('main/index', 'refresh');
+    
+    }
 
 	function form_edit_booking(){ 
 		$this->load->model('booking_model'); 
@@ -372,6 +396,11 @@ class Main extends CI_Controller
 
 		$user =  $this->session->userdata('user'); 
 
+		$id = $this->input->post('id');
+		$booking = $this->booking_model->get($id);
+
+		$this->booking_model->delete($id);
+
 		if ($user->usertype != 2){ 
 				$data['booking_list'] = $this->booking_model->get_bookings(); 
 				$data['clients'] = $this->client_model->get_clients();
@@ -382,11 +411,6 @@ class Main extends CI_Controller
 				$data['clients'] = $clients;
 		}
 
-
-		$id = $this->input->post('id');
-		$booking = $this->booking_model->get($id);
-
-		$this->booking_model->delete($id);
 
 		$data['rooms'] = $this->room_model->get_rooms();
 		$data['booking'] = new Booking();
