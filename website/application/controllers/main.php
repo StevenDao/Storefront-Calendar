@@ -332,6 +332,7 @@ class Main extends CI_Controller
     function edit_booking($id){
         
         // Get the input data from the POST data
+        $title       = $this->input->post('title');
         $from_date   = $this->input->post('from_date');
         $from_time   = $this->input->post('from_time');
         $to_date     = $this->input->post('to_date');
