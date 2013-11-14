@@ -369,7 +369,7 @@ class Main extends CI_Controller
         // If there is an error, redirect to the invalid_input view, which will
         // explain the problem, and ask the user to click 'back' in the browser
         $errno = $this->booking_model->validate_booking_details
-            ($title, $from_date, $to_date, $from_time, $to_time,
+            ('dummy', $from_date, $to_date, $from_time, $to_time,
              $repeat, $repeat_freq, $repeat_end);
         
         if ($errno != 0 ) {
