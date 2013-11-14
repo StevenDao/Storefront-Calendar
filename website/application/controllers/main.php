@@ -251,7 +251,7 @@ class Main extends CI_Controller
 		} else {
 		    $repeat = 0;
 		    $repeat_freq = 0;
-            $repeat_end = 'NULL';
+            $repeat_end = NULL;
 		}
         
         // Load the booking model
