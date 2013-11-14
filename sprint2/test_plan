@@ -1,0 +1,30 @@
+Test Plan
+
+
+Tests in this test plan should be carried out whenever a change is made to the code that may affect
+the validity of the procedure as outlined.
+e.g. Whenever a change is made to the user table in the DB, or the login controller, or the front
+     page's UI/design, the 'Login' test case should be run.
+
+
+The deployed website is located at:
+http://thestorefront.cloudapp.net/html/account/index
+
+The following login credentials will always be present in the DB:
+(Admin-level)    User: testing    Pass: testing
+(Client-level)   User: client     Pass: client
+
+
+Test: Login, Logout
+    1. Navigate to the main page.
+    2. Enter the Admin-level credentials in the required fields, and press 'enter'.
+    3. The menu in the top left hand corner should include admin-level options, e.g. 'Add new user'.
+    4. Click the logout button in the top right hand corner to logout.
+    5. You should be redirected to the main page, which should appear the same as in step 1.
+    6. Enter the Client-level credentials in the required fields, and press 'enter'.
+    7. The menu in the top left hand corner should NOT include admin-level options, e.g. 'Add new user'.
+    8. Click the logout button in the top right hand corner to logout.
+    9. You should be redirected to the main page, which should appear the same as in step 1.
+
+
+
