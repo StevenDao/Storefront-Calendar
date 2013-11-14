@@ -262,13 +262,12 @@ class Main extends CI_Controller
         // explain the problem, and ask the user to click 'back' in the browser
         $errno = $this->booking_model->validate_booking_details
             ($title, $from_date, $to_date, $from_time, $to_time,
-             $repeat, $repeat_freq, $repeat_end, $description);
+             $repeat, $repeat_freq, $repeat_end);
         
         if ($errno != 0 ) {
             
             // Load the input_error view
             $data['title'] = 'Invalid form input';
-            $data['main'] = 'invalid_input';
             $data['errno'] = $errno;
             $this->load->view('invalid_input', $data);
             
@@ -330,69 +329,111 @@ class Main extends CI_Controller
 			$this->load->view('template', $data); 
 	}
 
-	function edit_booking($id){
-
-		$this->load->model('booking_model');
-		$this->load->model('client_model');
-		$this->load->model('room_model');
-
-		
-		$booking = $this->booking_model->get($id);
-
-		if ($this->input->post('all_day') == TRUE) {
-			$booking->set_start_time(9, 0);
-			$booking->set_end_time(18, 0);
+    function edit_booking($id){
+        
+        // Get the input data from the POST data
+        $from_date   = $this->input->post('from_date');
+        $from_time   = $this->input->post('from_time');
+        $to_date     = $this->input->post('to_date');
+        $to_time     = $this->input->post('to_time');
+        $all_day     = $this->input->post('all_day');
+        $repeat      = $this->input->post('repeat');
+        $repeat_freq = $this->input->post('repeat_freq');
+        $repeat_end  = $this->input->post('repeat_end');
+        $description = $this->input->post('description');
+        $client      = $this->input->post('client');
+        $room        = $this->input->post('room');
+        $status      = $this->input->post('status');
+        
+        // All day events default to same-day events running from 9-7
+        if ($all_day == TRUE) {
+            $to_date = $from_date;
+            $from_time = '09:00:00';
+            $to_time = '19:00:00';
+        }
+        
+        // Handle repeating events
+        if ($repeat == 'repeat') {
+            $repeat = 1;
 		} else {
-			$start = $this->input->post('from_date') . 't' . $this->input->post('from_time');
-			$end = $this->input->post('to_date') . 't' . $this->input->post('to_time');
-			$booking->set_times($start, $end);
+		    $repeat = 0;
+		    $repeat_freq = 0;
+            $repeat_end = NULL;
 		}
-
-		$booking->description = $this->input->post('description');
-		$booking->userid = $this->input->post('client');
-		$booking->roomid = $this->input->post('room');
-		$booking->status = $this->input->post('status');
-		$repeat = $this->input->post('repeat');
-
-		if ($repeat == 'repeat') {
-			$booking->repeat = 1;
-			$booking->repeat_freq = $this->input->post('repeat_freq');
-			$booking->repeat_end = $this->input->post('repeat_end');
-		}
-		else{
-			$booking->repeat = 0;
-			$booking->repeat_freq = 0;
-			$booking->repeat_end = NULL;
-		}
-
-		$this->booking_model->updateRoom($booking);
-		$this->booking_model->update_date_time($booking);
-		$this->booking_model->updateStatus($booking);
-		$this->booking_model->update_client($booking);
-		$this->booking_model->update_freq($booking);
-
-		$user =  $this->session->userdata('user'); 
-
-		if ($user->usertype != 2){ 
+        
+        // Load the booking model
+		$this->load->model('booking_model');
+		
+        // Validate any data that needs to be validated
+        // If there is an error, redirect to the invalid_input view, which will
+        // explain the problem, and ask the user to click 'back' in the browser
+        $errno = $this->booking_model->validate_booking_details
+            ($title, $from_date, $to_date, $from_time, $to_time,
+             $repeat, $repeat_freq, $repeat_end);
+        
+        if ($errno != 0 ) {
+            
+            // Load the input_error view
+            $data['title'] = 'Invalid form input';
+            $data['errno'] = $errno;
+            $this->load->view('invalid_input', $data);
+            
+        } else {
+            
+            // Get the booking record from the table
+		    $booking = $this->booking_model->get($id);
+            
+            // Set the start and end times
+            $start = $from_date . 't' . $from_time;
+		    $end = $to_date . 't' . $to_time;
+		    $booking->set_times($start, $end);
+            
+            // Set more data
+            $booking->description = $description;
+		    $booking->userid = $client;
+		    $booking->roomid = $room;
+		    $booking->status = $status;
+		    $booking->repeat = $repeat;
+		    $booking->repeat_freq = $repeat_freq;
+		    $booking->repeat_end = $repeat_end;
+		    
+            // Update fields
+            $this->booking_model->updateRoom($booking);
+		    $this->booking_model->update_date_time($booking);
+		    $this->booking_model->updateStatus($booking);
+		    $this->booking_model->update_client($booking);
+		    $this->booking_model->update_freq($booking);
+		    $this->booking_model->update_description($booking);
+            
+            // Load the client and room models
+            $this->load->model('client_model');
+		    $this->load->model('room_model');
+            
+            $user =  $this->session->userdata('user'); 
+            
+            if ($user->usertype != 2){ 
 				$data['booking_list'] = $this->booking_model->get_bookings(); 
 				$data['clients'] = $this->client_model->get_clients();
-		}else{
+		    } else{
 				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
 				$client = $this->client_model->get_from_id($user->clientid); 
 				$clients = array($client->id => $client->agency ); 
 				$data['clients'] = $clients;
-		}
+		    }
+            
+            // Call the view
+		    $data['rooms'] = $this->room_model->get_rooms();
+		    $data['booking'] = new Booking();
+		    $data['title'] = 'Storefront Calendar';
+		    $data['main'] = 'booking/edit_event';
+		    $data['styles'] = 'booking/styles';
+		    $data['scripts'] = 'booking/scripts';
+		    $data['message'] = $booking->title . " has been updated";
+            
+		    $this->load->view('template', $data);
 
-		$data['rooms'] = $this->room_model->get_rooms();
-		$data['booking'] = new Booking();
-		$data['title'] = 'Storefront Calendar';
-		$data['main'] = 'booking/edit_event';
-		$data['styles'] = 'booking/styles';
-		$data['scripts'] = 'booking/scripts';
-		$data['message'] = $booking->title . " has been updated";
-
-		$this->load->view('template', $data);
-
+	    }
+	    
 	}
 
 	function delete_booking(){

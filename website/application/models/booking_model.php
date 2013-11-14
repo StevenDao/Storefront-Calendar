@@ -78,6 +78,12 @@ class Booking_model extends CI_Model
 		$this->db->where('id', $booking->id);
 		return $this->db->update('booking', array('roomid'=>$booking->roomid));
 	}
+    
+    // Update the description
+	function update_description($booking) {
+		$this->db->where('id', $booking->id);
+		return $this->db->update('booking', array('description'=>$booking->description));
+	}
 
 	// Update the booked-on date
 	function updateBookedOnDate($booking) {
