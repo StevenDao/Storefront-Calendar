@@ -26,5 +26,47 @@ Test: Login, Logout
     8. Click the logout button in the top right hand corner to logout.
     9. You should be redirected to the main page, which should appear the same as in step 1.
 
+Test: Administrator Add-New-User
+    1. Login as an administrator.
+    2. Check that the top left hand menu has an option called 'Add New User'. Click on it.
+    3. You should be directed to a new-user form.
+    4A-D. Enter all required fields except for:
+          A. 'Username'
+          B. 'First Name'
+          C. 'Last Name'
+          D. 'E-Mail ID'
+       and click 'Continue'.
+       A message saying 'Please fill out this field.' should appear under the relevant field.
+    5. Enter all required fields, with a user name that is less than 3 characters long.
+       Click 'Continue'.
+       A message saying 'The Username field must be at least 3 characters in length.' should appear.
+    6. Enter all required fields, with an email address that is not of the form: str1@str2.str3
+       Click 'Continue'.
+       A message saying 'The Email field must contain a valid email address.' should appear.
+    7. Enter all required fields, with a passwords that do not match.
+       Click 'Continue'.
+       A message saying 'The Password Confirmation field does not match the Password field.' should
+       appear.
+    8. Enter all required fields, with a password that is less than 6 characters long.
+       Click 'Continue'.
+       Messages saying 'The Password field must be at least 6 characters in length.' and
+                       'The Password Confirmation field must be at least 6 characters in length.'
+       should appear.
+    9. Enter all required fields correctly, but with a user name that is already in use (eg. testing)
+       The message 'The Username field must contain a unique value.' should appear.
+    10. Enter any fields, in any combination, and click 'Reset'. The form should be reset.
+    11. Enter all fields correctly, and click "Continue'. Check the email address you entered; you
+        should be getting a confirmation email soon.
 
+
+
+
+
+
+
+
+
+
+
+    
 
