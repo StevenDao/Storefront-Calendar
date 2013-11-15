@@ -125,7 +125,7 @@ $colours = array(
 				<tr>
 					<td class="formSectionLeft" width="32%">Description</td>
 					<td class="formSectionRight" width="68%">
-						<textarea class="input" rows="4" cols="50" type="text" name="description">Testing textarea</textarea>
+						<textarea class="input" rows="4" cols="50" type="text" name="description"><?php echo $booking->description;   ?></textarea>
 					</td>
 				</tr>
 				<tr>
