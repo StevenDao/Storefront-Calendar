@@ -4,6 +4,11 @@
 
 <script>
 
+$( document ).ready(function () {
+	$( "#tmp_freq" ).val( $( "#repeat_freq" ).val());
+	$( "#tmp_end" ).val( $( "#repeat_end" ).val());
+});
+
 $(function() {
 	$( "#start_picker" ).datepicker({ dateFormat: 'yy-mm-dd' });
 	$( "#end_picker" ).datepicker({ dateFormat: 'yy-mm-dd' });
