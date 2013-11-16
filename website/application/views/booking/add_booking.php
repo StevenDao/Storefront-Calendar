@@ -37,7 +37,7 @@ $colours = array(
 					<td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>Title</td>
 					<td class="formSectionRight" width="68%">
 						<input size="35" maxlength="50" class="input" type="text" name="title" required="required">
-						<?php echo form_error('username'); ?>
+						<?php echo form_error('title'); ?>
 					</td>
 				</tr>
 				<tr>
@@ -45,13 +45,15 @@ $colours = array(
 					<td class="formSectionRight" width="68%">
 						<input id="start_picker" size="35" class="input date" type="text" name="from_date" required="required">
 						<input id="start_time" size="35" class="input time" type="text" name="from_time" required="required">
+                        <?php echo form_error('from_date'); ?>
 					</td>
 				</tr>
 				<tr>
 					<td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>To</td>
 					<td class="formSectionRight" width="68%">
 						<input id="end_picker" size="35" class="input date" type="text" name="to_date" required="required">
-						<input id="end_time" size="35" class="input time" type="text" name="to_time" required="required">
+                        <input id="end_time" size="35" class="input time" type="text" name="to_time" required="required">
+                        <?php echo form_error('to_date'); ?>
 					</td>
 				</tr>
 				<tr>

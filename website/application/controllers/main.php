@@ -330,8 +330,10 @@ class Main extends CI_Controller
 		$this->load->library('form_validation');
         
         $this->form_validation->set_rules('title', 'Title', 'required');
-		$this->form_validation->set_rules('from_date', 'From', 'required|callback_validate_from_date');
-		$this->form_validation->set_rules('to_date', 'To', 'required|callback_validate_to_date[from_date]');
+		
+        $this->form_validation->set_rules('from_date', 'From', 'required|callback_validate_from_date');
+		
+        $this->form_validation->set_rules('to_date', 'To', 'required|callback_validate_to_date[from_date]');
 		
 		if ($this->form_validation->run() == FALSE) {
             
