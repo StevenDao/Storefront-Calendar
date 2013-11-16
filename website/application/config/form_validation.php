@@ -154,5 +154,4 @@ $config = array(
 		)
 	)
 	
-	
 );
