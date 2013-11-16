@@ -25,6 +25,11 @@ if (isset($user) && $user->usertype == User::ADMIN) {
 					<li><?= anchor('main/form_add_booking', 'New Event') ?></li>
 					<li><?= anchor('main/form_edit_booking', 'Edit Event') ?></li>
 <?php
+} else if (isset($user) && $user->usertype == User::FRONTDESK) {
+?>
+					<li><?= anchor('main/form_add_booking', 'New Event') ?></li>
+					<li><?= anchor('main/form_edit_booking', 'Edit Event') ?></li>
+<?php
 }
 ?>
 				</ul>

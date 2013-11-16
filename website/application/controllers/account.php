@@ -202,7 +202,6 @@ class Account extends CI_Controller
 			$data['styles'] = 'account/styles';
 
 			$this->load->view('template', $data);
-			
 		} else {
 			$user = new User();
 

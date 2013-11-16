@@ -72,6 +72,7 @@ if (p1.val() == p2.val()) {
                         <?php
                         $client_type["1"] = "Administrator";
                         $client_type["2"] = "Client";
+                        $client_type["3"] = "Front-Desk";
 
                         $class = "class='input'";
 
