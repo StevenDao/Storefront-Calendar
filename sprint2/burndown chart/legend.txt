@@ -1,22 +1,59 @@
 
 1) User story #23 is completed
 2) User story #18 is completed
+3) User Story #31 is completed
+4) User Story #22 is completed
+5) User Story #19 is completed
+6) User story #21 is completed
+7) User story $32 is completed (since user story #32 and #3 is almost similar hence we are practically done both. )
 
 
 Expected velocity
 ----------------
 
 Expected Velocity = hours/ days
-		  = 51 hours/12 days
-		  = 4.25 hours/day
+		  = 96 hours/21 days
+		  = 4.571 hours/day
 
 Actual Velocity
 ----------------
 
-Actual velocity = (96-80)hours / 12days
-		= 16/12
-		1.333 hours/day
+Actual velocity = (96-24)hours / 21days
+		= 72/12
+		3.43 hours/day
+
+
+
+Time taken for each user story
+-----------------------------
+
+#23 = number_of_days*actual velocity
+   = 2*3.43
+   = 6.86 hours (actually planned for 10 hours)
+
+#18 = 7*3.43
+    = 24 hours(actually planned for 5.5 hours)
+We changed database and great change in CSS which took longer than we anticipated
+
+#31 = 4*3.43
+    = 13.72 hours( actually planned for 13.5 hours)
+
+#22 = 2*3.43
+    = 6.86 hours (actually planned for 16 hours ) 
+This was fast because in #18 we designed new interface for all form including this and we already had template from #18. Hence we did it much faster.
+
+#19  = 1*3.43
+	3.43 hour(3 hours)
+
+#21 = 3*3.43
+	10.29 hours (actually planned for 11 hours)
+
+#32+3 = 2*3.43
+	6.86 hours (actually planned for 12 hours)
+We over estimated the difficulity of reoccuring events. 
+
+
 
 Conclusion
 ---------
-We know the velocity is much slower than expected, however all the backend works for booking and edit bookings are done. Hence, in next few days a lot of works will be done in short period of time.
+We know the velocity is much slower than expected, the only thing we failed to do this spirint is email deliver system. We have the function for email and we just have to hook up the booking system with email method.
