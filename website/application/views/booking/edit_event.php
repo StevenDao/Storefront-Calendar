@@ -7,6 +7,8 @@ $colours = array(
 	'blue' => 'blue',
 	'green' => 'green'
 );
+
+$user = $this->session->userdata('user');
 ?>
 <div id="repeat-form" title="Repeat...">
 	<form id="target">
@@ -142,6 +144,8 @@ $colours = array(
 								if ($booking->status == 0){
 									echo 'checked';
 								}
+								if ($user->usertype == User::CLIENT)
+									echo ' disabled';
 							?>
 						>Tentative&nbsp;&nbsp;
 						<input type="radio" name="status" value="1"
@@ -149,6 +153,8 @@ $colours = array(
 								if ($booking->status == 1){
 									echo 'checked';
 								}
+								if ($user->usertype == User::CLIENT)
+									echo ' disabled';
 							?>
 						>Confirmed&nbsp;&nbsp;
 						<input type="radio" name="status" value="2"
@@ -156,6 +162,8 @@ $colours = array(
 								if ($booking->status == 2){
 									echo 'checked';
 								}
+								if ($user->usertype == User::CLIENT)
+									echo ' disabled';
 							?>
 						>Rejected
 					</td>

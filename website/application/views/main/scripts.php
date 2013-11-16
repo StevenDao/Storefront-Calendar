@@ -5,11 +5,9 @@
 <script src="<?= base_url() ?>/js/jquery.timers.js"></script>
 <script src='<?= base_url() ?>fullcalendar/fullcalendar.min.js'></script>
 
-
-<script>
-    $(function() {
-    });
-</script>
+<?php
+$user = $this->session->userdata('user');
+?>
 
 <script>
 $(document).ready(function() {
@@ -80,7 +78,11 @@ $(document).ready(function() {
             right: ''
         },
 
+<?php if (isset($user) && $user->usertype == User::CLIENT) { ?>
+        editable: false,
+<?php } else { ?>
         editable: true,
+<?php } ?>
         allDayDefault: false,
         firstHour: 9,
         //weekends: false,

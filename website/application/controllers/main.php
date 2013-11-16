@@ -13,11 +13,33 @@ class Main extends CI_Controller
 
 		$user = $this->session->userdata('user');
 
-		$protected = array('index');
+		$client = array(
+			'get_events',
+			'next',
+			'get_rooms',
+			'form_add_booking',
+			'add_booking',
+			'form_edit_booking',
+			'edit_booking',
+			'change_booking'
+		);
 
-		// Check if the user is logged in
-		if (in_array($method,$protected) && !$user)
+		$admin = array(
+			'move_event',
+			'resize_event',
+			'confirm_event',
+			'add_event',
+			'delete_booking',
+		);
+
+		/* Check if the user is logged in */
+		if (in_array($method, array_merge($client, $admin)) && !$user) {
 			redirect('account/index', 'refresh');
+		} else if (in_array($method, $admin) && $user) {
+			/* Check if the user is an admin */
+			if ($user->usertype != User::ADMIN)
+				redirect('main/index', 'refresh');
+		}
 
 		return call_user_func_array(array($this, $method), $params);
 	}
@@ -126,7 +148,6 @@ class Main extends CI_Controller
 		}
 		echo json_encode($rooms);
 	}
-	
 
 	function move_event() {
 		$data = $this->input->get_post('json');
@@ -324,105 +345,105 @@ class Main extends CI_Controller
     
 
 	function add_booking() {
-        
-        $this->load->model('booking_model');
-        $this->load->helper(array('form', 'url'));
+
+		$this->load->model('booking_model');
+		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
-        
-        $this->form_validation->set_rules('title', 'Title', 'required');
-		
-        $this->form_validation->set_rules('from_date', 'From', 'required|callback_validate_from_date');
-		
-        $this->form_validation->set_rules('to_date', 'To', 'required|callback_validate_to_date[from_date]');
-		
+
+		$this->form_validation->set_rules('title', 'Title', 'required');
+
+		$this->form_validation->set_rules('from_date', 'From', 'required|callback_validate_from_date');
+
+		$this->form_validation->set_rules('to_date', 'To', 'required|callback_validate_to_date[from_date]');
+
 		if ($this->form_validation->run() == FALSE) {
-            
-            $this->load->model('room_model');
-            $this->load->model('client_model');
-            
-            $user = $this->session->userdata('user');
-            
-            if ($user->usertype != 2){ 
+
+			$this->load->model('room_model');
+			$this->load->model('client_model');
+
+			$user = $this->session->userdata('user');
+
+			if ($user->usertype != 2){ 
 				$data['booking_list'] = $this->booking_model->get_bookings(); 
 				$data['clients'] = $this->client_model->get_clients();
-            } else {
+			} else {
 				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
 				$client = $this->client_model->get_from_id($user->clientid); 
 				$clients = array($client->id => $client->agency ); 
 				$data['clients'] = $clients;
-            }
-            
-            $data['rooms'] = $this->room_model->get_rooms();
-            $data['title'] = 'Storefront Calendar';
-            $data['main'] = 'booking/add_booking';
-            $data['styles'] = 'booking/styles';
-            $data['scripts'] = 'booking/scripts';
-            
-            $this->load->view('template', $data);
-            
+			}
+
+			$data['rooms'] = $this->room_model->get_rooms();
+			$data['title'] = 'Storefront Calendar';
+			$data['main'] = 'booking/add_booking';
+			$data['styles'] = 'booking/styles';
+			$data['scripts'] = 'booking/scripts';
+
+			$this->load->view('template', $data);
+
 		} else {
-            
-            // Get the input data from the POST data
-            $title       = $this->input->post('title');
-            $from_date   = $this->input->post('from_date');
-            $from_time   = $this->input->post('from_time');
-            $to_date     = $this->input->post('to_date');
-            $to_time     = $this->input->post('to_time');
-            $all_day     = $this->input->post('all_day');
-            $repeat      = $this->input->post('repeat');
-            $repeat_freq = $this->input->post('repeat_freq');
-            $repeat_end  = $this->input->post('repeat_end');
-            $description = $this->input->post('description');
-            $client      = $this->input->post('client');
-            $room        = $this->input->post('room');
-            $status      = $this->input->post('status');
-            
-            // All day events default to same-day events running from 9-7
-            if ($all_day == TRUE) {
-                $to_date = $from_date;
-                $from_time = '09:00:00';
-                $to_time = '19:00:00';
-            }
-            
-            // Handle repeating events
-            if ($repeat == 'repeat') {
-                $repeat = 1;
-            } else {
-                $repeat = 0;
-                $repeat_freq = 0;
-                $repeat_end = NULL;
-            }
-            
-            // Add the event
-            
-            // Create a new Booking object
-            $booking = new Booking();
-            $booking->init();
-            
-            // Set the relevant properties in the Booking object
-            $start = $from_date . 't' . $from_time;
-            $end = $to_date . 't' . $to_time;
-            $booking->set_times($start, $end);
-    
-            $booking->title = $title;
-            $booking->description = $description;
-            $booking->userid = $client;
-            $booking->roomid = $room;
-            $booking->status = $status;
-            $booking->repeat = $repeat;
-            $booking->repeat_freq = $repeat_freq;
-            $booking->repeat_end = $repeat_end;
-            
-            $booking->date_booked = date_format(new DateTime(), 'Y-m-d');
-            
-            $this->booking_model->insert($booking);
-            
-            // Redirect to the main application page
-            redirect('main/index', 'refresh');
-            
-        }
-        
-    }
+
+			// Get the input data from the POST data
+			$title       = $this->input->post('title');
+			$from_date   = $this->input->post('from_date');
+			$from_time   = $this->input->post('from_time');
+			$to_date     = $this->input->post('to_date');
+			$to_time     = $this->input->post('to_time');
+			$all_day     = $this->input->post('all_day');
+			$repeat      = $this->input->post('repeat');
+			$repeat_freq = $this->input->post('repeat_freq');
+			$repeat_end  = $this->input->post('repeat_end');
+			$description = $this->input->post('description');
+			$client      = $this->input->post('client');
+			$room        = $this->input->post('room');
+			$status      = $this->input->post('status');
+
+			// All day events default to same-day events running from 9-7
+			if ($all_day == TRUE) {
+				$to_date = $from_date;
+				$from_time = '09:00:00';
+				$to_time = '19:00:00';
+			}
+
+			// Handle repeating events
+			if ($repeat == 'repeat') {
+				$repeat = 1;
+			} else {
+				$repeat = 0;
+				$repeat_freq = 0;
+				$repeat_end = NULL;
+			}
+
+			// Add the event
+
+			// Create a new Booking object
+			$booking = new Booking();
+			$booking->init();
+
+			// Set the relevant properties in the Booking object
+			$start = $from_date . 't' . $from_time;
+			$end = $to_date . 't' . $to_time;
+			$booking->set_times($start, $end);
+
+			$booking->title = $title;
+			$booking->description = $description;
+			$booking->userid = $client;
+			$booking->roomid = $room;
+			$booking->status = $status;
+			$booking->repeat = $repeat;
+			$booking->repeat_freq = $repeat_freq;
+			$booking->repeat_end = $repeat_end;
+
+			$booking->date_booked = date_format(new DateTime(), 'Y-m-d');
+
+			$this->booking_model->insert($booking);
+
+			// Redirect to the main application page
+			redirect('main/index', 'refresh');
+
+		}
+
+	}
 
 	function form_edit_booking(){ 
 		$this->load->model('booking_model'); 
@@ -536,16 +557,16 @@ class Main extends CI_Controller
             
             $user =  $this->session->userdata('user'); 
             
-            if ($user->usertype != 2){ 
-				$data['booking_list'] = $this->booking_model->get_bookings(); 
+			if ($user->usertype != User::CLIENT) {
+				$data['booking_list'] = $this->booking_model->get_bookings();
 				$data['clients'] = $this->client_model->get_clients();
-		    } else{
-				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
-				$client = $this->client_model->get_from_id($user->clientid); 
-				$clients = array($client->id => $client->agency ); 
+			} else {
+				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid);
+				$client = $this->client_model->get_from_id($user->clientid);
+				$clients = array($client->id => $client->agency);
 				$data['clients'] = $clients;
-		    }
-            
+			}
+
             // Call the view
 		    $data['rooms'] = $this->room_model->get_rooms();
 		    $data['booking'] = new Booking();
@@ -609,7 +630,7 @@ class Main extends CI_Controller
 
 		$user =  $this->session->userdata('user'); 
 
-		if ($user->usertype != 2){ 
+		if ($user->usertype != User::CLIENT){ 
 				$data['booking_list'] = $this->booking_model->get_bookings(); 
 				$data['clients'] = $this->client_model->get_clients();
 		}else{

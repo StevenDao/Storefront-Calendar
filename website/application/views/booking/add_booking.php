@@ -7,6 +7,8 @@ $colours = array(
 	'blue' => 'blue',
 	'green' => 'green'
 );
+
+$user = $this->session->userdata('user');
 ?>
 <div id="repeat-form" title="Repeat...">
 	<form id="target">
@@ -45,15 +47,15 @@ $colours = array(
 					<td class="formSectionRight" width="68%">
 						<input id="start_picker" size="35" class="input date" type="text" name="from_date" required="required">
 						<input id="start_time" size="35" class="input time" type="text" name="from_time" required="required">
-                        <?php echo form_error('from_date'); ?>
+						<?php echo form_error('from_date'); ?>
 					</td>
 				</tr>
 				<tr>
 					<td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>To</td>
 					<td class="formSectionRight" width="68%">
 						<input id="end_picker" size="35" class="input date" type="text" name="to_date" required="required">
-                        <input id="end_time" size="35" class="input time" type="text" name="to_time" required="required">
-                        <?php echo form_error('to_date'); ?>
+						<input id="end_time" size="35" class="input time" type="text" name="to_time" required="required">
+						<?php echo form_error('to_date'); ?>
 					</td>
 				</tr>
 				<tr>
@@ -93,13 +95,14 @@ $colours = array(
 					<td class="formSectionLeft" width="32%">Status</td>
 					<td class="formSectionLast" width="68%">
 						<input type="radio" name="status" value="0" checked>Tentative&nbsp;&nbsp;
-						<?php
-						$user = $this->session->userdata('user');
-						if($user->usertype == 1){
-						?>
+<?php
+if ($user->usertype == User::ADMIN) {
+?>
 						<input type="radio" name="status" value="1">Confirmed&nbsp;&nbsp;
 						<input type="radio" name="status" value="2">Rejected
-						<?php } ?>
+<?php
+}
+?>
 					</td>
 				</tr>
 				<tr>

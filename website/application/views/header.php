@@ -1,3 +1,6 @@
+<?php
+$user = $this->session->userdata('user');
+?>
 <header>
 	<nav>
 		<ul>
@@ -7,12 +10,23 @@
 					<span class="logo-caret icon"></span>
 				</a>
 				<ul>
+<?php
+if (isset($user) && $user->usertype == User::ADMIN) {
+?>
 					<li><?= anchor('account/form_new_user', 'Add New User') ?></li>
 					<li><?= anchor('account/form_edit_user', 'Edit User') ?></li>
 					<li><?= anchor('account/form_new_client', 'Add New Client') ?></li>
 					<li><?= anchor('account/form_edit_client', 'Edit Client') ?></li>
 					<li><?= anchor('main/form_add_booking', 'New Event') ?></li>
 					<li><?= anchor('main/form_edit_booking', 'Edit Event') ?></li>
+<?php
+} else if (isset($user) && $user->usertype == User::CLIENT) {
+?>
+					<li><?= anchor('main/form_add_booking', 'New Event') ?></li>
+					<li><?= anchor('main/form_edit_booking', 'Edit Event') ?></li>
+<?php
+}
+?>
 				</ul>
 			</li>
 		</ul>

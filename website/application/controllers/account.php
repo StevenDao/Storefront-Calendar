@@ -1,13 +1,10 @@
 <?php
 /*
- * TODO: Add validation for the email and ensure that the email is valid.
- * TODO: Add a new form for adding a client.(DONE)
  * TODO: Add a new form for editing a client (should load the old values and
  *       then allow changing the values and update the database after updating). It
  *       should also validate that all the values are valid. (ALMOST)
  *
  */
-
 class Account extends CI_Controller
 {
 	function __construct() {
@@ -21,7 +18,7 @@ class Account extends CI_Controller
 
 		$user = $this->session->userdata('user');
 
-		$protected = array(
+		$client = array(
 			'form_update_password',
 			'update_password',
 			'form_recover_password',
@@ -29,10 +26,21 @@ class Account extends CI_Controller
 			'logout'
 		);
 
-		$admin = array('form_new_user', 'form_new_client', 'form_edit_user', 'edit_user','delete_user' , 'form_edit_client', 'change_user' , 'create_new_user', 'create_new_client', ' delete_client');
+		$admin = array(
+			'form_new_user',
+			'form_new_client',
+			'form_edit_user',
+			'edit_user',
+			'delete_user',
+			'form_edit_client',
+			'change_user',
+			'create_new_user',
+			'create_new_client',
+			'delete_client'
+		);
 
 		/* Check if the user is logged in */
-		if (in_array($method, array_merge($protected, $admin)) && !$user) {
+		if (in_array($method, array_merge($client, $admin)) && !$user) {
 
 			redirect('account/index', 'refresh');
 		} else if (in_array($method, $admin) && $user) {
@@ -449,7 +457,6 @@ class Account extends CI_Controller
 
 	/*
 	 * Update client's data according to choosen client
-	 *
 	 */
 	function change_client(){
 		$this->load->model('client_model');
@@ -473,9 +480,6 @@ class Account extends CI_Controller
 	/*
 	 * Create a new client and add it to the database. Very simplified version
 	 * of a client for now.
-	 *
-	 * TODO: Create a more sophisticated client class and associated database
-	 * table for it.
 	 */
 	function edit_client() {
 		$this->load->model('client_model');
