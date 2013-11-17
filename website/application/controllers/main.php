@@ -373,7 +373,7 @@ class Main extends CI_Controller
 		$this->form_validation->set_rules('from_date', 'From', 'required|callback_validate_from_date');
 		$this->form_validation->set_rules('to_date', 'To', 'required|callback_validate_to_date[from_date]');
         $this->form_validation->set_rules('from_date', 'From', 'required');
-        $this->form_validation->set_rules('to_time', 'To', 'required|callback_validate_to_time[from_date, to_date, from_time]');
+        //$this->form_validation->set_rules('to_time', 'To', 'required|callback_validate_to_time[from_date, to_date, from_time]');
 		
         if ($this->form_validation->run() == FALSE) {
 
