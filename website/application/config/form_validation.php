@@ -69,7 +69,9 @@ $config = array(
 		array(
 			'field' => 'phone',
 			'label' => 'Phone',
-			'rules' => 'required|regex_match[/^([a-zA-Z]+[:]{1})?\d{3}\-\d{3}\-\d{4}$/]'
+			'rules' => 'required
+				|max_length[120]
+				|regex_match[/(([a-zA-Z]+[:]{1})?\d{3}\-\d{3}\-\d{4}([;]{1}))+/]'
 		),
 			
 		array(
@@ -80,7 +82,9 @@ $config = array(
 		array(
 			'field' => 'email',
 			'label' => 'Email',
-			'rules' => 'required|max_length[120]|valid_email|is_unique[client.email]'
+			'rules' => 'required
+				|max_length[120]
+				|regex_match[/((([a-zA-Z]+[:]{1})?([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})([;]{1}))+)/]'
 		),
 		
 		array(
@@ -126,7 +130,9 @@ $config = array(
 		array(
 			'field' => 'phone',
 			'label' => 'Phone',
-			'rules' => 'required|regex_match[/^([a-zA-Z]+[:]{1})?\d{3}\-\d{3}\-\d{4}$'
+			'rules' => 'required
+				|max_length[120]
+				|regex_match[/(([a-zA-Z]+[:]{1})?\d{3}\-\d{3}\-\d{4}([;]{1}))+/]'
 		),
 			
 		array(
@@ -138,7 +144,9 @@ $config = array(
 		array(
 			'field' => 'email',
 			'label' => 'Email',
-			'rules' => 'required|max_length[120]|valid_email|is_unique[client.email]'
+			'rules' => 'required
+				|max_length[120]
+				|regex_match[((([a-zA-Z]+[:]{1})?([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})([;]{1}))+)]'
 		),
 		
 		array(
