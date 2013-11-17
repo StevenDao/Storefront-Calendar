@@ -21,16 +21,6 @@ $config = array(
 			'field' => 'email',
 			'label' => 'Email',
 			'rules' => 'required|valid_email|max_length[120]|is_unique[user.email]'
-		),
-		array(
-			'field' => 'password',
-			'label' => 'Password',
-			'rules' => 'required|min_length[6]'
-		),
-		array(
-			'field' => 'passconf',
-			'label' => 'Password Confirmation',
-			'rules' => 'required|min_length[6]|matches[password]'
 		)
 	),
 
