@@ -124,9 +124,12 @@ class Account extends CI_Controller
 	 * Loads the main form for updating your password.
 	 */
 	function form_update_password() {
-		$this->load->view('account/update_password');
+		$data['title'] = 'Storefront Calendar';
+		$data['main'] = 'account/update_password';
+		$data['scripts'] = 'account/scripts';
+		$data['styles'] = 'account/styles';
+		$this->load->view('template', $data);
 	}
-
 	/*
 	 * Loads the main form for recovering your lost password with your email
 	 * that you are associated with.
@@ -225,34 +228,49 @@ class Account extends CI_Controller
 		}
 	}
 
+
 	/*
 	 * Update the password of the current logged in user.
 	 */
 	function update_password() {
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('old_password', 'Old Password', 'required');
-		$this->form_validation->set_rules('new_password', 'New Password', 'required');
-
+		$this->form_validation->set_rules('prev', 'prev', '');
+		$this->form_validation->set_rules('new', 'new', '');
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('account/update_password');
-		} else {
+			echo "wtf";
+			$data['title'] = 'Storefront Calendar';
+			$data['main'] = 'account/update_password';
+			$data['scripts'] = 'account/scripts';
+			$data['styles'] = 'account/styles';
+			$this->load->view('template', $data);
+		} 
+		else{
 			$user = $this->session->userdata('user');
 
-			$old_password = $this->input->post('old_password');
-			$new_password = $this->input->post('new_password');
+			$old_password = $this->input->post('prev');
+			$new_password = $this->input->post('new');
 			
 			if ($user->compare_password($old_password)) {
 				$user->encrypt_password($new_password);
 				$this->load->model('user_model');
 				$this->user_model->update_password($user);
 				$this->user_model->auto_email($user->email, "new password", 
-											"your new password is $password, please remember it");						
+											"your new password is $new_password	, please remember it");		
+
+				$data = array('user' => $user);
+				$this->session->set_userdata($data);
 				$data['user'] = $user;
-				$this->load->view('main', $data);
-			} else {
-				$data['errorMsg'] = "Incorrect password!";
-				$this->load->view('account/update_password', $data);
+				redirect('main/index', 'refresh'); //redirect to the main application page
+			}
+			else {	
+				$data['title'] = 'Storefront Calendar';
+				$data['main'] = 'account/update_password';
+				$data['scripts'] = 'account/scripts';
+				$data['styles'] = 'account/styles';
+				$data['message'] = "Wrong password";
+		 
+				$this->load->view('template', $data);
 			}
 		}
 	}
