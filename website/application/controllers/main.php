@@ -259,7 +259,7 @@ class Main extends CI_Controller
         
         if ($from_val < $today_val) {
             $this->form_validation->set_message('validate_from_date',
-            'The %s field can not be a date that is before today\'s date');
+            'The \'From\' date cannot be before today\'s date.');
 			return FALSE;
 		} else {
             return TRUE;
@@ -280,11 +280,39 @@ class Main extends CI_Controller
         
         if ($to_val < $from_val) {
 			$this->form_validation->set_message('validate_to_date',
-            'The %s field can not be a date that is before the From field');
+            'The \'To\' date cannot be before the \'From\' date.');
 			return FALSE;
 		} else {
             return TRUE;
 		}
+        
+    }
+    
+    // If from-date = to-date, and the from-time > to-time, to-time is invalid
+    function validate_to_time($to_time, $from_date, $to_date, $from_time){
+        
+        $from_val = ( substr($from_date, 0, 4) * 10000 ) +
+                    ( substr($from_date, 5, 2) * 100   ) +
+                      substr($from_date, 8, 2);
+        
+        $to_val = ( substr($to_date, 0, 4) * 10000 ) +
+                  ( substr($to_date, 5, 2) * 100   ) +
+                    substr($to_date, 8, 2);
+        
+        if( $from_val == $to_val ){
+            
+            $from_t = ( substr($from_time, 0, 2) * 100 ) + substr($from_time, 3, 2);
+            $to_t   = ( substr($to_time,   0, 2) * 100 ) + substr($to_time,   3, 2);
+            
+            if ($from_t >= $to_t) {
+                $this->form_validation->set_message('validate_to_time',
+                'The \'To\' time cannot be before the \'From\' time for same-day events.');
+                return FALSE;
+            }
+            
+        }
+        
+        return TRUE;
         
     }
     
@@ -310,18 +338,6 @@ class Main extends CI_Controller
           $repeat, $repeat_freq, $repeat_end ){
         
         
-        
-        
-        
-        // If the event is same-day, and the from-time is after the to-time, return error code 4
-        if ($from == $to) {
-            $from_t = ( substr($from_time, 0, 2) * 100 ) + substr($from_time, 3, 2);
-            $to_t   = ( substr($to_time,   0, 2) * 100 ) + substr($to_time,   3, 2);
-            if ($from_t >= $to_t) {
-                return 4;
-            }
-        }
-        
         // If the event is repeating...
         if ($repeat == 1) {
             
@@ -346,18 +362,20 @@ class Main extends CI_Controller
     
 
 	function add_booking() {
-
+        
+        // Load model, helper, library
 		$this->load->model('booking_model');
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
-
+        
+        // Set validation rules for various fields
 		$this->form_validation->set_rules('title', 'Title', 'required');
-
 		$this->form_validation->set_rules('from_date', 'From', 'required|callback_validate_from_date');
-
 		$this->form_validation->set_rules('to_date', 'To', 'required|callback_validate_to_date[from_date]');
-
-		if ($this->form_validation->run() == FALSE) {
+        $this->form_validation->set_rules('from_date', 'From', 'required');
+        $this->form_validation->set_rules('to_time', 'To', 'required|callback_validate_to_time[from_date, to_date, from_time]');
+		
+        if ($this->form_validation->run() == FALSE) {
 
 			$this->load->model('room_model');
 			$this->load->model('client_model');
