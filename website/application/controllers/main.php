@@ -243,54 +243,53 @@ class Main extends CI_Controller
 		$this->load->view('template', $data);
 	}
 
-
-
+    
     // If the from-date is before today's date, it is invalid
-    public function validate_from_date($from_date){
+    function validate_from_date($from_date){
         
         $from_val = ( substr($from_date, 0, 4) * 10000 ) +
-                    ( substr($from_date, 5, 2) * 100   ) +
+                    ( substr($from_date, 5, 2) * 100 ) +
                       substr($from_date, 8, 2);
         
         $today = date_format(new DateTime(), 'Y-m-d');
         $today_val = ( substr($today, 0, 4) * 10000 ) +
-                     ( substr($today, 5, 2) * 100   ) +
+                     ( substr($today, 5, 2) * 100 ) +
                        substr($today, 8, 2);
         
         if ($from_val < $today_val) {
             $this->form_validation->set_message('validate_from_date',
-            '%s must be on or after today\'s date.');
-			return FALSE;
-		} else {
+            'The %s field can not be a date that is before today\'s date');
+                        return FALSE;
+                } else {
             return TRUE;
-		}
+                }
         
     }
     
     
     // If the to-date is before the from-date, it is invalid
-    public function validate_to_date($to_date, $from_date){
+    function validate_to_date($to_date, $from_date){
         
         $from_val = ( substr($from_date, 0, 4) * 10000 ) +
-                    ( substr($from_date, 5, 2) * 100   ) +
+                    ( substr($from_date, 5, 2) * 100 ) +
                       substr($from_date, 8, 2);
         
         $to_val = ( substr($to_date, 0, 4) * 10000 ) +
-                  ( substr($to_date, 5, 2) * 100   ) +
+                  ( substr($to_date, 5, 2) * 100 ) +
                     substr($to_date, 8, 2);
         
         if ($to_val < $from_val) {
-			$this->form_validation->set_message('validate_to_date',
-            '%s must be on or after From Date.');
-			return FALSE;
-		} else {
+                        $this->form_validation->set_message('validate_to_date',
+            'The %s field can not be a date that is before the From field');
+                        return FALSE;
+                } else {
             return TRUE;
-		}
+                }
         
     }
     
     
-    
+    /*
     // If from-date = to-date, and the from-time > to-time, to-time is invalid
     public function validate_to_time($to_time, $from_date, $to_date, $from_time){
         
@@ -317,7 +316,7 @@ class Main extends CI_Controller
         
         return TRUE;
         
-    }
+    }*/
     
     
     /**
@@ -368,8 +367,8 @@ class Main extends CI_Controller
         
         // Load model, helper, library
 		$this->load->model('booking_model');
-		$this->load->helper(array('form', 'url'));
-		$this->load->library('form_validation');
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
         
         
         if ($this->form_validation->run() == FALSE) {
