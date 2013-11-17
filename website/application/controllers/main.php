@@ -248,6 +248,8 @@ class Main extends CI_Controller
     // If the from-date is before today's date, it is invalid
     public function validate_from_date($from_date){
         
+        $this->form_validation->set_message('validate_from_date',
+        'Your date sucks.');
         return FALSE;
         /*
         $from_val = ( substr($from_date, 0, 4) * 10000 ) +
