@@ -262,7 +262,7 @@ class Account extends CI_Controller
 	 */
 	function recover_password() {
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('email', 'email', 'required');
+		$this->form_validation->set_rules('email', 'email', 'required|valid_email|max[120]');
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('account/recover_password');
