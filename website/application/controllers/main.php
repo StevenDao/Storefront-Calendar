@@ -246,7 +246,7 @@ class Main extends CI_Controller
 
 
     // If the from-date is before today's date, it is invalid
-    function validate_from_date($from_date){
+    public function validate_from_date($from_date){
         
         $from_val = ( substr($from_date, 0, 4) * 10000 ) +
                     ( substr($from_date, 5, 2) * 100   ) +
@@ -268,7 +268,7 @@ class Main extends CI_Controller
     }
     
     // If the to-date is before the from-date, it is invalid
-    function validate_to_date($to_date, $from_date){
+    public function validate_to_date($to_date, $from_date){
         
         $from_val = ( substr($from_date, 0, 4) * 10000 ) +
                     ( substr($from_date, 5, 2) * 100   ) +
@@ -289,7 +289,7 @@ class Main extends CI_Controller
     }
     
     // If from-date = to-date, and the from-time > to-time, to-time is invalid
-    function validate_to_time($to_time, $from_date, $to_date, $from_time){
+    public function validate_to_time($to_time, $from_date, $to_date, $from_time){
         
         $from_val = ( substr($from_date, 0, 4) * 10000 ) +
                     ( substr($from_date, 5, 2) * 100   ) +
