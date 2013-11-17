@@ -166,13 +166,13 @@ $config = array(
 			'field' => 'from_date',
 			'label' => 'From Date',
 			'rules' => 'required|callback_validate_from_date'
-		)/*,
+		),
 		
 		array(
-			'field' => 'fcposition',
-			'label' => 'Fcposition',
-			'rules' => 'required|max_length[60]'
-		),
+			'field' => 'to_date',
+			'label' => 'To Date',
+			'rules' => 'required|callback_validate_to_date[from_date]'
+		)/*,
 		
 		array(
 			'field' => 'address',
@@ -222,5 +222,6 @@ $config = array(
     //  $this->form_validation->set_rules('from_date', 'From', 'required');
     //  $this->form_validation->set_rules('to_time', 'To', 'required|callback_validate_to_time[from_date, to_date, from_time]');
 		
+	
 	
 );

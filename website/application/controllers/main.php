@@ -248,10 +248,6 @@ class Main extends CI_Controller
     // If the from-date is before today's date, it is invalid
     public function validate_from_date($from_date){
         
-        $this->form_validation->set_message('validate_from_date',
-        'Your date sucks.');
-        return FALSE;
-        /*
         $from_val = ( substr($from_date, 0, 4) * 10000 ) +
                     ( substr($from_date, 5, 2) * 100   ) +
                       substr($from_date, 8, 2);
@@ -263,13 +259,14 @@ class Main extends CI_Controller
         
         if ($from_val < $today_val) {
             $this->form_validation->set_message('validate_from_date',
-            'The \'From\' date cannot be before today\'s date.');
+            '%s must be on or after today\'s date.');
 			return FALSE;
 		} else {
             return TRUE;
-		}*/
+		}
         
     }
+    
     
     // If the to-date is before the from-date, it is invalid
     public function validate_to_date($to_date, $from_date){
@@ -284,13 +281,15 @@ class Main extends CI_Controller
         
         if ($to_val < $from_val) {
 			$this->form_validation->set_message('validate_to_date',
-            'The \'To\' date cannot be before the \'From\' date.');
+            '%s must be on or after From Date.');
 			return FALSE;
 		} else {
             return TRUE;
 		}
         
     }
+    
+    
     
     // If from-date = to-date, and the from-time > to-time, to-time is invalid
     public function validate_to_time($to_time, $from_date, $to_date, $from_time){
@@ -310,7 +309,7 @@ class Main extends CI_Controller
             
             if ($from_t >= $to_t) {
                 $this->form_validation->set_message('validate_to_time',
-                'The \'To\' time cannot be before the \'From\' time for same-day events.');
+                '%s cannot be before the From Time for same-day events.');
                 return FALSE;
             }
             
