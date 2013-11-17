@@ -19,16 +19,19 @@ if (isset($user) && $user->usertype == User::ADMIN) {
 					<li><?= anchor('account/form_edit_client', 'Edit Client') ?></li>
 					<li><?= anchor('main/form_add_booking', 'New Event') ?></li>
 					<li><?= anchor('main/form_edit_booking', 'Edit Event') ?></li>
+					<li><?= anchor('account/form_update_password', 'Update Password') ?></li>
 <?php
 } else if (isset($user) && $user->usertype == User::CLIENT) {
 ?>
 					<li><?= anchor('main/form_add_booking', 'New Event') ?></li>
 					<li><?= anchor('main/form_edit_booking', 'Edit Event') ?></li>
+					<li><?= anchor('account/form_update_password', 'Update Password') ?></li>
 <?php
 } else if (isset($user) && $user->usertype == User::FRONTDESK) {
 ?>
 					<li><?= anchor('main/form_add_booking', 'New Event') ?></li>
 					<li><?= anchor('main/form_edit_booking', 'Edit Event') ?></li>
+					<li><?= anchor('account/form_update_password', 'Update Password') ?></li>
 <?php
 }
 ?>
