@@ -14,6 +14,7 @@ class Main extends CI_Controller
 		$user = $this->session->userdata('user');
 
 		$client = array(
+			'index',
 			'get_events',
 			'next',
 			'get_rooms',
