@@ -91,7 +91,7 @@
           and services working together to create a thriving community in East
           Scarborough. This Calendar allows our partners to book Storefront
           spaces, such as offices and meeting rooms, in order to provide
-          services our great community. Together, we can make a difference!
+          services to our great community. Together, we can make a difference!
         </p>
       </section>
       <section id="address">
