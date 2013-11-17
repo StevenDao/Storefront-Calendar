@@ -11,8 +11,10 @@
     <div class='banner'>
       <img class='spImage' src="<?= base_url() ?>images/logo.png" height="auto" width="100%">
     </div>
-
+    <img class='login' src="<?= base_url() ?>images/login.gif">
+    <img class="loginImage" src="<?= base_url() ?>images/login_head.gif">
     <div class="centered">
+
       <?php
       if (isset($errorMsg)) {
           echo "<p>" . $errorMsg . "</p>";
@@ -20,8 +22,8 @@
       echo form_open('account/login');
       ?>
       <ul>
-        <li style="height:20px">
-          <h5 class="specialH">Login</h5>
+        <li>
+          
           <h5>
             <?php
             echo anchor('account/recover_password', 'Forgot Password');
@@ -29,7 +31,6 @@
           </h5>
 
         </li>
-        <div class="line"></div>
         <li>
           <?php
 
