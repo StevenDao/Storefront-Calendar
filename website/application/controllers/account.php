@@ -419,7 +419,7 @@ class Account extends CI_Controller
 		$this->load->library('form_validation');
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('account/new_client');
+			$this->form_new_client();
 		} else {
 			$client = new Client();
 

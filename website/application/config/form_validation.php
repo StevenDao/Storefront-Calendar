@@ -69,7 +69,7 @@ $config = array(
 		array(
 			'field' => 'phone',
 			'label' => 'Phone',
-			'rules' => 'required|numeric'
+			'rules' => 'required|regex_match[/^([a-zA-Z]+[:]{1})?\d{3}\-\d{3}\-\d{4}$/]'
 		),
 			
 		array(
@@ -126,7 +126,7 @@ $config = array(
 		array(
 			'field' => 'phone',
 			'label' => 'Phone',
-			'rules' => 'required|numberic'
+			'rules' => 'required|regex_match[/^([a-zA-Z]+[:]{1})?\d{3}\-\d{3}\-\d{4}$'
 		),
 			
 		array(
