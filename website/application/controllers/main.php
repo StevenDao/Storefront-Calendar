@@ -185,7 +185,7 @@ class Main extends CI_Controller
 
 		$user = $this->session->userdata('user');
 		
-		if ($user->usertype == 1){
+		if ($user->usertype == User::ADMIN) {
 			$booking->status = 1;
 			$this->booking_model->updateStatus($booking);
 		}
@@ -380,10 +380,10 @@ class Main extends CI_Controller
 
 			$user = $this->session->userdata('user');
 
-			if ($user->usertype != 2){ 
+			if ($user->usertype == User::ADMIN || $user->usertype == User::FRONTDESK) {
 				$data['booking_list'] = $this->booking_model->get_bookings(); 
 				$data['clients'] = $this->client_model->get_clients();
-			} else {
+			} else if ($user->usertype == User::CLIENT) {
 				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
 				$client = $this->client_model->get_from_id($user->clientid); 
 				$clients = array($client->id => $client->agency ); 
@@ -470,11 +470,10 @@ class Main extends CI_Controller
 
 		$user = $this->session->userdata('user');
 
-		if ($user->usertype != 2){ 
+		if ($user->usertype == User::ADMIN || $user->usertype == User::FRONTDESK) {
 			$data['booking_list'] = $this->booking_model->get_bookings(); 
 			$data['clients'] = $this->client_model->get_clients(); 
-		} 
-		else{ 
+		} else if ($user->usertype == User::CLIENT) {
 			$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
 			$client = $this->client_model->get_from_id($user->clientid); 
 			$clients = array($client->id => $client->agency ); 
@@ -610,10 +609,10 @@ class Main extends CI_Controller
 
 		$this->booking_model->delete($id);
 
-		if ($user->usertype != 2){ 
-				$data['booking_list'] = $this->booking_model->get_bookings(); 
-				$data['clients'] = $this->client_model->get_clients();
-		}else{
+		if ($user->usertype == User::ADMIN || $user->usertype == User::FRONTDESK) {
+			$data['booking_list'] = $this->booking_model->get_bookings();
+			$data['clients'] = $this->client_model->get_clients();
+		} else if ($user->usertype == User::CLIENT) {
 				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
 				$client = $this->client_model->get_from_id($user->clientid); 
 				$clients = array($client->id => $client->agency ); 
