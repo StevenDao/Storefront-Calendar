@@ -101,8 +101,8 @@
         Phone: 416-208-9889 <br />
         Fax: 416-208-9239     
       </section>
-      
-      <section id="address">
+      <!--
+      <section id="links">
         <h6>Links</h6>
         <li><a href='http://www.thestorefront.org/'>
             East Scarborough Storefront -- Main Website
@@ -114,6 +114,7 @@
             Not a partner? You can see the Storefront's events here!
         </a></li> 
       </section>
+      -->
       <div class=clear></div>
     </div>
   </div>
