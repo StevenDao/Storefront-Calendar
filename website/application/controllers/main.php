@@ -248,6 +248,8 @@ class Main extends CI_Controller
     // If the from-date is before today's date, it is invalid
     public function validate_from_date($from_date){
         
+        return FALSE;
+        /*
         $from_val = ( substr($from_date, 0, 4) * 10000 ) +
                     ( substr($from_date, 5, 2) * 100   ) +
                       substr($from_date, 8, 2);
@@ -263,7 +265,7 @@ class Main extends CI_Controller
 			return FALSE;
 		} else {
             return TRUE;
-		}
+		}*/
         
     }
     
