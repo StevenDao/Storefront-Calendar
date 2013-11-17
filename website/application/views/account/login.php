@@ -79,18 +79,40 @@
       <section id="about">
         <h6>About</h6>
         <p>
+            <!-- original
           Scarborough is a safe, well-educated and prosperous community.  The
           Storefront contributes to making the impossible possible by providing
           accessible sites for community members of all ages and cultures to find
           and share solutions they need to live healthy lives, find meaningful
           work, play and thrive. We are seen as an excellent model for
           sustainable social innovation and transformation in communities.
+          -->
+          The East Scarborough Storefront is a partnership of community members
+          and services working together to create a thriving community in East
+          Scarborough. This Calendar allows our partners to book Storefront
+          spaces, such as offices and meeting rooms, in order to provide
+          services our great community. Together, we can make a difference!
         </p>
       </section>
       <section id="address">
-        <h6>Address</h6>
-        4040 Lawrence Ave E, Scarborough, ON M1E 2R6 <br />
-        (416) 208-9889
+        <h6>Contact Us</h6>
+        4040 Lawrence Ave E. <br />
+        Scarborough, ON, M1E 2R2 <br />
+        Phone: 416-208-9889 <br />
+        Fax: 416-208-9239     
+      </section>
+      
+      <section id="address">
+        <h6>Links</h6>
+        <li><a href='http://www.thestorefront.org/'>
+            East Scarborough Storefront -- Main Website
+        </a></li>
+        <li><a href='https://www.gifttool.com/donations/Donate?ID=2004&AID=1820'>
+            Donate to the Storefront
+        </a></li>
+        <li><a href='http://www.thestorefront.org/events/'>
+            Not a partner? You can see the Storefront's events here!
+        </a></li> 
       </section>
       <div class=clear></div>
     </div>
