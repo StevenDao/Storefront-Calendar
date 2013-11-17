@@ -69,7 +69,7 @@ $config = array(
 		array(
 			'field' => 'phone',
 			'label' => 'Phone',
-			'rules' => 'required|alpha_dash'
+			'rules' => 'required|numeric'
 		),
 			
 		array(
@@ -80,7 +80,7 @@ $config = array(
 		array(
 			'field' => 'email',
 			'label' => 'Email',
-			'rules' => 'required|max_length[120]'
+			'rules' => 'required|max_length[120]|valid_email|is_unique[client.email]'
 		),
 		
 		array(
@@ -126,7 +126,7 @@ $config = array(
 		array(
 			'field' => 'phone',
 			'label' => 'Phone',
-			'rules' => 'required'
+			'rules' => 'required|numberic'
 		),
 			
 		array(
@@ -138,7 +138,7 @@ $config = array(
 		array(
 			'field' => 'email',
 			'label' => 'Email',
-			'rules' => 'required|max_length[120]'
+			'rules' => 'required|max_length[120]|valid_email|is_unique[client.email]'
 		),
 		
 		array(
