@@ -530,11 +530,9 @@ class Main extends CI_Controller
 		$this->load->model('booking_model');
 		
         // Validate any data that needs to be validated
-        // If there is an error, redirect to the invalid_input view, which will
-        // explain the problem, and ask the user to click 'back' in the browser
-        $errno = $this->booking_model->validate_booking_details
-            ('dummy', $from_date, $to_date, $from_time, $to_time,
-             $repeat, $repeat_freq, $repeat_end);
+        // This function was removed. This will also be removed soon in favour
+        // of proper form validation.
+        $errno = 0;
         
         if ($errno != 0 ) {
             
