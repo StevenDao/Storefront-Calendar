@@ -72,7 +72,6 @@ if (p1.val() == p2.val()) {
                         <?php
                         $client_type["1"] = "Administrator";
                         $client_type["2"] = "Client";
-                        $client_type["3"] = "Front-Desk";
 
                         $class = "class='input'";
 
@@ -94,17 +93,11 @@ if (p1.val() == p2.val()) {
                         ?>
                     </td>
                 </tr>
-                <tr>
-                    <td class="formSectionLeft"><span style="color:#FF0000">*</span>Password</td>
-                    <td class="formSectionRight"><input name="password" size="25" class="input" type="password" required="required">
-                        <?php echo form_error('password'); ?>
-                    </td>
-                </tr>
+
 
                 <tr>
                     <td class="formSectionLeft"><span style="color:#FF0000">*</span>Re - Enter Password</td>
-                    <td class="formSectionLast"><input name="passconf" size="25" class="input" type="password" required="required">
-                        <?php echo form_error('passconf'); ?>
+                    <td class="formSectionLast"><label>Password will be sent to user's email</label>
                     </td>
                 </tr>
                 <tr>
