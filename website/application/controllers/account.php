@@ -201,14 +201,14 @@ class Account extends CI_Controller
 			$data['styles'] = 'account/styles';
 
 			$this->load->view('template', $data);
+			
 		} else {
 			$user = new User();
 
 			$user->login = $this->input->post('username');
 			$user->first = $this->input->post('first');
 			$user->last = $this->input->post('last');
-			$password = $this->input->post('password');
-			$user->encrypt_password($password);
+			$password = $user-> init();
 			$user->email = $this->input->post('email');
 			$user->clientid = intval($this->input->post("agency"));
 			$user->usertype = intval($this->input->post("type"));
@@ -227,7 +227,6 @@ class Account extends CI_Controller
 			redirect('main/index', 'refresh'); //redirect to the main application page
 		}
 	}
-
 
 	/*
 	 * Update the password of the current logged in user.
