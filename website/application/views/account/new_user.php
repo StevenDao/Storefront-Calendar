@@ -1,4 +1,3 @@
-
 <script>
 function checkPassword() {
 var p1 = $("#pass1");
@@ -96,7 +95,7 @@ if (p1.val() == p2.val()) {
 
 
                 <tr>
-                    <td class="formSectionLeft"><span style="color:#FF0000">*</span>Re - Enter Password</td>
+                    <td class="formSectionLeft"><span style="color:#FF0000">*</span>Password</td>
                     <td class="formSectionLast"><label>Password will be sent to user's email</label>
                     </td>
                 </tr>
