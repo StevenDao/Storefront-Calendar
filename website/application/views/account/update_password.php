@@ -1,4 +1,3 @@
-
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 	$(function() {
@@ -45,14 +44,14 @@
                 <tr>
                     <td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>Current Password</td>
                     <td class="formSectionRight" width="68%">
-                        <input size="35" maxlength="50" class="input" type="text" name="prev" required="required">
+                        <input size="35" maxlength="50" class="input" type="password" name="prev" required="required">
                         <?php echo form_error('prev'); ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>New Password</td>
                     <td class="formSectionRight" width="68%">
-                        <input size="35" maxlength="50" class="input" type="text" id="pass1" name="new" required="required">
+                        <input size="35" maxlength="50" class="input" type="password" id="pass1" name="new" required="required">
                         <?php echo form_error('new'); ?>
                     </td>
                 </tr>
@@ -60,7 +59,7 @@
                 <tr>
                     <td class="formSectionLeft"><span style="color:#FF0000">*</span>New Password Confirmation</td>
                     <td class="formSectionLast">
-                        <input size="35" maxlength="50" class="input" type="text" id="pass2" name="passconf" required="required">
+                        <input size="35" maxlength="50" class="input" type="password" id="pass2" name="passconf" required="required">
                         <?php echo form_error('passconf'); ?>	
                     </td>
                 </tr>
