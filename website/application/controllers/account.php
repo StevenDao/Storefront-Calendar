@@ -19,10 +19,6 @@ class Account extends CI_Controller
 		$user = $this->session->userdata('user');
 
 		$client = array(
-			'form_update_password',
-			'update_password',
-			'form_recover_password',
-			'recover_password',
 			'logout'
 		);
 
@@ -275,15 +271,15 @@ class Account extends CI_Controller
 			$this->load->model('user_model');
 			$user = $this->user_model->get_from_email($email);
 
-			if (!isset($user)) {
-				$this->load->model('client_model');
-				$client = $this->client_model->get_from_email($email);
-			}
 
-			if (isset($user) || isset($client)) {
+			if (isset($user)) {
 				$password = $user->init();
-				$this->user_model->update_password($user);
-				$this->load->view('account/email_page');
+				$this->user_model->update_password($user);	
+				$this->user_model->auto_email($user->email, "new password", 
+											"your new password is $password, please remember it");
+
+
+				
 			} else {
 				$data['errorMsg'] = "No record exists for this email!";
 				$this->load->view('account/recover_password', $data);
