@@ -1,0 +1,29 @@
+\contentsline {section}{\numberline {1}The Basics}{4}
+\contentsline {subsection}{\numberline {1.1}Logging In}{4}
+\contentsline {subsection}{\numberline {1.2}Forgot Your Password?}{4}
+\contentsline {subsection}{\numberline {1.3}Logging Out}{4}
+\contentsline {section}{\numberline {2}Getting Around -- Site Navigation and Performing Tasks}{5}
+\contentsline {subsection}{\numberline {2.1}Events}{5}
+\contentsline {subsection}{\numberline {2.2}Navigation by Month}{5}
+\contentsline {subsection}{\numberline {2.3}Navigation by Week}{5}
+\contentsline {subsection}{\numberline {2.4}Navigation by Day}{5}
+\contentsline {subsection}{\numberline {2.5}Performing Tasks -- The Toolbar}{6}
+\contentsline {section}{\numberline {3}Administrator Tasks}{7}
+\contentsline {subsection}{\numberline {3.1}Adding a New User}{7}
+\contentsline {subsection}{\numberline {3.2}Editing an Existing User}{7}
+\contentsline {subsection}{\numberline {3.3}Adding a New Storefront Partner}{7}
+\contentsline {subsection}{\numberline {3.4}Editing an Existing Storefront Partner}{7}
+\contentsline {subsection}{\numberline {3.5}Adding a New Event}{8}
+\contentsline {subsection}{\numberline {3.6}Editing an Existing Event}{8}
+\contentsline {subsection}{\numberline {3.7}Changing Your Password}{8}
+\contentsline {subsection}{\numberline {3.8}Viewing a Map of Bookable Storefront Spaces}{8}
+\contentsline {section}{\numberline {4}Front-Desk Staff Tasks}{9}
+\contentsline {subsection}{\numberline {4.1}Adding a New Event}{9}
+\contentsline {subsection}{\numberline {4.2}Editing an Existing Event}{9}
+\contentsline {subsection}{\numberline {4.3}Changing Your Password}{9}
+\contentsline {subsection}{\numberline {4.4}Viewing a Map of Bookable Storefront Spaces}{9}
+\contentsline {section}{\numberline {5}Storefront Partner (`Client') Tasks}{11}
+\contentsline {subsection}{\numberline {5.1}Adding a New Event}{11}
+\contentsline {subsection}{\numberline {5.2}Editing an Existing Event}{11}
+\contentsline {subsection}{\numberline {5.3}Changing Your Password}{11}
+\contentsline {subsection}{\numberline {5.4}Viewing a Map of Bookable Storefront Spaces}{11}

@@ -1,17 +1,18 @@
 \documentclass[12pt]{article}
 
 % Misc. packages
-\usepackage{lastpage}
-\usepackage{graphicx,subfig,rotating}
+\usepackage{array,calc,lastpage}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx,subfig,rotating,placeins}
 
 % Page layout
-\usepackage[left=10mm, right=10mm, top=25mm, bottom=15mm, footskip=.5in, headsep=.5in-\headheight]{geometry}
+\usepackage[left=20mm, right=20mm, top=30mm, bottom=25mm]{geometry}
 \flushbottom
 
 % Headers and footers
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\lhead{{\scshape East Scarborough Storefront User Manual}}
+\lhead{{The East Scarborough Storefront Calendar User Manual}}
 \chead{{}}
 \rhead{{}}
 \lfoot{{}}
@@ -27,16 +28,18 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{8pt}
 
-% Font;
-% \usepackage[T1]{fontenc}
-% \usepackage{fourier}
-
 
 
 \begin{document}
 
-\input{00-intro}
-
+\titlepage
+\input{00-intro}        \newpage
+\tableofcontents        \newpage
+\input{01-basics}       \newpage
+\input{02-main}         \newpage
+\input{03-admin}        \newpage
+\input{04-staff}        \newpage
+\input{05-client}       \newpage
 
 \end{document}
 
