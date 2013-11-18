@@ -204,10 +204,7 @@ $(document).ready(function() {
                     $.ajax({
                         url: url,
                         data: args,
-                        type: 'POST',
-                        success: function(data){
-                            alert(data);
-                        }
+                        type: 'POST'
 
                     });
 
