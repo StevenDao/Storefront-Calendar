@@ -17,13 +17,16 @@
 \contentsline {subsection}{\numberline {3.6}Editing an Existing Event}{8}
 \contentsline {subsection}{\numberline {3.7}Changing Your Password}{8}
 \contentsline {subsection}{\numberline {3.8}Viewing a Map of Bookable Storefront Spaces}{8}
+\contentsline {subsection}{\numberline {3.9}Event Shortcuts}{8}
 \contentsline {section}{\numberline {4}Front-Desk Staff Tasks}{9}
 \contentsline {subsection}{\numberline {4.1}Adding a New Event}{9}
 \contentsline {subsection}{\numberline {4.2}Editing an Existing Event}{9}
 \contentsline {subsection}{\numberline {4.3}Changing Your Password}{9}
 \contentsline {subsection}{\numberline {4.4}Viewing a Map of Bookable Storefront Spaces}{9}
+\contentsline {subsection}{\numberline {4.5}Event Shortcuts}{10}
 \contentsline {section}{\numberline {5}Storefront Partner (`Client') Tasks}{11}
 \contentsline {subsection}{\numberline {5.1}Adding a New Event}{11}
 \contentsline {subsection}{\numberline {5.2}Editing an Existing Event}{11}
 \contentsline {subsection}{\numberline {5.3}Changing Your Password}{11}
 \contentsline {subsection}{\numberline {5.4}Viewing a Map of Bookable Storefront Spaces}{11}
+\contentsline {subsection}{\numberline {5.5}Event Shortcuts}{12}
