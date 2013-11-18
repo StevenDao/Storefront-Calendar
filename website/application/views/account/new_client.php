@@ -108,44 +108,49 @@ function checkPassword() {
                             "Resident Leadership" => "Resident Leadership"
                             );                       
                         $class = "class='input'";
-                        echo form_dropdown('category', $options, '', $class);
+                        echo form_dropdown('category', $options, $this->input->post('category'), $class);
                         ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft"><span style="color:#FF0000">*</span>Email Address</td>
-                    <td class="formSectionRight"><input size="25" class="input" type="text" name="email" required="required">
+                    <td class="formSectionRight"><input size="25" class="input" type="text" name="email" required="required"
+						value= "<?php echo set_value('email')?>">
                         <?php echo form_error('email'); ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft">Agreement Status</td>
-                    <td class="formSectionRight"><input size="25" class="input" type="text" name="agreement_status">
+                    <td class="formSectionRight"><input size="25" class="input" type="text" name="agreement_status"
+						value= "<?php echo set_value('agreement_status')?>">
                         <?php echo form_error('agreement_status'); ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft"><span style="color:#FF0000">*</span>Insurance Status</td>
-                    <td class="formSectionRight"><input size="25" class="input" type="text" name="insurance" required="required">
+                    <td class="formSectionRight"><input size="25" class="input" type="text" name="insurance" required="required" value= "<?php echo set_value('insurance')?>">
                         <?php echo form_error('insurance'); ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft"><span style="color:#FF0000">*</span>Telephone Number</td>
-                    <td class="formSectionRight"><input size="25" class="input" type="text" name="phone" required="required">
+                    <td class="formSectionRight"><input size="25" class="input" type="text" name="phone" required="required"
+						value= "<?php echo set_value('phone')?>">
                         <?php echo form_error('phone'); ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft">Fax Number</td>
-                    <td class="formSectionRight"><input size="25" class="input" type="text" name="fax">
+                    <td class="formSectionRight"><input size="25" class="input" type="text" name="fax"
+						value= "<?php echo set_value('fax')?>">
                         <?php echo form_error('fax'); ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft"><span style="color:#FF0000">*</span>Address</td>
                     <td class="formSectionLast">
-                        <textarea cols="37" rows="3" class="input" type="text" name="address"></textarea>
+                        <textarea cols="37" rows="3" class="input" type="text" name="address"
+						value= "<?php echo set_value('address')?>"></textarea>
                         <?php echo form_error('address'); ?>
                     </td>
                 </tr>

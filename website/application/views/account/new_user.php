@@ -76,8 +76,8 @@ if (p1.val() == p2.val()) {
                         $client_type["3"] = "Frontdesk";
 
                         $class = "class='input'";
-
-                        echo form_dropdown("type", $client_type, '$user_type', $class);
+						
+                        echo form_dropdown("type", $client_type,  $this->input->post('type'), $class);
                         ?>
                     </td>
                 </tr>
@@ -91,7 +91,7 @@ if (p1.val() == p2.val()) {
 
                             $class = "class='input'";
 
-                            echo form_dropdown("agency", $agency, '', $class);
+                            echo form_dropdown("agency", $agency, $this->input->post('agency'), $class);
                         ?>
                     </td>
                 </tr>
