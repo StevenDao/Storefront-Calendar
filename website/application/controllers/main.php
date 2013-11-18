@@ -207,7 +207,7 @@ class Main extends CI_Controller
 		$booking->title = $event->title;
 		$booking->date_booked = date('d-m-Y');
 		$booking->set_times($event->start, $event->end, TRUE);
-		$booking->room_id = $event->room;
+		$booking->roomid = $event->room;
 
 		if ($event->allDay) {
 			$booking->set_start_time(9, 0);
