@@ -22,7 +22,8 @@ class Main extends CI_Controller
 			'add_booking',
 			'form_edit_booking',
 			'edit_booking',
-			'change_booking'
+			'change_booking',
+			'delete_booking'
 			);
 
 		$admin = array(
@@ -30,7 +31,6 @@ class Main extends CI_Controller
 			'resize_event',
 			'confirm_event',
 			'add_event',
-			'delete_booking',
 			);
 
 		/* Check if the user is logged in */
@@ -538,7 +538,14 @@ class Main extends CI_Controller
 		$id = $this->input->post('id');
 		$booking = $this->booking_model->get($id);
 
-		$this->booking_model->delete($id);
+		if (($booking->status == Booking::TENTATIVE && $booking->userid == $user->clientid && $user->usertype == User::CLIENT) ||
+			($user->usertype == User::ADMIN)) {
+			$this->booking_model->delete($id);
+			$data['message'] = $booking->title . " has been deleted";
+		} else {
+			$data['message'] = "Insufficient rights to delete $booking->title.";
+		}
+
 
 		if ($user->usertype == User::ADMIN || $user->usertype == User::FRONTDESK) {
 			$data['booking_list'] = $this->booking_model->get_bookings();
@@ -557,7 +564,6 @@ class Main extends CI_Controller
 		$data['main'] = 'booking/edit_event';
 		$data['styles'] = 'booking/styles';
 		$data['scripts'] = 'booking/scripts';
-		$data['message'] = $booking->title . " has been deleted";
 
 		$this->load->view('template', $data);
 
