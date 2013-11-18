@@ -20,18 +20,21 @@ if (isset($user) && $user->usertype == User::ADMIN) {
 					<li><?= anchor('main/form_add_booking', 'New Event') ?></li>
 					<li><?= anchor('main/form_edit_booking', 'Edit Event') ?></li>
 					<li><?= anchor('account/form_update_password', 'Update Password') ?></li>
+					<li><?= anchor('space/form_room_information', 'Rooms') ?></li>
 <?php
 } else if (isset($user) && $user->usertype == User::CLIENT) {
 ?>
 					<li><?= anchor('main/form_add_booking', 'New Event') ?></li>
 					<li><?= anchor('main/form_edit_booking', 'Edit Event') ?></li>
 					<li><?= anchor('account/form_update_password', 'Update Password') ?></li>
+					<li><?= anchor('space/form_room_information', 'Rooms') ?></li>
 <?php
 } else if (isset($user) && $user->usertype == User::FRONTDESK) {
 ?>
 					<li><?= anchor('main/form_add_booking', 'New Event') ?></li>
 					<li><?= anchor('main/form_edit_booking', 'Edit Event') ?></li>
 					<li><?= anchor('account/form_update_password', 'Update Password') ?></li>
+					<li><?= anchor('space/form_room_information', 'Rooms') ?></li>
 <?php
 }
 ?>
