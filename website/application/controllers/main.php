@@ -204,10 +204,10 @@ class Main extends CI_Controller
 		$user = $this->session->userdata('user');
 
 		$booking->userid = $user->id;
-		$booking->roomid = 1; // Placeholder
 		$booking->title = $event->title;
 		$booking->date_booked = date('d-m-Y');
 		$booking->set_times($event->start, $event->end, TRUE);
+		$booking->room_id = $event->room;
 
 		if ($event->allDay) {
 			$booking->set_start_time(9, 0);
@@ -215,6 +215,7 @@ class Main extends CI_Controller
 		}
 
 		$this->booking_model->insert($booking);
+		echo json_encode($booking);
 	}
 
 	function form_add_booking() {
