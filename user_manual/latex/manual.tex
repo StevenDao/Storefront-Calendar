@@ -1,0 +1,42 @@
+\documentclass[12pt]{article}
+
+% Misc. packages
+\usepackage{lastpage}
+\usepackage{graphicx,subfig,rotating}
+
+% Page layout
+\usepackage[left=10mm, right=10mm, top=25mm, bottom=15mm, footskip=.5in, headsep=.5in-\headheight]{geometry}
+\flushbottom
+
+% Headers and footers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{{\scshape East Scarborough Storefront User Manual}}
+\chead{{}}
+\rhead{{}}
+\lfoot{{}}
+\cfoot{{}}
+\rfoot{{Page \thepage\ of \pageref{LastPage}}}
+
+% Sectioning commands
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+% Paragraph style
+\raggedright 
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+
+% Font;
+% \usepackage[T1]{fontenc}
+% \usepackage{fourier}
+
+
+
+\begin{document}
+
+\input{00-intro}
+
+
+\end{document}
+
