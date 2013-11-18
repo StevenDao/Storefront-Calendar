@@ -3,6 +3,7 @@
   <fieldset>
     <label for="title">Title</label>
     <input type="text" name="title" id="title" class="text ui-widget-content ui-corner-all" />
+    <select id="rooms"></select>
   </fieldset>
   </form>
 </div>
