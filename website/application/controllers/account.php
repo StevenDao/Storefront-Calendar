@@ -327,7 +327,7 @@ class Account extends CI_Controller
 		} else {
 			$this->user_model->delete_user($login);
 			$data['user'] = new User();
-			$data['message'] = "The user " . $user->login . " has been deleted!";
+			$data['message'] = "The user " . $login . " has been deleted!";
 			$this->load->view('template', $data);
 		}
 	}
