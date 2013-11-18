@@ -65,7 +65,7 @@ $config = array(
 		array(
 			'field' => 'fax',
 			'label' => 'Fax',
-			'rules' => 'required|max_length[120]'
+			'rules' => 'max_length[120]'
 		),
 		
 		array(
@@ -123,7 +123,7 @@ $config = array(
 		array(
 			'field' => 'fax',
 			'label' => 'Fax',
-			'rules' => 'required|max_length[120]'
+			'rules' => 'max_length[120]'
 		),
 		
 		array(
