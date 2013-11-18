@@ -39,28 +39,32 @@ if (p1.val() == p2.val()) {
                 <tr>
                     <td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>Username</td>
                     <td class="formSectionRight" width="68%">
-                        <input size="35" maxlength="50" class="input" type="text" name="username" required="required">
+                        <input size="35" maxlength="50" class="input" type="text" name="username" required="required" 
+						value= "<?php echo set_value('username')?>">
                             <?php echo form_error('username'); ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>First Name</td>
                     <td class="formSectionRight" width="68%">
-                        <input size="35" maxlength="50" class="input" type="text" name="first" required="required">
+                        <input size="35" maxlength="50" class="input" type="text" name="first" required="required"
+						value= "<?php echo set_value('first')?>">
                             <?php echo form_error('first'); ?>
                         </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>Last Name</td>
                     <td class="formSectionRight" width="68%">
-                        <input size="35" maxlength="50" class="input" type="text" name="last" required="required">
+                        <input size="35" maxlength="50" class="input" type="text" name="last" required="required"
+						value= "<?php echo set_value('last')?>">
                         <?php echo form_error('last'); ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft"><span style="color:#FF0000">*</span>E-Mail ID</td>
                     <td class="formSectionRight">
-                        <input size="50" maxlength="50" class="input" type="text" name="email" required="required">
+                        <input size="50" maxlength="50" class="input" type="text" name="email" required="required"
+						value= "<?php echo set_value('email')?>">
                         <?php echo form_error('email'); ?>
                     </td>
                 </tr>      

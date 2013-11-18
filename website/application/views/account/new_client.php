@@ -34,42 +34,48 @@ function checkPassword() {
                 <tr>
                     <td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>Agency Name</td>
                     <td class="formSectionRight" width="68%">
-                        <input size="35" maxlength="50" class="input" type="text" name="partnername" required="required">
+                        <input size="35" maxlength="50" class="input" type="text" name="partnername" required="required"
+						value= "<?php echo set_value('partnername')?>">
                         <?php echo form_error('partnername'); ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>Program Name</td>
                     <td class="formSectionRight" width="68%">
-                        <input size="35" maxlength="50" class="input" type="text" name="programname" required="required">
+                        <input size="35" maxlength="50" class="input" type="text" name="programname" required="required"
+						value= "<?php echo set_value('programname')?>">
                         <?php echo form_error('programname'); ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>Manager Name</td>
                     <td class="formSectionRight" width="68%">
-                        <input size="35" maxlength="50" class="input" type="text" name="manager" required="required">
+                        <input size="35" maxlength="50" class="input" type="text" name="manager" required="required"
+						value= "<?php echo set_value('manager')?>">
                         <?php echo form_error('manager'); ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft"><span style="color:#FF0000">*</span>Manager Position</td>
                     <td class="formSectionRight">
-                        <input size="50" maxlength="50" class="input" type="text" name="managerposition" required="required">
+                        <input size="50" maxlength="50" class="input" type="text" name="managerposition" required="required"
+						value= "<?php echo set_value('managerposition')?>">
                         <?php echo form_error('managerposition'); ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft" width="32%"><span style="color:#FF0000">*</span>Facilitator Name</td>
                     <td class="formSectionRight" width="68%">
-                        <input size="35" maxlength="50" class="input" type="text" name="programfc" required="required">
+                        <input size="35" maxlength="50" class="input" type="text" name="programfc" required="required"
+						value= "<?php echo set_value('programfc')?>">
                         <?php echo form_error('programfc'); ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="formSectionLeft"><span style="color:#FF0000">*</span>Facilitator Position</td>
                     <td class="formSectionRight">
-                        <input size="50" maxlength="50" class="input" type="text" name="fcposition" required="required">
+                        <input size="50" maxlength="50" class="input" type="text" name="fcposition" required="required"
+						value= "<?php echo set_value('fcposition')?>">
                         <?php echo form_error('fcposition'); ?>
                     </td>
                 </tr>       
