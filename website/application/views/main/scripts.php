@@ -206,6 +206,9 @@ $(document).ready(function() {
                         url: url,
                         data: args,
                         type: 'POST',
+                        success: function(data){
+                            alert(data);
+                        }
 
                     });
 
