@@ -426,6 +426,8 @@ class Main extends CI_Controller
     	        // Load the client and room models
 		$this->load->model('client_model');
 		$this->load->model('room_model');
+		$this->load->model('booking_model');
+		$this->load->model('user_model'); 
 		
 		$user =  $this->session->userdata('user'); 
 		$msg =" The changes cannot be implemented because  :  ";
