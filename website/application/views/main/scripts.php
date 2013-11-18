@@ -234,6 +234,7 @@ $(document).ready(function() {
         buttons: {
             "Add": function() {
                 booking_title = $("#title").val();
+                room_id = $("#rooms").val();
                 $( this ).dialog( "close" );
             }
         },
