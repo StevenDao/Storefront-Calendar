@@ -5,7 +5,7 @@ $config = array(
 		array(
 			'field' => 'username',
 			'label' => 'Username',
-			'rules' => 'required|is_unique[user.login]|min_length[3]|max_length[20]'
+			'rules' => 'required|is_unique[user.login]|min_length[3]|max_length[20]|alpha_numeric'
 		),
 		array(
 			'field' => 'first',
@@ -20,7 +20,7 @@ $config = array(
 		array(
 			'field' => 'email',
 			'label' => 'Email',
-			'rules' => 'required|valid_email|max_length[120]|is_unique[user.email]'
+			'rules' => 'required|valid_email|max_length[120]'
 		)
 	),
 
