@@ -66,7 +66,10 @@ $config = array(
 			
 		array(
 			'field' => 'fax',
-			'label' => 'Fax'
+			'label' => 'Fax',
+			'rules' => 'required
+				|max_length[120]
+				|regex_match[/(([.]+[:]{1})?\d{3}\-\d{3}\-\d{4}([;]{1}))+/]'
 		),
 		
 		array(
@@ -128,7 +131,9 @@ $config = array(
 		array(
 			'field' => 'fax',
 			'label' => 'Fax',
-			'rules' => 'alpha_dash'
+			'rules' => 'required
+				|max_length[120]
+				|regex_match[/(([.]+[:]{1})?\d{3}\-\d{3}\-\d{4}([;]{1}))+/]'
 		),
 		
 		array(
