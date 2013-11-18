@@ -64,6 +64,7 @@ if($user->login == "" ){
                         <?php
                         $client_type["1"] = "admin";
                         $client_type["2"] = "client";
+                        $client_type["3"] = "frontdesk";
                         $user_type = strval($user->usertype);
 
                         $class = "class='input'";

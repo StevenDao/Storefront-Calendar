@@ -96,10 +96,12 @@
       </section>
       <section id="address">
         <h6>Contact Us</h6>
-        4040 Lawrence Ave E. <br />
-        Scarborough, ON, M1E 2R2 <br />
-        Phone: 416-208-9889 <br />
-        Fax: 416-208-9239     
+        <p>
+          4040 Lawrence Ave E. <br />
+          Scarborough, ON, M1E 2R2
+        </p>
+        <p> <b>Phone:</b> 416-208-9889 </p>
+        <p> <b>Fax</b>: 416-208-9239 </p>
       </section>
       <!--
       <section id="links">

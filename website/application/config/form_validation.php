@@ -59,22 +59,19 @@ $config = array(
 		array(
 			'field' => 'phone',
 			'label' => 'Phone',
-			'rules' => 'required
-				|max_length[120]
-				|regex_match[/(([.]+[:]{1})?\d{3}\-\d{3}\-\d{4}([;]{1}))+/]'
+			'rules' => 'required|max_length[120]'
 		),
 			
 		array(
 			'field' => 'fax',
-			'label' => 'Fax'
+			'label' => 'Fax',
+			'rules' => 'max_length[120]'
 		),
 		
 		array(
 			'field' => 'email',
 			'label' => 'Email',
-			'rules' => 'required
-				|max_length[120]
-				|regex_match[/((([.]+[:]{1})?([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})([;]{1}))+)/]'
+			'rules' => 'required|max_length[120]'
 		),
 		
 		array(
@@ -120,23 +117,19 @@ $config = array(
 		array(
 			'field' => 'phone',
 			'label' => 'Phone',
-			'rules' => 'required
-				|max_length[120]
-				|regex_match[/(([.]+[:]{1})?\d{3}\-\d{3}\-\d{4}([;]{1}))+/]'
+			'rules' => 'required|max_length[120]'
 		),
 			
 		array(
 			'field' => 'fax',
 			'label' => 'Fax',
-			'rules' => 'alpha_dash'
+			'rules' => 'max_length[120]'
 		),
 		
 		array(
 			'field' => 'email',
 			'label' => 'Email',
-			'rules' => 'required
-				|max_length[120]
-				|regex_match[((([.]+[:]{1})?([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})([;]{1}))+)]'
+			'rules' => 'required|max_length[120]'
 		),
 		
 		array(
