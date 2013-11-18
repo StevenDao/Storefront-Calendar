@@ -393,6 +393,12 @@ class Main extends CI_Controller
 
 	}
 
+	function get_all_rooms(){
+		$this->load->model('room_model');
+		$rooms = $this->room_model->get_rooms();
+		echo json_encode($rooms);
+	}
+
 
 	function form_edit_booking(){ 
 		$this->load->model('booking_model'); 
