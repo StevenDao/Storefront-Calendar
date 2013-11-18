@@ -1,4 +1,4 @@
-<script src='<?= base_url() ?>fullcalendar/lib/jquery.min.js'></script>
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.22/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.qtip.js"></script>
 <script src='<?= base_url() ?>fullcalendar/lib/jquery-ui.custom.min.js'></script>
@@ -10,7 +10,28 @@ $user = $this->session->userdata('user');
 ?>
 
 <script>
+
+var dialog_start;
+var dialog_end;
+var dialog_all;
+
 $(document).ready(function() {
+
+    $.ajax({
+        type: "POST",
+        url: "<?= base_url() ?>main/get_all_rooms",
+        dataType: "json",
+        success: function(jsonObj) {
+            var listItems= ""
+            var jsonData = jsonObj;
+
+           for (var i = 0; i < jsonData.length; i++){
+                    listItems+= "<option value='" + (i+1) + "'>" + jsonData[i] + "</option>";
+            }
+            $("#rooms").html(listItems);
+        }
+    });
+    
     var booking_title = "";
     var page = $('#lower_limit').val();
     var view = $('#view').val();
@@ -162,15 +183,21 @@ $(document).ready(function() {
         selectable: true,
         selectHelper: true,
         select: function(start, end, allDay) {
+            dialog_start = start;
+            dialog_end = end;
+            dialog_all = allDay;
+           
             $( "#new-booking" ).dialog( "open" );
             $( "#new-booking" ).on( "dialogclose" , function(event, ui) {
                 if (booking_title) {
-                    var booking = {
-                        title: booking_title,
-                        start: start,
-                        end: end,
-                        allDay: allDay
-                    };
+                       a
+                        var booking = {
+                            title: booking_title,
+                            room : room_id,
+                            start: dialog_start,
+                            end: dialog_end,
+                            allDay: dialog_all
+                        };
 
                     args = "json=" + JSON.stringify(booking);
                     url = "<?= base_url() ?>main/add_event";
@@ -178,7 +205,8 @@ $(document).ready(function() {
                     $.ajax({
                         url: url,
                         data: args,
-                        type: 'POST'
+                        type: 'POST',
+
                     });
 
                     booking_title = "";
