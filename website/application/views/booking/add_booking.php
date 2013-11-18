@@ -86,12 +86,6 @@ $user = $this->session->userdata('user');
 					</td>
 				</tr>
 				<tr>
-					<td class="formSectionLeft" width="32%">Colour</td>
-					<td class="formSectionRight" width="68%">
-						<?php echo form_dropdown('colours', $colours); ?>
-					</td>
-				</tr>
-				<tr>
 					<td class="formSectionLeft" width="32%">Status</td>
 					<td class="formSectionLast" width="68%">
 						<input type="radio" name="status" value="0" checked>Tentative&nbsp;&nbsp;
