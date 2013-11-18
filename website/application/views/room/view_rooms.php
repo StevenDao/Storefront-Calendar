@@ -32,8 +32,10 @@ $(document).ready(function(){
                     element.qtip({
        	 				content: info, // Use the ALT attribute of the area map
         				position: {
-        					my: 'top right',  // Position my top left...
-        					at: 'top right', // at the bottom right of...
+        					corner: {
+         						target: 'topRight',
+         						tooltip: 'topLeft'
+      							} // at the bottom right of...
     					},
     					style: {
     						name: 'cream'
