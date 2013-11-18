@@ -16,9 +16,7 @@ if (p1.val() == p2.val()) {
 
     <?php
     $agency = array();
-    $agency["Agency"] = "----------- Select Agency -----------";
     $client_type =array();
-    $client_type["Type"] = "------------ Select Type ------------"; 
     ?>
 
 <table width="550px" class="outter">
