@@ -526,9 +526,9 @@ class Account extends CI_Controller
 			$client->agreement_status = $this->input->post('agreement_status');
 			$client->insurance_status = $this->input->post('insurance');
 			$client->category = $this->input->post('category');
-
+			
 			$this->client_model->update_client_info($client);
-
+			
 			$data['message'] =  "The client " . $client->agency . " has been updated!";
 			$data['clients'] = $this->client_model->display_all_clients();
 			$data['client'] = $client;

@@ -131,7 +131,7 @@ function checkPassword() {
                     <td class="formSectionLeft"><span style="color:#FF0000">*</span>Email Address</td>
                     <td class="formSectionRight">
                         <?php echo form_error('email'); ?>
-                        <input size="25" class="input" type="text" name="email" value="<?php echo $client->facilitator_position ?>" required="required">
+                        <input size="25" class="input" type="text" name="email" value="<?php echo $client->email?>" required="required">
                     </td>
                 </tr>
                 <tr>
