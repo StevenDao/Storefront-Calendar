@@ -14,7 +14,6 @@
     <img class='login' src="<?= base_url() ?>images/login.gif">
     <img class="loginImage" src="<?= base_url() ?>images/login_head.gif">
     <div class="centered">
-
       <?php
       if (isset($errorMsg)) {
           echo "<p>" . $errorMsg . "</p>";
@@ -22,15 +21,6 @@
       echo form_open('account/login');
       ?>
       <ul>
-        <li>
-          
-          <h5>
-            <?php
-            echo anchor('account/recover_password', 'Forgot Password');
-            ?>
-          </h5>
-
-        </li>
         <li>
           <?php
 
@@ -56,6 +46,15 @@
 
           ));
           ?>
+        </li>
+
+        <li>
+          <input value="Log in" class="btnbg" type="submit">
+          <h5>
+            <?php
+            echo anchor('account/recover_password', 'Forgot Password');
+            ?>
+          </h5>
         </li>
 
         <?php

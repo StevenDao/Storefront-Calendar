@@ -279,7 +279,7 @@ class Account extends CI_Controller
 	 */
 	function recover_password() {
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('email', 'email', 'required|valid_email|max[120]');
+		$this->form_validation->set_rules('email', 'email', 'required|valid_email|max_length[120]');
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('account/recover_password');
@@ -293,10 +293,7 @@ class Account extends CI_Controller
 				$password = $user->init();
 				$this->user_model->update_password($user);	
 				$this->user_model->auto_email($user->email, "new password", 
-											"your new password is $password, please remember it");
-
-
-				
+											"your new password is $password, please remember it");	
 			} else {
 				$data['errorMsg'] = "No record exists for this email!";
 				$this->load->view('account/recover_password', $data);

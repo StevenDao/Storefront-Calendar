@@ -23,7 +23,7 @@ class Main extends CI_Controller
 			'form_edit_booking',
 			'edit_booking',
 			'change_booking'
-		);
+			);
 
 		$admin = array(
 			'move_event',
@@ -31,7 +31,7 @@ class Main extends CI_Controller
 			'confirm_event',
 			'add_event',
 			'delete_booking',
-		);
+			);
 
 		/* Check if the user is logged in */
 		if (in_array($method, array_merge($client, $admin)) && !$user) {
@@ -78,9 +78,9 @@ class Main extends CI_Controller
 			$end = $date->format('h:ia');
 
 			$str = "Room: " . $room->name . "<br />" .
-                   "Booked from: " . $start . " to " . $end . "<br />" .
-                   "Booked by: " . $client->agency . "<br />";
-                   "Description: " . $booking->description;
+			"Booked from: " . $start . " to " . $end . "<br />" .
+			"Booked by: " . $client->agency . "<br />";
+			"Description: " . $booking->description;
 
 			if ($booking->repeat == 1) {
 				$repeat = true;
@@ -95,7 +95,7 @@ class Main extends CI_Controller
 						'end' => $booking->end_time,
 						'resourceId' => intval($booking->roomid),
 						'description' => "$str"
-					);
+						);
 
 					$booking->move($booking->repeat_freq, 0, $booking->roomid);
 					$start = new DateTime($booking->get_start_date());
@@ -115,7 +115,7 @@ class Main extends CI_Controller
 					'color' => $color[$booking->status],
 					'resourceId' => intval($booking->roomid),
 					'description' => "$str"
-				);
+					);
 			}
 		}
 
@@ -243,138 +243,66 @@ class Main extends CI_Controller
 		$this->load->view('template', $data);
 	}
 
-    
+	
     // If the from-date is before today's date, it is invalid
-    function validate_from_date($from_date){
-        
-        $from_val = ( substr($from_date, 0, 4) * 10000 ) +
-                    ( substr($from_date, 5, 2) * 100 ) +
-                      substr($from_date, 8, 2);
-        
-        $today = date_format(new DateTime(), 'Y-m-d');
-        $today_val = ( substr($today, 0, 4) * 10000 ) +
-                     ( substr($today, 5, 2) * 100 ) +
-                       substr($today, 8, 2);
-        
-        if ($from_val < $today_val) {
-            $this->form_validation->set_message('validate_from_date',
-            'The %s field can not be a date that is before today\'s date');
-                        return FALSE;
-                } else {
-            return TRUE;
-                }
-        
-    }
-    
-    
-    // If the to-date is before the from-date, it is invalid
-    function validate_to_date($to_date, $from_date){
-        
-        $from_val = ( substr($from_date, 0, 4) * 10000 ) +
-                    ( substr($from_date, 5, 2) * 100 ) +
-                      substr($from_date, 8, 2);
-        
-        $to_val = ( substr($to_date, 0, 4) * 10000 ) +
-                  ( substr($to_date, 5, 2) * 100 ) +
-                    substr($to_date, 8, 2);
-        
-        if ($to_val < $from_val) {
-                        $this->form_validation->set_message('validate_to_date',
-            'The %s field can not be a date that is before the From field');
-                        return FALSE;
-                } else {
-            return TRUE;
-                }
-        
-    }
-    
-    
-    /*
-    // If from-date = to-date, and the from-time > to-time, to-time is invalid
-    public function validate_to_time($to_time, $from_date, $to_date, $from_time){
-        
-        $from_val = ( substr($from_date, 0, 4) * 10000 ) +
-                    ( substr($from_date, 5, 2) * 100   ) +
-                      substr($from_date, 8, 2);
-        
-        $to_val = ( substr($to_date, 0, 4) * 10000 ) +
-                  ( substr($to_date, 5, 2) * 100   ) +
-                    substr($to_date, 8, 2);
-        
-        if( $from_val == $to_val ){
-            
-            $from_t = ( substr($from_time, 0, 2) * 100 ) + substr($from_time, 3, 2);
-            $to_t   = ( substr($to_time,   0, 2) * 100 ) + substr($to_time,   3, 2);
-            
-            if ($from_t >= $to_t) {
-                $this->form_validation->set_message('validate_to_time',
-                '%s cannot be before the From Time for same-day events.');
-                return FALSE;
-            }
-            
-        }
-        
-        return TRUE;
-        
-    }*/
-    
-    
-    /**
-     * Validates a set of booking details, as submitted to the add_booking()
-     * controller function (main controller). Note that the all_day, room,
-     * client, and status properties of a booking are set up in our forms so
-     * that they will always have valid values, so they are not checked here.
-     * The description field may be blank, or anything, so that isn't checked
-     * either.
-     * 
-     * Returns 0 on successful validation of details, or one of the following:
-     * 2 = The 'from' date is after the 'to' date
-     * 3 = The 'from' date is before today's date
-     * 4 = The 'from' time of a same-day event occurs at or after its 'to' time
-     * 5 = A repeating event has a non-integer frequency
-     * 6 = A repeating event has a frequency that is less than 1 day
-     * 7 = A repeating event has an end-date that is before its from-date
-     *
-    function validate_booking_details
-        ( $title, $from_date, $to_date, $from_time, $to_time,
-          $repeat, $repeat_freq, $repeat_end ){
-        
-        
-        // If the event is repeating...
-        if ($repeat == 1) {
-            
-            
-            // ... and doesn't have a frequency of at least 1 day, return error code 6
-            if ($repeat_freq < 1) {
-                return 6;
-            }
-            // ... and has an end-date before the the original event, return error code 7
-            $end = ( substr($repeat_end, 0, 4) * 10000 ) +
-                   ( substr($repeat_end, 5, 2) * 100   ) +
-                     substr($repeat_end, 8, 2);
-            if ($end < $from) {
-                return 7;
-            }
-        }
-        
-        // If we got here, then there are no errors in the input, so return 0
-        return 0;
-        
-    }*/
-    
+	function validate_from_date($from_date){
+		
+		$from_date   = $this->input->post('from_date');
+		$from_time   = $this->input->post('from_time');
 
+		$start = $from_date . 't' . $from_time;
+
+		$start_date = strtotime($start);
+		$today = strtotime("now");
+
+		
+		if ($start_date < $today) {
+			$this->form_validation->set_message('validate_from_date',
+				'The %s field can not be a date that is before today\'s date');
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+		
+	}
+	
+	
+    // If the to-date is before the from-date, it is invalid
+	function validate_to_date(){
+		$from_date   = $this->input->post('from_date');
+		$from_time   = $this->input->post('from_time');
+		$to_date     = $this->input->post('to_date');
+		$to_time     = $this->input->post('to_time');
+
+		$start = $from_date . 't' . $from_time;
+		$end = $to_date . 't' . $to_time;
+		$start_date = strtotime($start);
+		$finish_date = strtotime($end);
+
+
+		
+		if ($start_date > $finish_date) {
+			$this->form_validation->set_message('validate_to_date',
+				'The %s field can not be a date that is before the From field');
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+		
+	}
+	
 	function add_booking() {
-        
+		
         // Load model, helper, library
 		$this->load->model('booking_model');
-        $this->load->helper(array('form', 'url'));
-        $this->load->library('form_validation');
-        
-        $this->form_validation->set_rules('title', 'Title', 'required');
-        $this->form_validation->set_rules('from_date', 'From', 'required|callback_validate_from_date');
-        $this->form_validation->set_rules('to_date', 'To', 'required|callback_validate_to_date[from_date]');
-        
-        if ($this->form_validation->run() == FALSE) {
+		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('title', 'Title', 'required');
+		$this->form_validation->set_rules('from_date', 'From', 'required|callback_validate_from_date');
+		$this->form_validation->set_rules('to_date', 'To', 'required|callback_validate_to_date');
+
+		
+		if ($this->form_validation->run() == FALSE) {
 
 			$this->load->model('room_model');
 			$this->load->model('client_model');
@@ -384,6 +312,7 @@ class Main extends CI_Controller
 			if ($user->usertype == User::ADMIN || $user->usertype == User::FRONTDESK) {
 				$data['booking_list'] = $this->booking_model->get_bookings(); 
 				$data['clients'] = $this->client_model->get_clients();
+
 			} else if ($user->usertype == User::CLIENT) {
 				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
 				$client = $this->client_model->get_from_id($user->clientid); 
@@ -456,12 +385,13 @@ class Main extends CI_Controller
 
 			$this->booking_model->insert($booking);
 
-			// Redirect to the main application page
+			//Redirect to the main application page
 			redirect('main/index', 'refresh');
 
 		}
 
 	}
+
 
 	function form_edit_booking(){ 
 		$this->load->model('booking_model'); 
@@ -481,97 +411,95 @@ class Main extends CI_Controller
 			$data['clients'] = $clients; 
 		}
 
-			$data['rooms'] = $this->room_model->get_rooms(); 
-			$data['booking'] = new Booking(); 
-			$data['title'] = 'Storefront Calendar'; 
-			$data['main'] = 'booking/edit_event'; 			
-			$data['styles'] = 'booking/styles';
-			$data['scripts'] = 'booking/scripts';
+		$data['rooms'] = $this->room_model->get_rooms(); 
+		$data['booking'] = new Booking(); 
+		$data['title'] = 'Storefront Calendar'; 
+		$data['main'] = 'booking/edit_event'; 			
+		$data['styles'] = 'booking/styles';
+		$data['scripts'] = 'booking/scripts';
 
-			$this->load->view('template', $data); 
+		$this->load->view('template', $data); 
 	}
 
-    function edit_booking($id){
-        
-        // Get the input data from the POST data
-        $title       = $this->input->post('title');
-        $from_date   = $this->input->post('from_date');
-        $from_time   = $this->input->post('from_time');
-        $to_date     = $this->input->post('to_date');
-        $to_time     = $this->input->post('to_time');
-        $all_day     = $this->input->post('all_day');
-        $repeat      = $this->input->post('repeat');
-        $repeat_freq = $this->input->post('repeat_freq');
-        $repeat_end  = $this->input->post('repeat_end');
-        $description = $this->input->post('description');
-        $client      = $this->input->post('client');
-        $room        = $this->input->post('room');
-        $status      = $this->input->post('status');
-        
-        // All day events default to same-day events running from 9-7
-        if ($all_day == TRUE) {
-            $to_date = $from_date;
-            $from_time = '09:00:00';
-            $to_time = '19:00:00';
-        }
-        
-        // Handle repeating events
-        if ($repeat == 'repeat') {
-            $repeat = 1;
-		} else {
-		    $repeat = 0;
-		    $repeat_freq = 0;
-            $repeat_end = NULL;
-		}
-        
-        // Load the booking model
-		$this->load->model('booking_model');
+
+	function edit_booking($id){
+    	        // Load the client and room models
+		$this->load->model('client_model');
+		$this->load->model('room_model');
 		
-        // Validate any data that needs to be validated
-        // This function was removed. This will also be removed soon in favour
-        // of proper form validation.
-        $errno = 0;
-        
-        if ($errno != 0 ) {
-            
-            // Load the input_error view
-            $data['title'] = 'Invalid form input';
-            $data['errno'] = $errno;
-            $this->load->view('invalid_input', $data);
-            
-        } else {
-            
-            // Get the booking record from the table
-		    $booking = $this->booking_model->get($id);
-            
-            // Set the start and end times
-            $start = $from_date . 't' . $from_time;
-		    $end = $to_date . 't' . $to_time;
-		    $booking->set_times($start, $end);
-            
-            // Set more data
-            $booking->description = $description;
-		    $booking->userid = $client;
-		    $booking->roomid = $room;
-		    $booking->status = $status;
-		    $booking->repeat = $repeat;
-		    $booking->repeat_freq = $repeat_freq;
-		    $booking->repeat_end = $repeat_end;
-		    
-            // Update fields
-            $this->booking_model->updateRoom($booking);
-		    $this->booking_model->update_date_time($booking);
-		    $this->booking_model->updateStatus($booking);
-		    $this->booking_model->update_client($booking);
-		    $this->booking_model->update_freq($booking);
-		    $this->booking_model->update_description($booking);
-            
-            // Load the client and room models
-            $this->load->model('client_model');
-		    $this->load->model('room_model');
-            
-            $user =  $this->session->userdata('user'); 
-            
+		$user =  $this->session->userdata('user'); 
+		$msg =" The changes cannot be implemented because  :  ";
+		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('from_date', 'From', 'required|callback_validate_from_date');
+		$this->form_validation->set_rules('to_date', 'To', 'required|callback_validate_to_date');
+
+		if ($this->form_validation->run() == FALSE) {
+			$msg .= validation_errors();
+			$this->change_booking($id,$msg);     
+
+		} 
+		else{
+        // Get the input data from the POST data
+			$title       = $this->input->post('title');
+			$from_date   = $this->input->post('from_date');
+			$from_time   = $this->input->post('from_time');
+			$to_date     = $this->input->post('to_date');
+			$to_time     = $this->input->post('to_time');
+			$all_day     = $this->input->post('all_day');
+			$repeat      = $this->input->post('repeat');
+			$repeat_freq = $this->input->post('repeat_freq');
+			$repeat_end  = $this->input->post('repeat_end');
+			$description = $this->input->post('description');
+			$client      = $this->input->post('client');
+			$room        = $this->input->post('room');
+			$status      = $this->input->post('status');
+			
+        // All day events default to same-day events running from 9-7
+			if ($all_day == TRUE) {
+				$to_date = $from_date;
+				$from_time = '09:00:00';
+				$to_time = '19:00:00';
+			}
+			
+        // Handle repeating events
+			if ($repeat == 'repeat') {
+				$repeat = 1;
+			} else {
+				$repeat = 0;
+				$repeat_freq = 0;
+				$repeat_end = NULL;
+			}
+			
+        // Load the booking model
+
+			
+			$booking = $this->booking_model->get($id);
+			
+        // Set the start and end times
+			$start = $from_date . 't' . $from_time;
+			$end = $to_date . 't' . $to_time;
+			$booking->set_times($start, $end);
+			
+        // Set more data
+			$booking->description = $description;
+			$booking->userid = $client;
+			$booking->roomid = $room;
+			$booking->status = $status;
+			$booking->repeat = $repeat;
+			$booking->repeat_freq = $repeat_freq;
+			$booking->repeat_end = $repeat_end;
+			
+        // Update fields
+			$this->booking_model->updateRoom($booking);
+			$this->booking_model->update_date_time($booking);
+			$this->booking_model->updateStatus($booking);
+			$this->booking_model->update_client($booking);
+			$this->booking_model->update_freq($booking);
+			$this->booking_model->update_description($booking);
+			
+
+			
 			if ($user->usertype == User::ADMIN || $user->usertype == User::FRONTDESK) {
 				$data['booking_list'] = $this->booking_model->get_bookings();
 				$data['clients'] = $this->client_model->get_clients();
@@ -582,19 +510,19 @@ class Main extends CI_Controller
 				$data['clients'] = $clients;
 			}
 
-            // Call the view
-		    $data['rooms'] = $this->room_model->get_rooms();
-		    $data['booking'] = new Booking();
-		    $data['title'] = 'Storefront Calendar';
-		    $data['main'] = 'booking/edit_event';
-		    $data['styles'] = 'booking/styles';
-		    $data['scripts'] = 'booking/scripts';
-		    $data['message'] = $booking->title . " has been updated";
-            
-		    $this->load->view('template', $data);
+        // Call the view
+			$data['rooms'] = $this->room_model->get_rooms();
+			$data['booking'] = new Booking();
+			$data['title'] = 'Storefront Calendar';
+			$data['main'] = 'booking/edit_event';
+			$data['styles'] = 'booking/styles';
+			$data['scripts'] = 'booking/scripts';
+			$data['message'] = $booking->title . " has been updated";
+			
+			$this->load->view('template', $data);
 
-	    }
-	    
+			
+		} 
 	}
 
 	function delete_booking(){
@@ -614,10 +542,10 @@ class Main extends CI_Controller
 			$data['booking_list'] = $this->booking_model->get_bookings();
 			$data['clients'] = $this->client_model->get_clients();
 		} else if ($user->usertype == User::CLIENT) {
-				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
-				$client = $this->client_model->get_from_id($user->clientid); 
-				$clients = array($client->id => $client->agency ); 
-				$data['clients'] = $clients;
+			$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
+			$client = $this->client_model->get_from_id($user->clientid); 
+			$clients = array($client->id => $client->agency ); 
+			$data['clients'] = $clients;
 		}
 
 
@@ -633,7 +561,7 @@ class Main extends CI_Controller
 
 	}
 
-	function change_booking($id=""){
+	function change_booking($id="", $msg=""){
 
 		$this->load->model('booking_model');
 		$this->load->model('client_model');
@@ -646,13 +574,13 @@ class Main extends CI_Controller
 		$user =  $this->session->userdata('user'); 
 
 		if ($user->usertype == User::ADMIN || $user->usertype == User::FRONTDESK) {
-				$data['booking_list'] = $this->booking_model->get_bookings();
-				$data['clients'] = $this->client_model->get_clients();
+			$data['booking_list'] = $this->booking_model->get_bookings();
+			$data['clients'] = $this->client_model->get_clients();
 		} else if ($user->usertype == User::CLIENT) {
-				$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
-				$client = $this->client_model->get_from_id($user->clientid); 
-				$clients = array($client->id => $client->agency ); 
-				$data['clients'] = $clients;
+			$data['booking_list'] = $this->booking_model->getByUserID($user->clientid); 
+			$client = $this->client_model->get_from_id($user->clientid); 
+			$clients = array($client->id => $client->agency ); 
+			$data['clients'] = $clients;
 		}
 
 		$data['rooms'] = $this->room_model->get_rooms();
@@ -661,7 +589,7 @@ class Main extends CI_Controller
 		$data['main'] = 'booking/edit_event';
 		$data['styles'] = 'booking/styles';
 		$data['scripts'] = 'booking/scripts';
-
+		$data['message'] = $msg;
 		$this->load->view('template', $data);
 
 	}
