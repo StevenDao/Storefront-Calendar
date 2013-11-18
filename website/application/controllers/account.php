@@ -294,6 +294,7 @@ class Account extends CI_Controller
 				$this->user_model->update_password($user);	
 				$this->user_model->auto_email($user->email, "new password", 
 											"your new password is $password, please remember it");	
+				$this->index();
 			} else {
 				$data['errorMsg'] = "No record exists for this email!";
 				$this->load->view('account/recover_password', $data);
@@ -327,7 +328,7 @@ class Account extends CI_Controller
 		} else {
 			$this->user_model->delete_user($login);
 			$data['user'] = new User();
-			$data['message'] = "The user " . $user->login . " has been deleted!";
+			$data['message'] = "The user " . $login . " has been deleted!";
 			$this->load->view('template', $data);
 		}
 	}

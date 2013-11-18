@@ -105,7 +105,7 @@ class Booking
 	/*
 	 * Set the end-time of this booking.
 	 */
-	function set_end_time($hour, $minute, $selector) {
+	function set_end_time($hour, $minute, $second = 0) {
 		$end = new DateTime($this->end_time);
 		$end->setTime($hour, $minute, $second);
 

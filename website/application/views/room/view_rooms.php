@@ -5,7 +5,7 @@
 		<area shape="rect" coords="35,5,140,180" alt="5">
 		<area shape="rect" coords="0,230,43,288" alt="3">
 		<area shape="rect" coords="189,0,262,95" alt="7">
-		<!--<area shape="rect" coords="308,449,380,527" alt="meeting2">-->
+		<area shape="rect" coords="308,449,380,527" alt="8">
 		<area shape="rect" coords="405,300,486,414" alt="6">
 		<!--<area shape="rect" coords="380,411,486,527" alt="7">-->
 		<area shape="rect" coords="381,230,430,277" alt="1">			
