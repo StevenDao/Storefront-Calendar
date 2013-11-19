@@ -1,0 +1,50 @@
+\documentclass[12pt]{article}
+
+% Misc. packages
+\usepackage{array,calc,lastpage}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx,subfig,rotating,placeins}
+
+% Page layout
+\usepackage[left=10mm, right=10mm, top=20mm, bottom=20mm]{geometry}
+\flushbottom
+
+% Headers and footers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{{The East Scarborough Storefront Calendar User Manual}}
+\chead{{}}
+\rhead{{}}
+\lfoot{{}}
+\cfoot{{}}
+\rfoot{{Page \thepage\ of \pageref{LastPage}}}
+
+% Sectioning commands
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+% Paragraph style
+\raggedright 
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+
+\title{The East Scarborough Storefront Calendar User Manual}
+\date{November 2013}
+\author{Developed by CSC301H1 Team Nettilling:\\H. Chen, S. Dao, M. Haber, Y. Khvan, T. Letchumanan, J.P. McCool\\Department of Computer Science\\The University of Toronto St. George}
+
+
+
+\begin{document}
+
+\maketitle              \newpage
+\input{00-intro}        \newpage
+\tableofcontents        \newpage
+\input{01-basics}       \newpage
+\input{02-main}         \newpage
+\input{03-events}       \newpage
+\input{04-users}        \newpage
+\input{05-clients}      \newpage
+\input{06-misc}         \newpage
+
+\end{document}
+
