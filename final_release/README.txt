@@ -55,7 +55,7 @@ Development review: 'final_release/review/review.pdf'
 
 6. Meeting Minutes and Attendance Spreadsheet
 
-Meeting minutes: 'final_release/meetings/minutes_mm-dd' (for some month mm and day dd)
+Meeting minutes: 'final_release/meetings/minutes/minutes_mm-dd' (for some month mm and day dd)
 
 Attendance: 'final_release/meetings/attendance.xls'
 
