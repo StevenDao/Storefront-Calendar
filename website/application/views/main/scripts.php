@@ -190,7 +190,6 @@ $(document).ready(function() {
             $( "#new-booking" ).dialog( "open" );
             $( "#new-booking" ).on( "dialogclose" , function(event, ui) {
                 if (booking_title) {
-                       a
                         var booking = {
                             title: booking_title,
                             room : room_id,
@@ -205,7 +204,7 @@ $(document).ready(function() {
                     $.ajax({
                         url: url,
                         data: args,
-                        type: 'POST',
+                        type: 'POST'
 
                     });
 
@@ -234,6 +233,7 @@ $(document).ready(function() {
         buttons: {
             "Add": function() {
                 booking_title = $("#title").val();
+                room_id = $("#rooms").val();
                 $( this ).dialog( "close" );
             }
         },

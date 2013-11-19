@@ -85,7 +85,6 @@ function checkPassword() {
                     <td class="formSectionRight">
                         <?php
                         $options = array(
-                            "select" => "------------- Select One -------------",
                             "Community Information" => "Community Information",
                             "Education" => "Education",
                             "Employment" => "Employment",

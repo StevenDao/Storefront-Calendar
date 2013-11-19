@@ -1,11 +1,8 @@
 <?php 
 if($user->login == "" ){
     $options = array(); 
-    $options["Select user"] = "------------ Select User ------------";
     $client_type =array();
-    $client_type["Type"] = "------------ Select Type ------------";
     $agency = array();
-    $agency["Agency"] = "----------- Select Agency -----------";
 }
 ?>
 <table width="550px" class="outter">

@@ -34,9 +34,9 @@ Release notes are found at: 'final_release/notes/release_notes.pdf'
 
 4. A screencast and presentation of your product
 
-Our video is located at: 'final_release/presentations/screencast.avi'
+Our video is located at: 'final_release/presentations/screencast.mp4'
 
-Our presentation is located at: 'final_release/presentations/slideshow.ppt'
+Our presentation is located at: 'final_release/presentations/estpowerpoint.ppt'
 
 
 5. A review of your development process

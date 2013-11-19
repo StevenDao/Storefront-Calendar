@@ -19,9 +19,6 @@ function checkPassword() {
 <table width="550px" class="outter">
     <?php
     $agency_list = array();
-    if("$client->id" == ""):
-        $agency_list["0"] = "------------ Select Client -----------";
-    endif;
     foreach ($clients as $row):
         $agency_list["$row->id"] = "$row->agency";
     endforeach;
@@ -99,7 +96,6 @@ function checkPassword() {
                     <td class="formSectionRight">
                         <?php
                         $options = array(
-                            "select" => "------------- Select One -------------",
                             "Community Information" => "Community Information",
                             "Education" => "Education",
                             "Employment" => "Employment",
