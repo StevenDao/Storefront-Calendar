@@ -1,0 +1,34 @@
+RELEASE NOTES (V.1.0.0) BETA
+
+FEATURES
+
+-Supports 3 levels of user with seperate permissions for each
+	ADMIN:
+		-Full permissions
+		-Can add/edit Clients
+		-Can add/edit Users
+		-can add/edit Events on behalf of all clients
+	CLIENT:
+		-Can add/edit Events on behalf of ONLY themselves
+	FRONT DESK:
+		-Can add edit Events on behalf of all clients
+
+-All commands for the user can be displayed by the dropdown menu on the top left corner
+
+-A new event can be added by either using the dropdown menu or by double clicking an empty day
+
+-An event can be eddited by clicking an event then using the dropdown menu or by double clicking the event
+
+-Admin can move an event by drag and dropping it 
+
+-There exists a room view in which by placing the mouse over a room displays the information/capacity of it. This can be accessed by the dropdown menu
+
+-An Event can be added by either 
+
+
+
+BUGS
+
+-Day view, add booking by by double clicking, still need to pick the room. Doesnt automatically insert the room you clicked on
+
+-Clients are not notified by email when a booking is confirmed
