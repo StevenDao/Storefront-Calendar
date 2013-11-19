@@ -1,0 +1,21 @@
+\contentsline {section}{\numberline {1}The Basics}{4}
+\contentsline {subsection}{\numberline {1.1}Logging In}{4}
+\contentsline {subsection}{\numberline {1.2}Logging Out}{5}
+\contentsline {section}{\numberline {2}Getting Around -- Site Navigation}{6}
+\contentsline {subsection}{\numberline {2.1}Events}{6}
+\contentsline {subsection}{\numberline {2.2}Navigation by Month}{6}
+\contentsline {subsection}{\numberline {2.3}Navigation by Week}{7}
+\contentsline {subsection}{\numberline {2.4}Navigation by Day}{8}
+\contentsline {section}{\numberline {3}Adding and Editing Events}{9}
+\contentsline {subsection}{\numberline {3.1}Adding a New Event}{9}
+\contentsline {subsection}{\numberline {3.2}Editing an Existing Event}{10}
+\contentsline {section}{\numberline {4}Adding and Editing Users (Administrators Only)}{11}
+\contentsline {subsection}{\numberline {4.1}Adding a New User}{11}
+\contentsline {subsection}{\numberline {4.2}Editing an Existing User}{12}
+\contentsline {section}{\numberline {5}Adding and Editing Clients/Partners (Administrators Only)}{13}
+\contentsline {subsection}{\numberline {5.1}Adding a New Storefront Partner}{13}
+\contentsline {subsection}{\numberline {5.2}Editing an Existing Storefront Partner}{14}
+\contentsline {section}{\numberline {6}Miscellaneous Features}{15}
+\contentsline {subsection}{\numberline {6.1}Viewing a Map of Bookable Storefront Spaces}{15}
+\contentsline {subsection}{\numberline {6.2}Changing Your Password}{16}
+\contentsline {subsection}{\numberline {6.3}Forgot Your Password?}{17}
