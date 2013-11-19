@@ -1,0 +1,99 @@
+Testing Plan for client
+=====================
+
+
+=========================Client Related============================
+	- Login as client
+		- the opinions that displayed upper “storefront calendar”
+			should only be “book event”, “edit event”(your own event)
+			update password, and show map of the building
+		- client should see the calendar 
+
+	- Logout
+
+
+=========================Client Booking Related====================
+##User Story #1
+ As a client, i want to request room bookings for my events online, so I do not 
+ need to go to, or contact, the Storefront to make my services available
+ to the community
+
+##User Story #2
+ As a client, i want to see a map of the Storefront's bookable rooms, so that I 
+ can best decide which room is appropriate for my event
+
+##User Story #3
+ As a client, i want to make recurring booking requests, so that I do not need to 
+ manually book a repetitive schedule
+
+##User Story #7
+ As a client, i want to see a table of which rooms are available at which times 
+ on a given day, so i can plan my events accordingly
+
+	- Login as client
+		- go to new event, client suppose to book event for themselves
+		- the status for the event has to be tentative, its up to the
+			admin to confirm or deny the booking
+			- add event title
+			- click the first input field after “From”, should appear a 
+				date picker to let people picking specific
+				date as a start date
+			- click the second  input field after”From”, should appear a 
+				time picker to let people picking specific 
+				event time
+			- click the first input field after “To”, should appear a 
+				date picker to let people picking specific
+				date as a end date
+			- click the second  input field after”To”, should appear a 
+				time picker to let people picking specific 
+				event end time
+			- click all day event will occurring whole day
+			- click repeat should shows up inputs for frequency of repeating event and 
+				repeat end date
+			- choose specific room for booking, should shows up a list of available rooms
+			- client is fixed(yourself) 
+			- input the description for the the event
+			- click continue to book the event 
+			- make sure the corresponding database is changing as well
+ 			- wait for response
+
+		- now go to calendar:
+			- click day/week/month to view the current event in different view
+			- events suppose showing at different colour
+			- double click on a event to edit specific event(client can only edit his/her own event)	
+			- if the mouse scroll over the event, it should show the general 
+				information about the event
+
+		- now go to Edit Event or double click a event to edit
+			- choose a booking to edit
+			- client should only edit his/her own event			
+			- click save to save it, click delete will delete the event
+			- you not suppose to change anything for a past event
+			- make sure the change is also apply into the database
+
+		- click rooms (under storefront calendar)
+			- it should shows up a general map of the available rooms
+			- scroll over the room should give the room information
+
+		- click update password to update a password
+
+	- Logout
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

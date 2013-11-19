@@ -1,0 +1,192 @@
+Testing Plan for administrator
+=====================
+
+
+=========================New/Modify User(administrator)Related============================
+
+
+ 
+	- Login as (User == administrator)
+		- go to Add New User(under Storefront Calendar)
+			- input specific informations about for the new client
+			- User type should be able to choose user/client.etc
+			- should be able choose agency as well
+			- try input same username which stored in database(should fail,
+				 tell u this user already existed)
+			- try input same email which stored in database
+			- click save to save the new user into database, 
+				otherwise click cancel to cancel making new
+				user
+			- if new user successfully made, the message will appear
+			- password should auto-generated and send to your email
+		- go to Edit User(under Storefront Calendar)
+			- choose specific user to modify
+			- try empty slots
+			- try different combination of names
+			- try editing different users
+			- click save to save changes into database, 
+				otherwise click cancel to cancel editing user.
+
+		- for the previous steps, make sure corresponding database is changing
+		- click update password if you want to update your password, and check
+			the corresponding database is changing or not
+	- Logout
+
+
+
+
+=========================New/Modify Client(administrator)Related============================
+
+##User Story #17
+ As a/an administrator,i can add a new client to the system, 
+ along with their information,so that I can quickly sign up 
+ clients during meetings
+ 
+##User Story #18
+ As a/an administrator, modify/update client details, 
+ by clicking on the client's name wherever it appears in the application, 
+ so that I can perform this task without interrupting my work flow any more
+ than necessary
+	
+__Test Case for 17&18__
+	- Login as (User == administrator)
+		- go to Add New Client(under Storefront Calendar)
+			- input specific informations about for the new client
+			- try different inputs
+			- try long inputs(max character 120)
+			- try empty inputs
+			- click save to save the new client into database, 
+			  refresh to reset page
+			- if new client successfully made, the message will appear
+
+		- go to Edit Client(under Storefront Calendar)
+			- choose specific client to modify
+			- try empty slots
+			- try different combination of names
+			- try editing different users
+			- click save to save changes into database, 
+		 	  click delete will delete current client
+
+		- for the previous steps, make sure corresponding database is changing
+	- Logout
+
+
+=========================Event Booking Related==============================================
+
+##User Story #30
+ As a/an administrator, I can see a calendar view of any month, 
+ with events listed in each day,so that see a calendar view of any
+ month, with events listed in each day
+
+##User Story #31
+ As a/an administrator, I can click on any day in the calendar view to see
+ the schedule for that day, which rooms are booked,etc, so that I can
+ add/modify/delete events
+
+##User Story #22 
+ As a/an administrator, I can add/modify room bookings manually, so that
+ I can manage events for all my clients
+
+##User Story #21 
+ As a/an administrator, I can confirm or deny tentative bookings on the 
+ calendar page without leaving the calendar view, so that I can quickly 
+ go through all the requests
+
+##User Story #32
+ As a/an administrator, I can make recurring bookings, so that I don't 
+ have to manually add many meetings for frequent clients
+
+##User Story #24
+ As a/an administrator, I can accept all pending requests that have no 
+ timetable conflicts, so that I have more time for other tasks in the office 
+
+##User Story #19
+ As a/an administrator, I can distinguish between various types of events in 
+ the calendar, distinguish between various types of events in the calendar
+
+##User Story #23
+ As a/an administrator, I need to be able to move scheduled events in 
+ the calendar view using a drag-and-drop approach, so i can I can quickly 
+ reschedule room bookings
+
+##User Story #25
+ As a/an administrator, I need to be able to see a map of the building 
+ and its rooms that identifies which rooms are currently occupied at that moment,
+ so that I can manage the building more effectively
+
+__Test Case for Event Booking__
+	- Login as (User == administrator)
+		- first go to New Event (under Storefront Calendar)
+			- add event title
+			- click the first input field after “From”, should appear a 
+				date picker to let people picking specific
+				date as a start date
+			- click the second  input field after”From”, should appear a 
+				time picker to let people picking specific 
+				event time
+			- click the first input field after “To”, should appear a 
+				date picker to let people picking specific
+				date as a end date
+			- click the second  input field after”To”, should appear a 
+				time picker to let people picking specific 
+				event end time
+			- click all day event will occurring whole day
+			- click repeat should shows up inputs for frequency of repeating event and 
+				repeat end date
+			- choose specific room for booking, should shows up a list of available rooms
+			- click the client that you want to booking for 
+			- input the description for the the event
+			- choose the event status
+			- click continue to book the event 
+			- make sure the corresponding database is changing as well
+
+		- now go to calendar:
+			- click day/week/month to view the current event in different view
+			- events suppose showing at different colour
+			- double click on a event to edit specific event
+			- single click on a event to confirm the event, and the colour should change
+			- the event is also drag able, and you suppose to drop it anywhere you want
+			- if the mouse scroll over the event, it should show the general 
+				information about the event
+
+		- now go to Edit Event or double click a event to edit
+			- choose a booking to edit
+			- administrator suppose be able to edit everything
+			- click save to save it, click delete will delete the event
+			- you not suppose to change anything for a past event
+			- make sure the change is also apply into the database
+
+		- click rooms (under storefront calendar)
+			- it should shows up a general map of the available rooms
+			- scroll over the room should give the room information
+	- Logout
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	 	
