@@ -16,11 +16,18 @@ the website's structure can be found in the developer design document, located a
 
 2. Installer or Deployment
 
-The website does not need to be installed. Changes pushed to the 'website' directory are
+The application website does not need to be installed. Changes pushed to the 'website' directory are
 automatically deployed to the on-line, production version, located at:
     http://thestorefront.cloudapp.net/
 
-<!-- INCLUDE NOTES ON TEST CREDENTIALS FOR EACH TYPE OF USER -->
+To login as an Administrator:
+User: testing, Pass: testing
+
+To login as Front-Desk Staff:
+User: staff, Pass: staff
+
+To login as a Client (a.k.a. a Partner):
+User: client, Pass: client
 
 
 3. Documentation of your working code
