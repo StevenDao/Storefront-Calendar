@@ -29,7 +29,7 @@ There is a user guide at: 'final_release/user_manual/manual.pdf'
 
 There is a developer design document at: 'final_release/dev_design_doc/design.pdf'
 
-Release notes are found at: 'final_release/notes/release_notes.pdf'
+Release notes are found at: 'final_release/notes/releasenotes.txt'
 
 
 4. A screencast and presentation of your product
