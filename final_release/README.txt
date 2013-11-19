@@ -13,6 +13,8 @@ Our project is located in the 'website' directory. It is a CodeIgniter/PHP site.
 the website's structure can be found in the developer design document, located at:
     'final_release/dev_design_doc/design.pdf'
 
+test cases are manual at ‘final_release/manual testing’
+
 
 2. Installer or Deployment
 
