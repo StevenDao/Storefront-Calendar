@@ -1,0 +1,61 @@
+\documentclass[12pt]{article}
+
+% Misc. packages
+\usepackage{array,calc,lastpage}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx,subfig}
+
+% Page layout
+\usepackage[left=20mm, right=20mm, top=30mm, bottom=25mm]{geometry}
+\flushbottom
+
+% Headers and footers
+\usepackage{fancyhdr}
+\lhead{{}}
+\chead{{}}
+\rhead{{}}
+\lfoot{{}}
+\cfoot{{}}
+\rfoot{{Page \thepage\ of \pageref{LastPage}}}
+
+% Sectioning commands
+\setcounter{secnumdepth}{-1}
+%\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+% Paragraph style
+\raggedright
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+
+
+
+\begin{document}
+
+\section{Review of Development Process}
+
+The development process used was agile. Throughout the term, the overhead
+associated with using the agile process was much greater than the actual
+development process. This overhead would have been productive with a project
+that is on a greater scale and magnitude, however, since most of the time used
+on this project was on the agile process, the set of functionality is just a
+subset of the intended design.
+
+Although Test Driven Development (TDD) was encouraged for this project, it was
+difficult to pursue due to the technologies we chose. The framework CodeIgniter
+doesn't support unit tests and integration testing making it difficult to
+integrate TDD into our development cycle. In hindsight, not having testing in
+our development cycle introduced a multitude of mini-bugs dealing with form
+validation and such. With a test suite, these can be worked out and fixed as
+strict tests against the system, but this would have cut down development time
+by half and the feature set would be much smaller.
+
+Team development techniques in a university course is not something we would
+recommend due to the limited time per week spent with a team. Although the
+project was over a span of a few months, the actual time spent was only a fifth
+of that due to other courses conflicting with time. With this in mind, it's too
+much overhead to follow an agile process completely. The user stories in the
+beginning were a good guideline to the future functionality in the form of a
+checklist.
+
+\end{document}
+
