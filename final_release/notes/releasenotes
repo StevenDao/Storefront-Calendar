@@ -1,5 +1,6 @@
 RELEASE NOTES (V.1.0.0) BETA
 
+
 FEATURES
 
 -Supports 3 levels of user with seperate permissions for each
@@ -13,17 +14,30 @@ FEATURES
 	FRONT DESK:
 		-Can add edit Events on behalf of all clients
 
+
+ALL USER FEATURES
+
 -All commands for the user can be displayed by the dropdown menu on the top left corner
 
 -A new event can be added by either using the dropdown menu or by double clicking an empty day
 
--An event can be eddited by clicking an event then using the dropdown menu or by double clicking the event
-
--Admin can move an event by drag and dropping it 
+-All events can be viewed on the calender view.
+	-The user can use if they want to see by Month/Week/Day
 
 -There exists a room view in which by placing the mouse over a room displays the information/capacity of it. This can be accessed by the dropdown menu
 
--An Event can be added by either 
+
+ADMIN FEATURES
+
+-An event can be edited by clicking an event then using the dropdown menu or by double clicking the event
+
+-Admin can move an event by drag and dropping it 
+
+-Admin can create a new user/client by using the dropdown menu
+
+-Admin can edit a user/client by using the dropdown menu
+
+
 
 
 
