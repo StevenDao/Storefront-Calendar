@@ -26,7 +26,7 @@ $(document).ready(function() {
             var jsonData = jsonObj;
 
            for (var i = 0; i < 7; i++){
-                    listItems+= "<option value='" + (i+1) + "'>" + jsonData[i] + "</option>";
+                    listItems+= "<option value='" + (i+1) + "'>" + jsonData[i+1] + "</option>";
             }
             //console.log(jsonObj.length);
             
