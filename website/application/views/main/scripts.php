@@ -28,6 +28,8 @@ $(document).ready(function() {
            for (var i = 0; i < jsonData.length; i++){
                     listItems+= "<option value='" + (i+1) + "'>" + jsonData[i] + "</option>";
             }
+            console.log(listItems);
+            
             $("#rooms").html(listItems);
         }
     });
