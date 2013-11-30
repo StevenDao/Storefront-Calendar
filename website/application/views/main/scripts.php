@@ -25,7 +25,7 @@ $(document).ready(function() {
             var listItems= ""
             var jsonData = jsonObj;
 
-           for (var i = 1; i < jsonData.length; i++){
+           for (var i = 0; i < jsonData.length; i++){
                     listItems+= "<option value='" + (i+1) + "'>" + jsonData[i] + "</option>";
             }
             $("#rooms").html(listItems);
