@@ -25,10 +25,10 @@ $(document).ready(function() {
             var listItems= ""
             var jsonData = jsonObj;
 
-           for (var i = 0; i < jsonData.length; i++){
+           for (var i = 0; i < 7; i++){
                     listItems+= "<option value='" + (i+1) + "'>" + jsonData[i] + "</option>";
             }
-            console.log(jsonObj.length);
+            //console.log(jsonObj.length);
             
             $("#rooms").html(listItems);
         }
