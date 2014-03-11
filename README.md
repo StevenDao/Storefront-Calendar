@@ -15,5 +15,5 @@ To connect to the database, use phpMyAdmin for now because external DB access
 
 The url is http://thestorefront.cloudapp.net/phpmyadmin/
 
-Username: `root`  
-Password: `Csc301h1`
+Username: `REMOVED`  
+Password: `REMOVED`
